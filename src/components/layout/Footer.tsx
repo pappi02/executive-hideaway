@@ -19,10 +19,10 @@ const tiktokUrl =
   "https://vm.tiktok.com/ZS9BygQc6QDqW-CcJUt/";
 
 const navigation = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/#about" },
   { label: "Services", href: "/services" },
-  { label: "Gallery", href: "#gallery" },
+  { label: "Gallery", href: "/#gallery" },
 ];
 
 export default function Footer() {

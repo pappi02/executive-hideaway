@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
@@ -11,13 +12,13 @@ export default function Navbar() {
       {/* Navbar */}
       <header className="fixed inset-x-0 top-0 z-60">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:px-10">
-          <a
-            href="#"
+          <Link
+            href="/"
             onClick={() => setMenuOpen(false)}
             className="relative z-70 text-sm font-semibold uppercase tracking-[0.2em] text-white"
           >
             Executive
-          </a>
+          </Link>
 
           <button
             type="button"
@@ -37,63 +38,63 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 z-50 bg-[#0b0b0a] transition-all duration-300 ${
+        className={`fixed inset-x-0 top-0 z-50 h-[60svh] overflow-y-auto bg-[#0b0b0a] transition-all duration-300 ${
           menuOpen
             ? "visible opacity-100"
             : "invisible opacity-0 pointer-events-none"
         }`}
       >
-        <div className="flex min-h-screen flex-col px-5 pb-10 pt-28 sm:px-8">
+        <div className="flex min-h-full flex-col px-5 pb-10 pt-28 sm:px-8">
           <nav className="flex flex-col gap-7">
-            <a
-              href="#about"
+            <Link
+              href="/#about"
               onClick={() => setMenuOpen(false)}
               className="text-4xl font-light tracking-tight text-white transition-colors hover:text-(--accent)"
             >
               About
-            </a>
+            </Link>
 
-            <a
-              href="#experience"
+            <Link
+              href="/#experience"
               onClick={() => setMenuOpen(false)}
               className="text-4xl font-light tracking-tight text-white transition-colors hover:text-(--accent)"
             >
               Experience
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/services"
               onClick={() => setMenuOpen(false)}
               className="text-4xl font-light tracking-tight text-white transition-colors hover:text-(--accent)"
             >
               Services
-            </a>
+            </Link>
 
-            <a
-              href="#gallery"
+            <Link
+              href="/#gallery"
               onClick={() => setMenuOpen(false)}
               className="text-4xl font-light tracking-tight text-white transition-colors hover:text-(--accent)"
             >
               Gallery
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="#contact"
               onClick={() => setMenuOpen(false)}
               className="text-4xl font-light tracking-tight text-white transition-colors hover:text-(--accent)"
             >
               Contact
-            </a>
+            </Link>
           </nav>
 
           <div className="mt-auto">
-            <a
-              href="#booking"
+            <Link
+              href="/booking"
               onClick={() => setMenuOpen(false)}
               className="flex min-h-12 w-full items-center justify-center rounded-full bg-(--accent) px-6 text-xs font-semibold uppercase tracking-[0.18em] text-[#0b0b0a] transition-transform duration-300 hover:scale-[1.02]"
             >
               Book Appointment
-            </a>
+            </Link>
           </div>
         </div>
       </div>
