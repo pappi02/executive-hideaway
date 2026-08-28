@@ -7,24 +7,44 @@ export default function ScrollToTop() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (window.location.hash) return;
+    if (typeof window === "undefined") return;
 
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant",
-    });
+    const resetScroll = () => {
+      if (!window.location.hash) {
+        const root = document.documentElement;
+        root.style.scrollBehavior = "auto";
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        root.style.scrollBehavior = "";
+      }
+    };
+
+    resetScroll();
+
+    const frame = window.requestAnimationFrame(resetScroll);
+    const pageShow = () => resetScroll();
+    const load = () => resetScroll();
+    const deferredReset = window.setTimeout(resetScroll, 0);
+    const settledReset = window.setTimeout(resetScroll, 500);
+
+    window.addEventListener("pageshow", pageShow);
+    window.addEventListener("load", load);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(deferredReset);
+      window.clearTimeout(settledReset);
+      window.removeEventListener("pageshow", pageShow);
+      window.removeEventListener("load", load);
+    };
   }, [pathname]);
 
   useEffect(() => {
-    if ("scrollRestoration" in window.history) {
-      window.history.scrollRestoration = "manual";
-    }
+    if (typeof window === "undefined") return;
+
+    window.history.scrollRestoration = "manual";
 
     return () => {
-      if ("scrollRestoration" in window.history) {
-        window.history.scrollRestoration = "auto";
-      }
+      window.history.scrollRestoration = "auto";
     };
   }, []);
 

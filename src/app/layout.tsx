@@ -15,6 +15,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+              const resetScroll = () => {
+                if (!location.hash) {
+                  document.documentElement.style.scrollBehavior = "auto";
+                  window.scrollTo(0, 0);
+                  document.documentElement.style.scrollBehavior = "";
+                }
+              };
+              resetScroll();
+              requestAnimationFrame(resetScroll);
+              window.addEventListener("load", resetScroll, { once: true });
+            `,
+          }}
+        />
+      </head>
       <body>
         <ScrollToTop />
         {children}
