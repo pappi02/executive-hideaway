@@ -5,18 +5,13 @@ import {
   Phone,
 } from "lucide-react";
 
-const locationUrl =
-  "https://www.google.com/maps/search/?api=1&query=275+Nyeri+Cl%2C+Nairobi%2C+Kenya";
+import { businessContact } from "@/data/contact";
 
-const phoneNumber = "0759944566";
-const phoneUrl = "tel:+254759944566";
-const whatsappUrl = "https://wa.me/254759944566";
-
-const instagramUrl =
-  "https://www.instagram.com/executivehideawayspa?igsh=MW5lMW5uN3g2eHdmYg==";
-
-const tiktokUrl =
-  "https://vm.tiktok.com/ZS9BygQc6QDqW-CcJUt/";
+const phoneNumber = businessContact.primaryPhone;
+const phoneUrl = businessContact.primaryPhoneHref;
+const whatsappUrl = businessContact.whatsappUrl;
+const locationUrl = businessContact.location.googleMapsUrl;
+const socialLinks = businessContact.socialLinks;
 
 const navigation = [
   { label: "Home", href: "/" },
@@ -199,39 +194,24 @@ export default function Footer() {
               </span>
             </a>
 
-            {/* Instagram */}
-            <a
-              href={instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Follow us on Instagram"
-              className="group flex min-w-0 items-center justify-center gap-2 text-white/45 transition-colors duration-300 hover:text-white sm:gap-3"
-            >
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 transition-colors duration-300 group-hover:border-(--accent)">
-                <InstagramIcon />
-              </span>
+            {socialLinks.map((social) => (
+              <a
+                key={social.platform}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.ariaLabel}
+                className="group flex min-w-0 items-center justify-center gap-2 text-white/45 transition-colors duration-300 hover:text-white sm:gap-3"
+              >
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 transition-colors duration-300 group-hover:border-(--accent)">
+                  {social.platform === "Instagram" ? <InstagramIcon /> : <TikTokIcon />}
+                </span>
 
-              <span className="text-[8px] uppercase tracking-[0.12em] sm:text-[10px] sm:tracking-[0.16em]">
-                Instagram
-              </span>
-            </a>
-
-            {/* TikTok */}
-            <a
-              href={tiktokUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Follow us on TikTok"
-              className="group flex min-w-0 items-center justify-center gap-2 text-white/45 transition-colors duration-300 hover:text-white sm:gap-3"
-            >
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 transition-colors duration-300 group-hover:border-(--accent)">
-                <TikTokIcon />
-              </span>
-
-              <span className="text-[8px] uppercase tracking-[0.12em] sm:text-[10px] sm:tracking-[0.16em]">
-                TikTok
-              </span>
-            </a>
+                <span className="text-[8px] uppercase tracking-[0.12em] sm:text-[10px] sm:tracking-[0.16em]">
+                  {social.platform}
+                </span>
+              </a>
+            ))}
 
           </div>
         </div>
