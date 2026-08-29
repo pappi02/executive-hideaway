@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BookingProvider } from "@/components/booking/BookingProvider";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import "./globals.css";
 
@@ -35,8 +36,10 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <ScrollToTop />
-        {children}
+        <BookingProvider>
+          <ScrollToTop />
+          {children}
+        </BookingProvider>
       </body>
     </html>
   );

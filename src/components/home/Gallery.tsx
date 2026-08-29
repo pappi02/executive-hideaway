@@ -18,6 +18,7 @@ const galleryImages = [
 export default function Gallery() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const thumbnailContainerRef = useRef<HTMLDivElement | null>(null);
   const selectedImage = galleryImages[selectedIndex];
 
   const nextImage = useCallback(() => {
@@ -33,10 +34,23 @@ export default function Gallery() {
   }, []);
 
   useEffect(() => {
-    thumbnailRefs.current[selectedIndex]?.scrollIntoView({
+    const container = thumbnailContainerRef.current;
+    const selectedThumbnail = thumbnailRefs.current[selectedIndex];
+
+    if (!container || !selectedThumbnail) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const thumbnailRect = selectedThumbnail.getBoundingClientRect();
+
+    const thumbnailCenter =
+      thumbnailRect.left + thumbnailRect.width / 2;
+
+    const containerCenter =
+      containerRect.left + containerRect.width / 2;
+
+    container.scrollTo({
+      left: container.scrollLeft + (thumbnailCenter - containerCenter),
       behavior: "smooth",
-      block: "nearest",
-      inline: "center",
     });
   }, [selectedIndex]);
 
@@ -133,6 +147,7 @@ export default function Gallery() {
           {/* Thumbnail navigation */}
           <div className="relative mt-4">
             <div
+              ref={thumbnailContainerRef}
               className="flex gap-2 overflow-x-auto pb-3 scrollbar-none sm:gap-3"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >

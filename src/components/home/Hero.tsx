@@ -52,7 +52,7 @@ export default function Hero() {
           {/* Actions */}
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
-              href="#booking"
+              href="/booking"
               className="group inline-flex min-h-13 items-center justify-center gap-3 rounded-full bg-(--accent) px-7 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b0b0a] transition-all duration-300 hover:bg-(--accent-light)"
             >
               Book an Appointment
