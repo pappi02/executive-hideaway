@@ -18,12 +18,12 @@ export interface Service {
 }
 
 const categoryImages: Record<ServiceCategory, string> = {
-  haircut: "/images/barbering.png",
-  massage: "/images/spaandcare.png",
-  facial: "/images/spaandcare.png",
-  "spa treatment": "/images/spaandcare.png",
-  "nail care": "/images/spaandcare.png",
-  wellness: "/images/wellness.jpg",
+  haircut: "/images/services/normal-hair-cut.webp",
+  massage: "/images/services/hot-stone-massage.webp",
+  facial: "/images/services/facial.webp",
+  "spa treatment": "/images/services/full-day-experience.webp",
+  "nail care": "/images/services/manicure.webp",
+  wellness: "/images/services/sauna.webp",
 };
 
 export const services: Service[] = [
@@ -35,8 +35,8 @@ export const services: Service[] = [
       "A soothing massage combining soft and firm pressure with scented essential oils to encourage relaxation and leave the body feeling refreshed.",
     price: 6000,
     duration: 75,
-    image: categoryImages.massage,
-    imageAlt: "Aromatherapy massage treatment",
+    image: "/images/services/aromatherapy-massage.webp",
+    imageAlt: "Therapist pouring aromatherapy oil onto a client's back before a massage",
   },
   {
     id: "body-scrub",
@@ -46,8 +46,8 @@ export const services: Service[] = [
       "An uplifting treatment using coffee and coconut oil to exfoliate the skin and leave the body feeling smooth and refreshed.",
     price: 3000,
     duration: 45,
-    image: categoryImages["spa treatment"],
-    imageAlt: "Body scrub treatment",
+    image: "/images/services/body-scrub.webp",
+    imageAlt: "Coffee bean body scrub and exfoliating brush used for a body scrub treatment",
   },
   {
     id: "body-stretches",
@@ -57,8 +57,8 @@ export const services: Service[] = [
       "A guided stretching experience designed to help improve flexibility, mobility, and overall body comfort.",
     price: 2000,
     duration: 30,
-    image: categoryImages["spa treatment"],
-    imageAlt: "Body stretching session",
+    image: "/images/services/body-stretches.webp",
+    imageAlt: "Therapist assisting a client with a guided body stretch",
   },
   {
     id: "couples-massage",
@@ -68,8 +68,8 @@ export const services: Service[] = [
       "A shared massage experience where two therapists work simultaneously to create a relaxing and intimate experience for two.",
     price: 10000,
     duration: 90,
-    image: categoryImages.massage,
-    imageAlt: "Couples massage treatment",
+    image: "/images/services/couples-massage.webp",
+    imageAlt: "Two clients receiving a massage side by side from two therapists",
   },
   {
     id: "deep-tissue-massage",
@@ -79,8 +79,8 @@ export const services: Service[] = [
       "A focused massage using deeper pressure to target muscle tension and areas of physical stress.",
     price: 5000,
     duration: 75,
-    image: categoryImages.massage,
-    imageAlt: "Deep tissue massage treatment",
+    image: "/images/services/deep-tissue-massage.webp",
+    imageAlt: "Therapist applying firm deep tissue pressure to a client's back",
   },
   {
     id: "facial",
@@ -90,8 +90,8 @@ export const services: Service[] = [
       "A signature facial experience combining cleansing, exfoliation, steam, customized extractions, and skin rejuvenation.",
     price: 4000,
     duration: 60,
-    image: categoryImages.facial,
-    imageAlt: "Facial treatment",
+    image: "/images/services/facial.webp",
+    imageAlt: "Client having facial cream applied to her cheek during a facial treatment",
   },
   {
     id: "full-day-experience",
@@ -101,8 +101,8 @@ export const services: Service[] = [
       "A complete day dedicated to relaxation and personal care, with treatments designed around your comfort.",
     price: 50000,
     duration: 240,
-    image: categoryImages["spa treatment"],
-    imageAlt: "Full day spa experience",
+    image: "/images/services/full-day-experience.webp",
+    imageAlt: "Client relaxing on a spa table surrounded by rose petals during a full day spa experience",
   },
   {
     id: "fun-and-entertainment",
@@ -112,8 +112,8 @@ export const services: Service[] = [
       "A selection of recreational experiences including yoga sessions and private entertainment options.",
     price: null,
     duration: 165,
-    image: categoryImages["spa treatment"],
-    imageAlt: "Entertainment and wellness experience",
+    image: "/images/services/fun-and-entertainment.webp",
+    imageAlt: "Woman in a yoga pose during a recreational wellness session",
   },
   {
     id: "hot-stone-massage",
@@ -123,8 +123,8 @@ export const services: Service[] = [
       "A therapeutic massage incorporating heated stones to promote deep relaxation and ease muscular tension.",
     price: 7500,
     duration: 90,
-    image: categoryImages.massage,
-    imageAlt: "Hot stone massage treatment",
+    image: "/images/services/hot-stone-massage.webp",
+    imageAlt: "Heated massage stones and orchid petals arranged along a client's back",
   },
   {
     id: "m2m-massage",
@@ -134,8 +134,8 @@ export const services: Service[] = [
       "A massage experience available with male therapists, offering clients another option for their personal care experience.",
     price: null,
     duration: 120,
-    image: categoryImages.massage,
-    imageAlt: "Massage treatment",
+    image: "/images/services/m2m-massage.webp",
+    imageAlt: "Male therapist massaging a client's back",
   },
   {
     id: "manicure",
@@ -145,8 +145,8 @@ export const services: Service[] = [
       "A multi-step nail care ritual designed to leave hands and nails looking polished and well cared for.",
     price: 2000,
     duration: 60,
-    image: categoryImages["nail care"],
-    imageAlt: "Manicure treatment",
+    image: "/images/services/manicure.webp",
+    imageAlt: "Manicurist applying nail polish to a client's hand",
   },
   {
     id: "moroccan-bath",
@@ -156,8 +156,8 @@ export const services: Service[] = [
       "A traditional cleansing ritual incorporating steam, black soap, exfoliation, and moisturizing treatments.",
     price: null,
     duration: 60,
-    image: categoryImages["spa treatment"],
-    imageAlt: "Moroccan bath treatment",
+    image: "/images/services/moroccan-bath.webp",
+    imageAlt: "Client relaxing during a traditional cleansing bath ritual",
   },
   {
     id: "normal-hair-cut",
@@ -167,8 +167,8 @@ export const services: Service[] = [
       "A haircut of your choice accompanied by a dye application, mini facial, and head and neck massage.",
     price: 2000,
     duration: 45,
-    image: categoryImages.haircut,
-    imageAlt: "Professional haircut",
+    image: "/images/services/normal-hair-cut.webp",
+    imageAlt: "Barber cutting a client's hair with clippers at the barbershop",
   },
   {
     id: "pedicure",
@@ -178,8 +178,8 @@ export const services: Service[] = [
       "A comprehensive foot treatment focused on nail care, foot care, comfort, and relaxation.",
     price: 4000,
     duration: 60,
-    image: categoryImages["nail care"],
-    imageAlt: "Pedicure treatment",
+    image: "/images/services/pedicure.webp",
+    imageAlt: "Therapist massaging a client's foot during a pedicure treatment",
   },
   {
     id: "premium-head-care",
@@ -189,8 +189,8 @@ export const services: Service[] = [
       "An executive haircut experience complemented by a Japanese head spa wash, dye application, mini facial, and head and neck massage.",
     price: 7000,
     duration: 75,
-    image: categoryImages.haircut,
-    imageAlt: "Premium head care treatment",
+    image: "/images/services/premium-head-care.webp",
+    imageAlt: "Barber trimming a client's hairline with precision clippers",
   },
   {
     id: "prenatal-massage",
@@ -200,8 +200,8 @@ export const services: Service[] = [
       "A gentle and calming massage experience designed for pregnancy after the first trimester.",
     price: 5000,
     duration: 60,
-    image: categoryImages.massage,
-    imageAlt: "Prenatal massage treatment",
+    image: "/images/services/prenatal-massage.webp",
+    imageAlt: "Therapist gently massaging a pregnant client's belly",
   },
   {
     id: "reflexology-massage",
@@ -211,8 +211,8 @@ export const services: Service[] = [
       "A focused treatment working on pressure points of the feet, hands, and ears to encourage relaxation and balance.",
     price: 3000,
     duration: 60,
-    image: categoryImages.massage,
-    imageAlt: "Reflexology massage treatment",
+    image: "/images/services/reflexology-massage.webp",
+    imageAlt: "Therapist applying pressure to points on a client's foot during reflexology",
   },
   {
     id: "sauna",
@@ -222,8 +222,8 @@ export const services: Service[] = [
       "A heat-based relaxation experience designed to provide a calm environment for unwinding and recovery.",
     price: 2000,
     duration: 45,
-    image: categoryImages["spa treatment"],
-    imageAlt: "Sauna experience",
+    image: "/images/services/sauna.webp",
+    imageAlt: "Warm wooden sauna interior with ambient lighting",
   },
   {
     id: "swedish-massage",
@@ -233,8 +233,8 @@ export const services: Service[] = [
       "A gentle massage using lighter pressure to promote relaxation and help the body unwind.",
     price: 4000,
     duration: 75,
-    image: categoryImages.massage,
-    imageAlt: "Swedish massage treatment",
+    image: "/images/services/swedish-massage.webp",
+    imageAlt: "Therapist giving a client a gentle, relaxing back massage",
   },
   {
     id: "tantric-experiences",
@@ -244,8 +244,8 @@ export const services: Service[] = [
       "A private sensory experience centered around relaxation, touch, and mindful connection.",
     price: 10000,
     duration: 150,
-    image: categoryImages.massage,
-    imageAlt: "Private relaxation experience",
+    image: "/images/services/tantric-experiences.webp",
+    imageAlt: "Client relaxing during a private candlelit massage experience",
   },
 ];
 

@@ -5,14 +5,70 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const galleryImages = [
-  { src: "/images/gallery1.webp", alt: "Executive Hideaway" },
-  { src: "/images/gallery2.webp", alt: "Executive Hideaway" },
-  { src: "/images/gallery3.webp", alt: "Executive Hideaway" },
-  { src: "/images/gallery4.webp", alt: "Executive Hideaway" },
-  { src: "/images/gallery5.webp", alt: "Executive Hideaway" },
-  { src: "/images/gallery6.webp", alt: "Executive Hideaway" },
-  { src: "/images/gallery7.webp", alt: "Executive Hideaway" },
-  { src: "/images/gallery8.webp", alt: "Executive Hideaway" },
+  {
+    src: "/images/gallery/gallery-barbering.webp",
+    alt: "Lavish, dimly lit barbershop interior with premium wood-panel styling stations",
+  },
+  {
+    src: "/images/gallery/gallery-grooming.webp",
+    alt: "Barber giving a client a precise straight-razor beard trim",
+  },
+  {
+    src: "/images/gallery/gallery-massage.webp",
+    alt: "Male client receiving a relaxing shoulder massage from a therapist",
+  },
+  {
+    src: "/images/gallery/gallery-smiling-client.webp",
+    alt: "Client smiling mid-haircut in a bright, modern barbershop",
+  },
+  {
+    src: "/images/gallery/gallery-clipper-detail.webp",
+    alt: "Barber's clipper detail as a client's fade is shaped up",
+  },
+  {
+    src: "/images/gallery/gallery-facial.webp",
+    alt: "Male client receiving a facial treatment, eyes closed and relaxed",
+  },
+  {
+    src: "/images/gallery/gallery-mature-client.webp",
+    alt: "Barber combing a mature client's hair with care and precision",
+  },
+  {
+    src: "/images/gallery/gallery-wellness.webp",
+    alt: "Clients unwinding together in the wooden sauna",
+  },
+  {
+    src: "/images/gallery/gallery-bw-editorial.webp",
+    alt: "Black-and-white editorial shot of a barber shaping a client's hairline",
+  },
+  {
+    src: "/images/gallery/gallery-finished-look.webp",
+    alt: "Client admiring his fresh haircut and beard trim",
+  },
+  {
+    src: "/images/gallery/gallery-serene-cut.webp",
+    alt: "Client relaxing during a warm rinse at the styling basin",
+  },
+  {
+    src: "/images/gallery/gallery-scissors-trim.webp",
+    alt: "Barber trimming a client's hairline with precision clippers",
+  },
+  {
+    src: "/images/gallery/gallery-beard-detail.webp",
+    alt: "Close-up of a barber shaping a client's beard with scissors and comb",
+  },
+  {
+    src: "/images/gallery/gallery-products.webp",
+    alt: "Premium grooming products displayed on the barbershop counter",
+  },
+  {
+    src: "/images/gallery/gallery-clipper-profile.webp",
+    alt: "Side profile of a client mid-haircut in the barber's chair",
+  },
+  {
+    src: "/images/gallery/gallery-detail.webp",
+    alt: "Close-up detail of hands, capturing the touch of a spa treatment",
+  },
 ];
 
 export default function Gallery() {
