@@ -48,20 +48,6 @@ export default function WhyChooseUs() {
               Why Executive
             </p>
           </div>
-
-          {/*<div>
-            {/* <h2 className="max-w-4xl text-5xl font-light leading-[0.94] tracking-[-0.055em] sm:text-6xl lg:text-[5.5rem]">
-              Come for the grooming.
-              <br />
-              <span className="text-white/30">Stay for the experience.</span>
-            </h2>
-
-            <p className="mt-8 max-w-xl text-sm leading-7 text-white/50 sm:text-base">
-              Executive Hideaway is designed for more than a quick
-              appointment. It is a place to take care of yourself, slow down,
-              and leave feeling refreshed.
-            </p>
-          </div>*/}
         </div>
 
         {/* Feature panels */}

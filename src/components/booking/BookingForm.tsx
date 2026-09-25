@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { ArrowLeft, ArrowUpRight, Clock3, X } from "lucide-react";
 import type { Service } from "@/data/services";
+import { businessContact } from "@/lib/site-config";
 
 interface BookingFormProps {
   services: Service[];
@@ -23,8 +24,6 @@ const initialForm: FormData = {
   time: "",
   notes: "",
 };
-
-const WHATSAPP_NUMBER = "254759944566";
 
 export default function BookingForm({ services }: BookingFormProps) {
   const [form, setForm] = useState<FormData>(initialForm);
@@ -191,7 +190,7 @@ export default function BookingForm({ services }: BookingFormProps) {
       .join("\n");
 
     const whatsappUrl =
-      `https://wa.me/${WHATSAPP_NUMBER}?text=` +
+      `https://wa.me/${businessContact.whatsappNumber}?text=` +
       encodeURIComponent(message);
 
     // eslint-disable-next-line react-hooks/immutability

@@ -4,12 +4,14 @@ import Footer from "@/components/layout/Footer";
 import ServicesHero from "@/components/services/ServicesHero";
 import ServiceCategory from "@/components/services/ServiceCategory";
 import { serviceCategories } from "@/data/services";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Services | Executive Hideaway Barber and Spa",
+export const metadata: Metadata = buildMetadata({
+  title: "Services",
   description:
-    "Explore grooming, massage, spa, facial, nail care, and wellness services at Executive Hideaway.",
-};
+    "Explore grooming, massage, spa, facial, nail care, and wellness services at Executive Hideaway Barber and Spa in Nairobi.",
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (

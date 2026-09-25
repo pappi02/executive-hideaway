@@ -1,4 +1,5 @@
-﻿import Link from "next/link";
+﻿import type { Metadata } from "next";
+import Link from "next/link";
 import {
   ArrowUpRight,
   Camera,
@@ -13,7 +14,16 @@ import {
 } from "lucide-react";
 
 import Navbar from "@/components/layout/Navbar";
-import { businessContact } from "@/data/contact";
+import Footer from "@/components/layout/Footer";
+import { businessContact, openingHoursSummary } from "@/lib/site-config";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Contact",
+  description:
+    "Get in touch with Executive Hideaway Barber and Spa in Kileleshwa, Nairobi. Call, WhatsApp, or visit us to book your appointment.",
+  path: "/contact",
+});
 
 const socialIcons = {
   instagram: Camera,
@@ -151,9 +161,17 @@ export default function ContactPage() {
               </p>
             </div>
 
-            <p className="mt-3 text-[15px] font-medium text-black/70">
-              Monday to sunday 24/7 (open 24hrs)
-            </p>
+            <dl className="mt-3 space-y-1">
+              {openingHoursSummary.map(({ label, time }) => (
+                <div
+                  key={label}
+                  className="flex items-baseline justify-between gap-4 text-[13px] text-black/60"
+                >
+                  <dt className="font-medium text-black/70">{label}</dt>
+                  <dd className="text-right">{time}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
           <div>
@@ -215,6 +233,8 @@ export default function ContactPage() {
           </div>
         </section>
       </div>
+
+      <Footer />
     </main>
   );
 }

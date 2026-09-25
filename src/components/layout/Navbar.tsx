@@ -37,7 +37,8 @@ const navItems: NavItem[] = [
   },
   {
     label: "Gallery",
-    href: "/#gallery",
+    href: "/gallery",
+    page: "/gallery",
   },
   {
     label: "Contact",
