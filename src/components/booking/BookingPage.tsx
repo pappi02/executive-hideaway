@@ -189,7 +189,7 @@ export default function BookingPage() {
                   {selectedServices.length} {selectedServices.length === 1 ? "service" : "services"}
                 </p>
               </div>
-              <p className="text-right text-small font-small text-[#c5aa72]">
+              <p className="text-right text-sm font-medium text-[#c5aa72]">
                 {formatDuration(totalDuration)}
               </p>
             </div>
@@ -198,7 +198,7 @@ export default function BookingPage() {
               <p className="text-[7px] font-semibold uppercase tracking-[0.2em] text-white/35">
                 Estimated total
               </p>
-              <p className="text-right text-small font-small text-[#c5aa72]">
+              <p className="text-right text-sm font-medium text-[#c5aa72]">
                 {hasPriceOnRequest
                   ? "Price on request"
                   : `Ksh ${totalPrice.toLocaleString()}`}

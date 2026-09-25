@@ -23,10 +23,20 @@ before downloading.
 | gallery-products.webp | Pexels | Marcelo Verfe | https://www.pexels.com/photo/chair-in-a-barbershop-19225277/ |
 | gallery-clipper-profile.webp | Pexels | Gustavo Fring | https://www.pexels.com/photo/man-getting-his-hair-cut-at-a-barber-shop-7447136/ |
 | gallery-detail.webp | Unsplash | Nsey Benajah | https://unsplash.com/photos/1605552981700-68484762d021 |
+| gallery-lounge-interior.webp | Unsplash | Chaps & Co | https://unsplash.com/photos/barber-shop-interior-with-clients-receiving-haircuts-_EjaOZ0D8xY |
+| gallery-chair-mirror.webp | Unsplash | Redd Francisco | https://unsplash.com/photos/a-barber-shop-with-a-chair-and-a-mirror-BBGyxhtPpC0 |
+| gallery-sauna-wood.webp | Unsplash | HUUM | https://unsplash.com/photos/a-man-sitting-in-a-wooden-sauna-tFoltpVrIq4 |
+| gallery-counter-tools.webp | Unsplash | Vagaro | https://unsplash.com/photos/barbershop-counter-with-grooming-products-and-tools-r3RxJm3iqJE |
 
 ## Revision history
 
-**v2 (current):** Replaced gallery-barbering (was a plain empty-chairs shot;
+**v3 (current):** Added 4 new images (lounge-interior, chair-mirror, sauna-wood,
+counter-tools) sourced for the standalone `/gallery` page, bringing the total
+to 20. Downloaded directly from images.unsplash.com at `w=1600&fm=webp`
+(no hotlinking — files live in this repo), all confirmed free Unsplash
+License photos (not Unsplash+).
+
+**v2:** Replaced gallery-barbering (was a plain empty-chairs shot;
 now a lavish, moody premium interior), gallery-nailcare and gallery-beauty
 (both female-focused; removed — gallery is now focused on male clients per
 request), and gallery-massage/gallery-facial (both previously female
