@@ -23,12 +23,27 @@ const COOKIE_NAME =
  */
 export async function requireAdmin() {
   const cookieStore = await cookies();
+  const allCookies = cookieStore.getAll().map((c) => c.name);
   const raw = cookieStore.get(COOKIE_NAME)?.value;
 
-  const token =
-    raw && process.env.AUTH_SECRET
-      ? await decode({ token: raw, secret: process.env.AUTH_SECRET, salt: COOKIE_NAME })
-      : null;
+  console.log(
+    "[requireAdmin] cookie names:",
+    JSON.stringify(allCookies),
+    "found target:",
+    !!raw,
+    "has secret:",
+    !!process.env.AUTH_SECRET,
+  );
+
+  let token = null;
+  if (raw && process.env.AUTH_SECRET) {
+    try {
+      token = await decode({ token: raw, secret: process.env.AUTH_SECRET, salt: COOKIE_NAME });
+      console.log("[requireAdmin] decode result:", token ? "valid" : "null");
+    } catch (error) {
+      console.log("[requireAdmin] decode threw:", error);
+    }
+  }
 
   if (!token) redirect("/admin/login");
   return token;
