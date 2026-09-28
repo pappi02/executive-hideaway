@@ -65,6 +65,13 @@ export default function Hero() {
             </Link>
 
             <Link
+              href="/menu"
+              className="inline-flex min-h-13 items-center justify-center rounded-full border border-white/25 bg-white/5 px-7 text-[11px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
+            >
+              View Resort Menu
+            </Link>
+
+            <Link
               href="#about"
               className="inline-flex min-h-13 items-center justify-center rounded-full border border-white/25 bg-white/5 px-7 text-[11px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
             >
