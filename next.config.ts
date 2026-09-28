@@ -14,6 +14,8 @@ const securityHeaders = [
 	},
 ];
 
+const MENU_ORIGIN = "https://hideaway-menu.vercel.app";
+
 const nextConfig: NextConfig = {
 	allowedDevOrigins: ["192.168.1.6"],
 	async headers() {
@@ -21,6 +23,18 @@ const nextConfig: NextConfig = {
 			{
 				source: "/:path*",
 				headers: securityHeaders,
+			},
+		];
+	},
+	async rewrites() {
+		return [
+			{
+				source: "/menu",
+				destination: `${MENU_ORIGIN}/menu/`,
+			},
+			{
+				source: "/menu/:path*",
+				destination: `${MENU_ORIGIN}/menu/:path*`,
 			},
 		];
 	},

@@ -36,6 +36,11 @@ const navItems: NavItem[] = [
     page: "/services",
   },
   {
+    label: "Resort Menu",
+    href: "/menu",
+    page: "/menu",
+  },
+  {
     label: "Gallery",
     href: "/gallery",
     page: "/gallery",
