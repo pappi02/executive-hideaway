@@ -3,7 +3,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ServicesHero from "@/components/services/ServicesHero";
 import ServiceCategory from "@/components/services/ServiceCategory";
-import { serviceCategories } from "@/data/services";
+import { getServiceCategories } from "@/data/services";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
@@ -13,7 +13,13 @@ export const metadata: Metadata = buildMetadata({
   path: "/services",
 });
 
-export default function ServicesPage() {
+// Reads live from the database (admin-editable) — always render fresh
+// rather than depend on build-time DB reachability or cache revalidation.
+export const dynamic = "force-dynamic";
+
+export default async function ServicesPage() {
+  const serviceCategories = await getServiceCategories();
+
   return (
     <>
       <Navbar />

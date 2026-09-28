@@ -10,11 +10,11 @@ interface ServiceCategoryProps {
   index: number;
 }
 
-export default function ServiceCategory({
+export default async function ServiceCategory({
   category,
   index,
 }: ServiceCategoryProps) {
-  const categoryServices = getServicesByCategory(category.id);
+  const categoryServices = await getServicesByCategory(category.id);
 
   return (
     <section
