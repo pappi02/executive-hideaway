@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import {
+  createChapter,
   createDish,
   createSection,
   deleteDish,
@@ -20,6 +21,15 @@ export default async function ChapterDetailPage({
   params: Promise<{ chapterId: string }>;
 }) {
   const { chapterId } = await params;
+
+  if (chapterId === "new") {
+    return (
+      <div>
+        <h1 className="text-2xl font-light tracking-[-0.03em]">New chapter</h1>
+        <ChapterForm action={createChapter} submitLabel="Create chapter" backHref="/admin/menu" />
+      </div>
+    );
+  }
 
   const chapter = await prisma.chapter.findUnique({
     where: { id: chapterId },
@@ -89,7 +99,7 @@ export default async function ChapterDetailPage({
                     <td className="py-2 pr-3 text-right">
                       <div className="flex justify-end gap-3">
                         <Link
-                          href={`/admin/menu/${chapter.id}/dishes/${dish.id}/edit`}
+                          href={`/admin/menu/${chapter.id}/dishes/${dish.id}`}
                           className="text-[10px] font-semibold uppercase tracking-[0.1em] text-black/55 hover:text-black"
                         >
                           Edit
