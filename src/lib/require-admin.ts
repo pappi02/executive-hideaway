@@ -1,5 +1,4 @@
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import { decode } from "next-auth/jwt";
 
 const COOKIE_NAME =
@@ -26,25 +25,20 @@ export async function requireAdmin() {
   const allCookies = cookieStore.getAll().map((c) => c.name);
   const raw = cookieStore.get(COOKIE_NAME)?.value;
 
-  console.log(
-    "[requireAdmin] cookie names:",
-    JSON.stringify(allCookies),
-    "found target:",
-    !!raw,
-    "has secret:",
-    !!process.env.AUTH_SECRET,
-  );
-
   let token = null;
+  let decodeError: unknown = null;
   if (raw && process.env.AUTH_SECRET) {
     try {
       token = await decode({ token: raw, secret: process.env.AUTH_SECRET, salt: COOKIE_NAME });
-      console.log("[requireAdmin] decode result:", token ? "valid" : "null");
     } catch (error) {
-      console.log("[requireAdmin] decode threw:", error);
+      decodeError = error;
     }
   }
 
-  if (!token) redirect("/admin/login");
+  if (!token) {
+    throw new Error(
+      `requireAdmin diagnostic: cookies=${JSON.stringify(allCookies)} foundTarget=${!!raw} hasSecret=${!!process.env.AUTH_SECRET} decodeError=${decodeError instanceof Error ? decodeError.message : String(decodeError)}`,
+    );
+  }
   return token;
 }
