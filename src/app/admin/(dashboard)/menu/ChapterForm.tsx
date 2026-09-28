@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AdminForm } from "@/components/admin/AdminForm";
 
 const inputClass =
   "mt-1.5 w-full rounded-lg border border-black/15 bg-white px-3.5 py-2.5 text-sm outline-none transition-colors focus:border-(--accent)";
@@ -20,14 +21,23 @@ export function ChapterForm({
   defaultValues,
   submitLabel,
   backHref,
+  successMessage,
+  redirectTo,
 }: {
   action: (formData: FormData) => Promise<void>;
   defaultValues?: ChapterFormValues;
   submitLabel: string;
   backHref?: string;
+  successMessage: string;
+  redirectTo?: string;
 }) {
   return (
-    <form action={action} className="mt-6 max-w-xl space-y-5">
+    <AdminForm
+      action={action}
+      successMessage={successMessage}
+      redirectTo={redirectTo}
+      className="mt-6 max-w-xl space-y-5"
+    >
       <div>
         <label className={labelClass} htmlFor="title">Title</label>
         <input id="title" name="title" required defaultValue={defaultValues?.title} className={inputClass} />
@@ -93,6 +103,6 @@ export function ChapterForm({
           </Link>
         )}
       </div>
-    </form>
+    </AdminForm>
   );
 }

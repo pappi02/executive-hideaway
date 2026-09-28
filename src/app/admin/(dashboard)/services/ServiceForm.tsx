@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AdminForm } from "@/components/admin/AdminForm";
 
 const inputClass =
   "mt-1.5 w-full rounded-lg border border-black/15 bg-white px-3.5 py-2.5 text-sm outline-none transition-colors focus:border-(--accent)";
@@ -20,14 +21,21 @@ export function ServiceForm({
   categories,
   defaultValues,
   submitLabel,
+  successMessage,
 }: {
   action: (formData: FormData) => Promise<void>;
   categories: { id: string; label: string }[];
   defaultValues?: ServiceFormValues;
   submitLabel: string;
+  successMessage: string;
 }) {
   return (
-    <form action={action} className="mt-6 max-w-xl space-y-5">
+    <AdminForm
+      action={action}
+      successMessage={successMessage}
+      redirectTo="/admin/services"
+      className="mt-6 max-w-xl space-y-5"
+    >
       <div>
         <label className={labelClass} htmlFor="name">Name</label>
         <input
@@ -136,6 +144,6 @@ export function ServiceForm({
           ← Back to list
         </Link>
       </div>
-    </form>
+    </AdminForm>
   );
 }

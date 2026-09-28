@@ -844,9 +844,17 @@
     opacity: 0.6;
   }
 
-  .drawer-foot { flex: none; padding-top: 18px; border-top: 1px solid rgba(233,228,217,0.1); }
+  .drawer-foot {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(233,228,217,0.1);
+  }
 
-  .drawer-close {
+  .drawer-close,
+  .drawer-home {
     width: 100%;
     padding: 12px;
     border: 1px solid rgba(176,141,87,0.3);
@@ -861,5 +869,14 @@
     transition: background-color 160ms ease;
   }
 
-  .drawer-close:hover { background: rgba(176,141,87,0.12); }
+  .drawer-home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .drawer-close:hover,
+  .drawer-home:hover { background: rgba(176,141,87,0.12); }
 }
