@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, type ReactNode } from "react";
 import { useFormStatus } from "react-dom";
 import { useToast } from "./Toast";
@@ -11,9 +10,12 @@ import { useToast } from "./Toast";
  * submits — the <form action={action}> below is the exact plain pattern
  * already proven reliable everywhere else in this app. This component only
  * *observes* completion via useFormStatus() in a child, which is a passive
- * companion hook and doesn't touch the submission itself. An earlier attempt
- * routed submission through useActionState's dispatcher instead, and that
- * silently broke the action from executing at all.
+ * companion hook and doesn't touch the submission itself.
+ *
+ * The redirect itself is delegated to ToastProvider (mounted once at the
+ * admin layout level) rather than scheduled here — Next.js's automatic
+ * route refresh after a Server Action can unmount this form before a
+ * locally-owned setTimeout fires, silently dropping the redirect.
  */
 export function AdminForm({
   action,
@@ -45,21 +47,18 @@ function SubmitWatcher({
 }) {
   const { pending } = useFormStatus();
   const wasPending = useRef(false);
-  const router = useRouter();
-  const { showToast } = useToast();
+  const { showToast, showToastAndRedirect } = useToast();
 
   useEffect(() => {
     if (wasPending.current && !pending) {
-      showToast(successMessage);
       if (redirectTo) {
-        const timer = setTimeout(() => router.push(redirectTo), 900);
-        wasPending.current = pending;
-        return () => clearTimeout(timer);
+        showToastAndRedirect(successMessage, redirectTo);
+      } else {
+        showToast(successMessage);
       }
-      router.refresh();
     }
     wasPending.current = pending;
-  }, [pending, successMessage, redirectTo, router, showToast]);
+  }, [pending, successMessage, redirectTo, showToast, showToastAndRedirect]);
 
   return null;
 }
