@@ -43,6 +43,132 @@
 }
 
 /* ==========================================================================
+   Book mechanics — the 3D flip
+   These properties (perspective, transform-style, backface-visibility) are
+   what makes rotateY() actually turn a leaf instead of showing a mirrored
+   duplicate of the front face. They pair with the positioning rules for the
+   same selectors already declared in styles/book.css.
+   ========================================================================== */
+
+@layer components {
+  .book-stage {
+    perspective: 2800px;
+    perspective-origin: 50% 45%;
+    transform-style: preserve-3d;
+  }
+
+  /* One physical leaf of the book: a recto (front) and a verso (back). */
+  .book-sheet {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    transition: transform var(--flip-duration, 900ms) cubic-bezier(0.645, 0.045, 0.355, 1);
+    will-change: transform;
+  }
+
+  .book-sheet-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+    background: var(--color-onyx);
+  }
+
+  .book-sheet-face--back {
+    transform: rotateY(180deg);
+  }
+
+  /* Shading that sweeps across a leaf as it turns, so the paper reads as
+     a physical surface catching light rather than a flat div. */
+  .book-sheet-shade {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 30;
+    opacity: 0;
+    transition: opacity var(--flip-duration, 900ms) cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+
+  .book-sheet-shade--front {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.1) 42%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  .book-sheet-shade--back {
+    background: linear-gradient(270deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.1) 42%, rgba(0, 0, 0, 0) 100%);
+    opacity: 1;
+  }
+
+  .book-sheet[data-turned='true'] .book-sheet-shade--front {
+    opacity: 1;
+  }
+
+  .book-sheet[data-turned='true'] .book-sheet-shade--back {
+    opacity: 0;
+  }
+
+  /* The gutter: where the leaves meet the spine, paper curves away from
+     the light. Painted on every page so a spread reads as one object. */
+  .page-gutter {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 74px;
+    pointer-events: none;
+    z-index: 25;
+  }
+
+  .page-gutter--recto {
+    left: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.22) 35%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  .page-gutter--verso {
+    right: 0;
+    background: linear-gradient(270deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.22) 35%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  /* The stitched spine sitting between the two halves of a spread. */
+  .book-spine {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 3px;
+    margin-left: -1.5px;
+    z-index: 60;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.85) 0%,
+      rgba(0, 0, 0, 0.35) 40%,
+      rgba(217, 187, 135, 0.14) 50%,
+      rgba(0, 0, 0, 0.35) 60%,
+      rgba(0, 0, 0, 0.85) 100%
+    );
+  }
+
+  /* Stacked-paper edge, so the closed book has visible thickness. */
+  .book-edge {
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    width: 10px;
+    z-index: 5;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(233, 228, 217, 0.16) 0px,
+      rgba(233, 228, 217, 0.16) 1px,
+      rgba(0, 0, 0, 0.5) 1px,
+      rgba(0, 0, 0, 0.5) 3px
+    );
+  }
+}
+
+/* ==========================================================================
    Page surfaces
    ========================================================================== */
 
