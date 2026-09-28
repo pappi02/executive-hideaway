@@ -1,6 +1,11 @@
-import { headers } from "next/headers";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { getToken } from "next-auth/jwt";
+import { decode } from "next-auth/jwt";
+
+const COOKIE_NAME =
+  process.env.NODE_ENV === "production"
+    ? "__Secure-authjs.session-token"
+    : "authjs.session-token";
 
 /**
  * Server Action POSTs to an /admin/* route don't reliably go through
@@ -9,18 +14,21 @@ import { getToken } from "next-auth/jwt";
  * path), so every mutating action checks the session itself rather than
  * trusting middleware to have already gated it.
  *
- * Uses getToken() (a plain read of the JWT cookie) instead of auth() —
- * auth()'s higher-level wrapper rotates the session cookie as a side
- * effect, and calling it from inside a Server Action produced a second,
- * conflicting Set-Cookie that cleared the session on the very request
- * that was supposed to prove it. getToken() has no such side effect.
+ * Reads and decodes the session cookie directly rather than going through
+ * auth() or getToken() — both of those returned null inside a Server
+ * Action even with a genuinely valid session cookie present, for reasons
+ * that didn't reproduce outside this exact call site. Decoding the raw
+ * cookie ourselves removes every layer of guessing about cookie naming
+ * or rotation side effects.
  */
 export async function requireAdmin() {
-  const token = await getToken({
-    req: { headers: await headers() },
-    secret: process.env.AUTH_SECRET,
-    secureCookie: process.env.NODE_ENV === "production",
-  });
+  const cookieStore = await cookies();
+  const raw = cookieStore.get(COOKIE_NAME)?.value;
+
+  const token =
+    raw && process.env.AUTH_SECRET
+      ? await decode({ token: raw, secret: process.env.AUTH_SECRET, salt: COOKIE_NAME })
+      : null;
 
   if (!token) redirect("/admin/login");
   return token;
