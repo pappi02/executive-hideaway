@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { deleteService } from "./actions";
+import { ServiceRow } from "./ServiceRow";
+import { DeleteServiceButton } from "./DeleteServiceButton";
 
 export default async function AdminServicesPage() {
   const services = await prisma.service.findMany({
@@ -34,7 +35,7 @@ export default async function AdminServicesPage() {
           </thead>
           <tbody>
             {services.map((service) => (
-              <tr key={service.id} className="border-b border-black/5 last:border-0">
+              <ServiceRow key={service.id} id={service.id}>
                 <td className="px-4 py-3 font-medium">{service.name}</td>
                 <td className="px-4 py-3 text-black/60">{service.category.label}</td>
                 <td className="px-4 py-3 text-black/60">
@@ -42,26 +43,9 @@ export default async function AdminServicesPage() {
                 </td>
                 <td className="px-4 py-3 text-black/60">{service.duration} min</td>
                 <td className="px-4 py-3 text-right">
-                  <div className="flex justify-end gap-3">
-                    <Link
-                      href={`/admin/services/${service.id}`}
-                      className="text-[11px] font-semibold uppercase tracking-[0.12em] text-black/60 hover:text-black"
-                    >
-                      Edit
-                    </Link>
-
-                    <form action={deleteService}>
-                      <input type="hidden" name="id" value={service.id} />
-                      <button
-                        type="submit"
-                        className="text-[11px] font-semibold uppercase tracking-[0.12em] text-red-600/70 hover:text-red-600"
-                      >
-                        Delete
-                      </button>
-                    </form>
-                  </div>
+                  <DeleteServiceButton id={service.id} name={service.name} />
                 </td>
-              </tr>
+              </ServiceRow>
             ))}
           </tbody>
         </table>

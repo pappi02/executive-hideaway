@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { venue } from '../data/venue';
 import type { ContentsEntry } from '../types/menu';
@@ -109,6 +110,11 @@ export function ContentsDrawer({ open, onClose, onNavigate, entries, currentPage
         </nav>
 
         <div className="drawer-foot">
+          <Link href="/" className="drawer-home">
+            <span aria-hidden="true">&#8592;</span>
+            Back Home
+          </Link>
+
           <button type="button" className="drawer-close" onClick={onClose}>
             Close
           </button>

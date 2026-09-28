@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { AdminForm } from "@/components/admin/AdminForm";
 import { updateDish } from "../../../actions";
+import { DeleteDishButton } from "../../../DeleteDishButton";
 
 const inputClass =
   "mt-1.5 w-full rounded-lg border border-black/15 bg-white px-3.5 py-2.5 text-sm outline-none transition-colors focus:border-(--accent)";
@@ -28,9 +30,16 @@ export default async function EditDishPage({
         ← Back to chapter
       </Link>
 
-      <h1 className="mt-3 text-2xl font-light tracking-[-0.03em]">Edit dish</h1>
+      <div className="mt-3 flex items-center justify-between">
+        <h1 className="text-2xl font-light tracking-[-0.03em]">Edit dish</h1>
+        <DeleteDishButton dishId={dish.id} chapterId={chapterId} name={dish.name} />
+      </div>
 
-      <form action={updateWithId} className="mt-6 max-w-xl space-y-5">
+      <AdminForm
+        action={updateWithId}
+        successMessage="Dish updated successfully"
+        className="mt-6 max-w-xl space-y-5"
+      >
         <div>
           <label className={labelClass} htmlFor="name">Name</label>
           <input id="name" name="name" required defaultValue={dish.name} className={inputClass} />
@@ -93,7 +102,7 @@ export default async function EditDishPage({
             ← Back to chapter
           </Link>
         </div>
-      </form>
+      </AdminForm>
     </div>
   );
 }

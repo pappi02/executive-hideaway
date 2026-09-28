@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { AdminForm } from "@/components/admin/AdminForm";
 import {
   createChapter,
   createDish,
@@ -26,7 +27,13 @@ export default async function ChapterDetailPage({
     return (
       <div>
         <h1 className="text-2xl font-light tracking-[-0.03em]">New chapter</h1>
-        <ChapterForm action={createChapter} submitLabel="Create chapter" backHref="/admin/menu" />
+        <ChapterForm
+          action={createChapter}
+          submitLabel="Create chapter"
+          backHref="/admin/menu"
+          successMessage="Chapter created successfully"
+          redirectTo="/admin/menu"
+        />
       </div>
     );
   }
@@ -54,10 +61,15 @@ export default async function ChapterDetailPage({
       <div className="mt-3 flex items-center justify-between">
         <h1 className="text-2xl font-light tracking-[-0.03em]">{chapter.title}</h1>
 
-        <DeleteChapterButton chapterId={chapter.id} />
+        <DeleteChapterButton chapterId={chapter.id} title={chapter.title} />
       </div>
 
-      <ChapterForm action={updateWithId} defaultValues={chapter} submitLabel="Save chapter" />
+      <ChapterForm
+        action={updateWithId}
+        defaultValues={chapter}
+        submitLabel="Save chapter"
+        successMessage="Chapter updated successfully"
+      />
 
       <hr className="my-10 border-black/10" />
 
@@ -69,7 +81,7 @@ export default async function ChapterDetailPage({
             <div className="flex items-center justify-between">
               <p className="font-medium">{section.title}</p>
 
-              <form action={deleteSection}>
+              <AdminForm action={deleteSection} successMessage="Section removed successfully">
                 <input type="hidden" name="id" value={section.id} />
                 <input type="hidden" name="chapterId" value={chapter.id} />
                 <button
@@ -78,7 +90,7 @@ export default async function ChapterDetailPage({
                 >
                   Delete section
                 </button>
-              </form>
+              </AdminForm>
             </div>
 
             <table className="mt-4 w-full text-left text-sm">
@@ -105,7 +117,7 @@ export default async function ChapterDetailPage({
                           Edit
                         </Link>
 
-                        <form action={deleteDish}>
+                        <AdminForm action={deleteDish} successMessage={`${dish.name} removed successfully`}>
                           <input type="hidden" name="id" value={dish.id} />
                           <input type="hidden" name="chapterId" value={chapter.id} />
                           <button
@@ -114,7 +126,7 @@ export default async function ChapterDetailPage({
                           >
                             Delete
                           </button>
-                        </form>
+                        </AdminForm>
                       </div>
                     </td>
                   </tr>
@@ -122,7 +134,11 @@ export default async function ChapterDetailPage({
               </tbody>
             </table>
 
-            <form action={createDish} className="mt-4 flex flex-wrap items-end gap-2 border-t border-black/10 pt-4">
+            <AdminForm
+              action={createDish}
+              successMessage="Dish added successfully"
+              className="mt-4 flex flex-wrap items-end gap-2 border-t border-black/10 pt-4"
+            >
               <input type="hidden" name="chapterId" value={chapter.id} />
               <input type="hidden" name="sectionId" value={section.id} />
 
@@ -147,12 +163,16 @@ export default async function ChapterDetailPage({
               >
                 Add dish
               </button>
-            </form>
+            </AdminForm>
           </div>
         ))}
       </div>
 
-      <form action={createSection} className="mt-6 flex items-end gap-2">
+      <AdminForm
+        action={createSection}
+        successMessage="Section added successfully"
+        className="mt-6 flex items-end gap-2"
+      >
         <input type="hidden" name="chapterId" value={chapter.id} />
 
         <div>
@@ -166,7 +186,7 @@ export default async function ChapterDetailPage({
         >
           Add section
         </button>
-      </form>
+      </AdminForm>
     </div>
   );
 }
