@@ -18,7 +18,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           return null;
         }
 
-        const admin = await prisma.admin.findUnique({ where: { email } });
+        const admin = await prisma.admin.findUnique({
+          where: { email: email.trim().toLowerCase() },
+        });
         if (!admin) return null;
 
         const valid = await bcrypt.compare(password, admin.passwordHash);
