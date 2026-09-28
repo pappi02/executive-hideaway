@@ -2,7 +2,7 @@
 
 The Executive Hideaway Barber and Spa homepage, built with Next.js and Tailwind CSS.
 
-## Getting Started
+# Getting Started
 
 Install dependencies and start the development server:
 
