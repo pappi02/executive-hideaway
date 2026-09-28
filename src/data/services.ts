@@ -1,3 +1,5 @@
+import { prisma } from "@/lib/prisma";
+
 export type ServiceCategory =
   | "haircut"
   | "massage"
@@ -17,303 +19,63 @@ export interface Service {
   imageAlt: string;
 }
 
-const categoryImages: Record<ServiceCategory, string> = {
-  haircut: "/images/services/normal-hair-cut.webp",
-  massage: "/images/services/hot-stone-massage.webp",
-  facial: "/images/services/facial.webp",
-  "spa treatment": "/images/services/full-day-experience.webp",
-  "nail care": "/images/services/manicure.webp",
-  wellness: "/images/services/sauna.webp",
-};
-
-export const services: Service[] = [
-  {
-    id: "aromatherapy-massage",
-    name: "Aromatherapy Massage",
-    category: "massage",
-    description:
-      "A soothing massage combining soft and firm pressure with scented essential oils to encourage relaxation and leave the body feeling refreshed.",
-    price: 6000,
-    duration: 75,
-    image: "/images/services/aromatherapy-massage.webp",
-    imageAlt: "Therapist pouring aromatherapy oil onto a client's back before a massage",
-  },
-  {
-    id: "body-scrub",
-    name: "Body Scrub",
-    category: "spa treatment",
-    description:
-      "An uplifting treatment using coffee and coconut oil to exfoliate the skin and leave the body feeling smooth and refreshed.",
-    price: 3000,
-    duration: 45,
-    image: "/images/services/body-scrub.webp",
-    imageAlt: "Coffee bean body scrub and exfoliating brush used for a body scrub treatment",
-  },
-  {
-    id: "body-stretches",
-    name: "Body Stretches",
-    category: "spa treatment",
-    description:
-      "A guided stretching experience designed to help improve flexibility, mobility, and overall body comfort.",
-    price: 2000,
-    duration: 30,
-    image: "/images/services/body-stretches.webp",
-    imageAlt: "Therapist assisting a client with a guided body stretch",
-  },
-  {
-    id: "couples-massage",
-    name: "Couples Massage",
-    category: "massage",
-    description:
-      "A shared massage experience where two therapists work simultaneously to create a relaxing and intimate experience for two.",
-    price: 10000,
-    duration: 90,
-    image: "/images/services/couples-massage.webp",
-    imageAlt: "Two clients receiving a massage side by side from two therapists",
-  },
-  {
-    id: "deep-tissue-massage",
-    name: "Deep Tissue Massage",
-    category: "massage",
-    description:
-      "A focused massage using deeper pressure to target muscle tension and areas of physical stress.",
-    price: 5000,
-    duration: 75,
-    image: "/images/services/deep-tissue-massage.webp",
-    imageAlt: "Therapist applying firm deep tissue pressure to a client's back",
-  },
-  {
-    id: "facial",
-    name: "Facial",
-    category: "facial",
-    description:
-      "A signature facial experience combining cleansing, exfoliation, steam, customized extractions, and skin rejuvenation.",
-    price: 4000,
-    duration: 60,
-    image: "/images/services/facial.webp",
-    imageAlt: "Client having facial cream applied to her cheek during a facial treatment",
-  },
-  {
-    id: "full-day-experience",
-    name: "Full Day Experience",
-    category: "spa treatment",
-    description:
-      "A complete day dedicated to relaxation and personal care, with treatments designed around your comfort.",
-    price: 50000,
-    duration: 240,
-    image: "/images/services/full-day-experience.webp",
-    imageAlt: "Client relaxing on a spa table surrounded by rose petals during a full day spa experience",
-  },
-  {
-    id: "fun-and-entertainment",
-    name: "Fun & Entertainment",
-    category: "spa treatment",
-    description:
-      "A selection of recreational experiences including yoga sessions and private entertainment options.",
-    price: null,
-    duration: 165,
-    image: "/images/services/fun-and-entertainment.webp",
-    imageAlt: "Woman in a yoga pose during a recreational wellness session",
-  },
-  {
-    id: "hot-stone-massage",
-    name: "Hot Stone Massage",
-    category: "massage",
-    description:
-      "A therapeutic massage incorporating heated stones to promote deep relaxation and ease muscular tension.",
-    price: 7500,
-    duration: 90,
-    image: "/images/services/hot-stone-massage.webp",
-    imageAlt: "Heated massage stones and orchid petals arranged along a client's back",
-  },
-  {
-    id: "m2m-massage",
-    name: "M2M Massage",
-    category: "massage",
-    description:
-      "A massage experience available with male therapists, offering clients another option for their personal care experience.",
-    price: null,
-    duration: 120,
-    image: "/images/services/m2m-massage.webp",
-    imageAlt: "Male therapist massaging a client's back",
-  },
-  {
-    id: "manicure",
-    name: "Manicure",
-    category: "nail care",
-    description:
-      "A multi-step nail care ritual designed to leave hands and nails looking polished and well cared for.",
-    price: 2000,
-    duration: 60,
-    image: "/images/services/manicure.webp",
-    imageAlt: "Manicurist applying nail polish to a client's hand",
-  },
-  {
-    id: "moroccan-bath",
-    name: "Moroccan Bath",
-    category: "spa treatment",
-    description:
-      "A traditional cleansing ritual incorporating steam, black soap, exfoliation, and moisturizing treatments.",
-    price: null,
-    duration: 60,
-    image: "/images/services/moroccan-bath.webp",
-    imageAlt: "Client relaxing during a traditional cleansing bath ritual",
-  },
-  {
-    id: "normal-hair-cut",
-    name: "Normal Hair Cut",
-    category: "haircut",
-    description:
-      "A haircut of your choice accompanied by a dye application, mini facial, and head and neck massage.",
-    price: 2000,
-    duration: 45,
-    image: "/images/services/normal-hair-cut.webp",
-    imageAlt: "Barber cutting a client's hair with clippers at the barbershop",
-  },
-  {
-    id: "pedicure",
-    name: "Pedicure",
-    category: "nail care",
-    description:
-      "A comprehensive foot treatment focused on nail care, foot care, comfort, and relaxation.",
-    price: 4000,
-    duration: 60,
-    image: "/images/services/pedicure.webp",
-    imageAlt: "Therapist massaging a client's foot during a pedicure treatment",
-  },
-  {
-    id: "premium-head-care",
-    name: "Premium Head Care",
-    category: "haircut",
-    description:
-      "An executive haircut experience complemented by a Japanese head spa wash, dye application, mini facial, and head and neck massage.",
-    price: 7000,
-    duration: 75,
-    image: "/images/services/premium-head-care.webp",
-    imageAlt: "Barber trimming a client's hairline with precision clippers",
-  },
-  {
-    id: "prenatal-massage",
-    name: "Prenatal Massage",
-    category: "massage",
-    description:
-      "A gentle and calming massage experience designed for pregnancy after the first trimester.",
-    price: 5000,
-    duration: 60,
-    image: "/images/services/prenatal-massage.webp",
-    imageAlt: "Therapist gently massaging a pregnant client's belly",
-  },
-  {
-    id: "reflexology-massage",
-    name: "Reflexology Massage",
-    category: "massage",
-    description:
-      "A focused treatment working on pressure points of the feet, hands, and ears to encourage relaxation and balance.",
-    price: 3000,
-    duration: 60,
-    image: "/images/services/reflexology-massage.webp",
-    imageAlt: "Therapist applying pressure to points on a client's foot during reflexology",
-  },
-  {
-    id: "sauna",
-    name: "Sauna",
-    category: "spa treatment",
-    description:
-      "A heat-based relaxation experience designed to provide a calm environment for unwinding and recovery.",
-    price: 2000,
-    duration: 45,
-    image: "/images/services/sauna.webp",
-    imageAlt: "Warm wooden sauna interior with ambient lighting",
-  },
-  {
-    id: "swedish-massage",
-    name: "Swedish Massage",
-    category: "massage",
-    description:
-      "A gentle massage using lighter pressure to promote relaxation and help the body unwind.",
-    price: 4000,
-    duration: 75,
-    image: "/images/services/swedish-massage.webp",
-    imageAlt: "Therapist giving a client a gentle, relaxing back massage",
-  },
-  {
-    id: "tantric-experiences",
-    name: "Tantric Experiences",
-    category: "massage",
-    description:
-      "A private sensory experience centered around relaxation, touch, and mindful connection.",
-    price: 10000,
-    duration: 150,
-    image: "/images/services/tantric-experiences.webp",
-    imageAlt: "Client relaxing during a private candlelit massage experience",
-  },
-];
-
-export type ServiceCategoryData = {
+export interface ServiceCategoryData {
   id: ServiceCategory;
   label: string;
   eyebrow: string;
   description: string;
   image: string;
   imageAlt: string;
-};
+}
 
-export const serviceCategories: ServiceCategoryData[] = [
-  {
-    id: "haircut",
-    label: "Hair & Grooming",
-    eyebrow: "Signature styling",
-    description:
-      "Refined grooming experiences focused on precision, comfort, and a polished finish.",
-    image: categoryImages.haircut,
-    imageAlt: "Hair and grooming service",
-  },
-  {
-    id: "massage",
-    label: "Massage Therapy",
-    eyebrow: "Restorative care",
-    description:
-      "Targeted massage treatments designed to release tension and restore balance to the body.",
-    image: categoryImages.massage,
-    imageAlt: "Massage therapy treatment",
-  },
-  {
-    id: "spa treatment",
-    label: "Spa Treatments",
-    eyebrow: "Wellness rituals",
-    description:
-      "Immersive spa rituals and therapeutic experiences that help you unwind and reset.",
-    image: categoryImages["spa treatment"],
-    imageAlt: "Spa treatment experience",
-  },
-  {
-    id: "facial",
-    label: "Facials",
-    eyebrow: "Skin renewal",
-    description:
-      "Smart, skin-focused facial rituals to revive hydration, clarity, and glow.",
-    image: categoryImages.facial,
-    imageAlt: "Facial treatment",
-  },
-  {
-    id: "nail care",
-    label: "Nail Care",
-    eyebrow: "Hands & feet",
-    description:
-      "Precise, restorative nail and foot care that leaves you polished and refreshed.",
-    image: categoryImages["nail care"],
-    imageAlt: "Nail care service",
-  },
-  {
-    id: "wellness",
-    label: "Wellness",
-    eyebrow: "Holistic care",
-    description:
-      "Thoughtful wellness services designed to support recovery, ease, and everyday vitality.",
-    image: categoryImages.wellness,
-    imageAlt: "Wellness session",
-  },
+const VALID_CATEGORIES: readonly ServiceCategory[] = [
+  "haircut",
+  "massage",
+  "facial",
+  "spa treatment",
+  "nail care",
+  "wellness",
 ];
 
-export const getServicesByCategory = (category: ServiceCategory) =>
-  services.filter((service) => service.category === category);
+function toCategoryId(id: string): ServiceCategory {
+  return (VALID_CATEGORIES as readonly string[]).includes(id)
+    ? (id as ServiceCategory)
+    : "wellness";
+}
+
+/** All service categories, ordered for display. */
+export async function getServiceCategories(): Promise<ServiceCategoryData[]> {
+  const categories = await prisma.serviceCategory.findMany({
+    orderBy: { order: "asc" },
+  });
+
+  return categories.map((category) => ({
+    id: toCategoryId(category.id),
+    label: category.label,
+    eyebrow: category.eyebrow,
+    description: category.description,
+    image: category.image,
+    imageAlt: category.imageAlt,
+  }));
+}
+
+/** All services within one category, ordered for display. */
+export async function getServicesByCategory(
+  category: ServiceCategory,
+): Promise<Service[]> {
+  const services = await prisma.service.findMany({
+    where: { categoryId: category },
+    orderBy: { order: "asc" },
+  });
+
+  return services.map((service) => ({
+    id: service.id,
+    name: service.name,
+    category: toCategoryId(service.categoryId),
+    description: service.description,
+    price: service.price,
+    duration: service.duration,
+    image: service.image,
+    imageAlt: service.imageAlt,
+  }));
+}

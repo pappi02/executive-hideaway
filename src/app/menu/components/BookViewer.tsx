@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { bookFor, buildSheets } from '../data/book';
 import { venue } from '../data/venue';
-import type { BookPage } from '../types/menu';
+import type { BookPage, Chapter } from '../types/menu';
 import { FLIP_MS, contentHeight, contentWidth } from '../lib/metrics';
 import { useBookFit } from '../hooks/useBookFit';
 import { useBookFlip } from '../hooks/useBookFlip';
@@ -16,12 +16,12 @@ import { Controls } from './Controls';
 /** Leaves kept fully rendered on each side of the reading position. */
 const WINDOW = 2;
 
-export function BookViewer() {
+export function BookViewer({ chapters }: { chapters: Chapter[] }) {
   const { mode, metrics, scale, stageW, stageH, offsetY, ready } = useBookFit();
   const stageRef = useRef<HTMLDivElement>(null);
   const [contentsOpen, setContentsOpen] = useState(false);
 
-  const book = bookFor(mode);
+  const book = useMemo(() => bookFor(mode, chapters), [mode, chapters]);
   const sheets = useMemo(() => buildSheets(book.pages, mode), [book, mode]);
 
   const sheetForPage = useCallback(
@@ -44,7 +44,7 @@ export function BookViewer() {
   const prevMode = useRef(mode);
   useEffect(() => {
     if (prevMode.current === mode) return;
-    const from = bookFor(prevMode.current);
+    const from = bookFor(prevMode.current, chapters);
     const wasAt = prevMode.current === 'spread' ? Math.max(0, turned * 2 - 1) : turned;
     const chapterId = chapterOf(from.pages[Math.min(wasAt, from.pages.length - 1)]);
 
@@ -55,7 +55,7 @@ export function BookViewer() {
       : Math.min(wasAt, book.pages.length - 1);
 
     jump(mode === 'spread' ? Math.ceil(target / 2) : target);
-  }, [mode, turned, jump, book]);
+  }, [mode, turned, jump, book, chapters]);
 
   useSwipe(stageRef, { onNext: next, onPrev: prev, enabled: !contentsOpen });
 

@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model ServiceCategory {
+  id          String    @id // "haircut", "massage", etc.
+  label       String
+  eyebrow     String
+  description String
+  image       String
+  imageAlt    String
+  order       Int       @default(0)
+  services    Service[]
+}
+
+model Service {
+  id          String          @id
+  name        String
+  categoryId  String
+  category    ServiceCategory @relation(fields: [categoryId], references: [id])
+  description String
+  price       Int?
+  duration    Int
+  image       String
+  imageAlt    String
+  order       Int             @default(0)
+
+  @@index([categoryId])
+}
+
+model Chapter {
+  id            String    @id
+  eyebrow       String
+  title         String
+  standfirst    String?
+  image         String?
+  imagePosition String?
+  note          String?
+  footnote      String?
+  columns       Int       @default(1) // 1 | 2
+  stock         String    @default("onyx") // "onyx" | "bone"
+  order         Int       @default(0)
+  sections      Section[]
+}
+
+model Section {
+  id        String  @id
+  chapterId String
+  chapter   Chapter @relation(fields: [chapterId], references: [id])
+  title     String
+  note      String?
+  order     Int     @default(0)
+  dishes    Dish[]
+
+  @@index([chapterId])
+}
+
+model Dish {
+  id          String  @id
+  sectionId   String
+  section     Section @relation(fields: [sectionId], references: [id])
+  name        String
+  description String?
+  price       Int?
+  priceNote   String?
+  tags        String[] @default([]) // DishTag[]: vegetarian | vegan | spicy | signature | gluten-free | contains-nuts
+  unavailable Boolean  @default(false)
+  order       Int      @default(0)
+
+  @@index([sectionId])
+}

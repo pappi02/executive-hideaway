@@ -1,8 +1,7 @@
-﻿import { chapters } from './menu';
-import { venue } from './venue';
+﻿import { venue } from './venue';
 import { columnHeight, flowChapter, type FlowedPage } from '../lib/paginate';
 import { SINGLE, SPREAD, columnsFor, contentHeight, type PageMetrics } from '../lib/metrics';
-import type { BookPage, ContentsEntry, Sheet } from '../types/menu';
+import type { BookPage, Chapter, ContentsEntry, Sheet } from '../types/menu';
 import { assetPath } from '../lib/basePath';
 
 /** Slack below which a page is left top-aligned rather than optically centred. */
@@ -53,7 +52,7 @@ export interface Book {
 /** Every page variant, minus the fields the assembler is responsible for. */
 type Draft<T> = T extends unknown ? Omit<T, 'index' | 'folio'> & { folio?: number | null } : never;
 
-function buildBook(metrics: PageMetrics): Book {
+function buildBook(metrics: PageMetrics, chapters: Chapter[]): Book {
   const pages: BookPage[] = [];
   const contents: ContentsEntry[] = [];
 
@@ -165,11 +164,14 @@ function buildBook(metrics: PageMetrics): Book {
   return { metrics, pages, contents };
 }
 
-export const spreadBook = buildBook(SPREAD);
-export const singleBook = buildBook(SINGLE);
-
-export function bookFor(mode: 'spread' | 'single'): Book {
-  return mode === 'spread' ? spreadBook : singleBook;
+/**
+ * Builds both editions from the given chapters. Cheap enough (a handful of
+ * chapters, a couple dozen dishes) to run per-request rather than caching at
+ * module scope — the chapters now come from the database, not a static
+ * import, so there is no longer a fixed set to precompute at build time.
+ */
+export function bookFor(mode: 'spread' | 'single', chapters: Chapter[]): Book {
+  return buildBook(mode === 'spread' ? SPREAD : SINGLE, chapters);
 }
 
 /**
