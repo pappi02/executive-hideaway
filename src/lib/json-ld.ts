@@ -7,7 +7,7 @@ import { businessContact, siteConfig, siteUrl } from "./site-config";
 export function localBusinessJsonLd() {
   return {
     "@context": "https://schema.org",
-    "@type": "HealthAndBeautyBusiness",
+    "@type": ["Resort", "HealthAndBeautyBusiness"],
     name: siteConfig.name,
     alternateName: siteConfig.shortName,
     description: siteConfig.description,

@@ -45,6 +45,65 @@ model Service {
   @@index([categoryId])
 }
 
+model Accommodation {
+  id                String               @id @default(cuid())
+  name              String
+  slug              String               @unique
+  description       String
+  pricePerNight     Int?
+  priceIsIndicative Boolean              @default(true)
+  isTemporary       Boolean              @default(false)
+  numberOfRooms     Int                  @default(1)
+  maxGuests         Int                  @default(1)
+  bedType           String?
+  roomSize          String?
+  bathroom          String?
+  amenities         String[]             @default([])
+  breakfastIncluded Boolean?
+  wifiAvailable     Boolean?
+  parkingAvailable  Boolean?
+  childrenAllowed   Boolean              @default(false)
+  featured          Boolean              @default(false)
+  active            Boolean              @default(true)
+  order             Int                  @default(0)
+  images            AccommodationImage[]
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+
+  @@index([active, order])
+}
+
+model AccommodationImage {
+  id              String        @id @default(cuid())
+  accommodationId String
+  accommodation   Accommodation @relation(fields: [accommodationId], references: [id], onDelete: Cascade)
+  data            Bytes         @db.ByteA
+  contentType     String
+  altText         String
+  order           Int           @default(0)
+  createdAt       DateTime      @default(now())
+
+  @@index([accommodationId, order])
+}
+
+model ResortFacility {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  category    String
+  description String?
+  href        String?
+  active      Boolean @default(true)
+  order       Int     @default(0)
+}
+
+model AccommodationSettings {
+  id        String   @id @default("default")
+  checkIn   String?
+  checkOut  String?
+  updatedAt DateTime @updatedAt
+}
+
 model Chapter {
   id            String    @id
   eyebrow       String

@@ -24,14 +24,13 @@ export default function About() {
 
             <div className="mt-8 max-w-2xl space-y-5 text-sm leading-7 text-white/60 sm:text-base">
               <p>
-                Welcome to Executive Hideaway Barber and Spa - a space created
-                for people who value exceptional grooming, personal care, and
-                time to unwind.
+                Welcome to Executive Hideaway Resort & Spa, a place to stay,
+                unwind, and enjoy thoughtful grooming, dining, and wellness.
               </p>
 
               <p>
-                From the moment you step through our doors, every detail is
-                designed to give you a refined and comfortable experience.
+                From a room for the night to a moment of personal care, find
+                space to make your time in Nairobi your own.
               </p>
             </div>
           </div>

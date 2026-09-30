@@ -12,7 +12,7 @@ export default function Hero() {
       {/* Background Image */}
       <Image
         src="/images/hero.png"
-        alt="Executive Hideaway Barber and Spa"
+        alt="Executive Hideaway Resort & Spa"
         fill
         priority
         sizes="100vw"
@@ -32,21 +32,21 @@ export default function Hero() {
             <span className="h-px w-8 bg-(--accent)" />
 
             <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-(--accent-light)">
-              Barber &middot; Spa &middot; Wellness
+              Resort &middot; Spa &middot; Wellness &middot; Stays
             </p>
           </div>
 
           {/* Heading */}
           <h1 className="max-w-4xl text-[clamp(3.25rem,14vw,8rem)] font-light leading-[0.88] tracking-[-0.055em] text-white">
-            Where grooming
+            Where time slows
             <br />
-            <span className="text-white/80">meets relaxation.</span>
+            <span className="text-white/80">and stays awhile.</span>
           </h1>
 
           {/* Description */}
           <p className="mt-7 max-w-md text-sm leading-6 text-white/70 sm:text-base sm:leading-7">
-            A refined destination for exceptional grooming, personal care,
-            relaxation, and wellness.
+            A thoughtful place to stay, unwind, enjoy resort dining, and find
+            time for wellness and grooming.
           </p>
 
           {/* Actions */}

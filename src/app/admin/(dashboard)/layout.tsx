@@ -8,6 +8,7 @@ export const dynamic = "force-dynamic";
 const navItems = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/services", label: "Services" },
+  { href: "/admin/accommodation", label: "Accommodation" },
   { href: "/admin/menu", label: "Menu" },
 ];
 
@@ -53,12 +54,12 @@ export default function AdminDashboardLayout({
         </form>
       </header>
 
-      <nav className="flex items-center gap-6 border-b border-black/10 bg-white px-5 py-3 sm:hidden">
+      <nav className="flex items-center gap-6 overflow-x-auto border-b border-black/10 bg-white px-5 py-3 sm:hidden">
         {navItems.map((item) => (
           <Link
             key={item.href}
             href={item.href}
-            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-black/60"
+            className="shrink-0 whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.14em] text-black/60"
           >
             {item.label}
           </Link>

@@ -17,6 +17,11 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
 	allowedDevOrigins: ["192.168.1.6"],
 	serverExternalPackages: ["@prisma/client", "bcryptjs"],
+	experimental: {
+		serverActions: {
+			bodySizeLimit: "10mb",
+		},
+	},
 	async headers() {
 		return [
 			{
