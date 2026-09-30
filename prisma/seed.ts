@@ -6,6 +6,7 @@
  * Run with: npm run db:seed
  */
 import { loadEnvFile } from "node:process";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
@@ -113,6 +114,124 @@ const services = [
   { id: "swedish-massage", name: "Swedish Massage", category: "massage", description: "A gentle massage using lighter pressure to promote relaxation and help the body unwind.", price: 4000, duration: 75, image: "/images/services/swedish-massage.webp", imageAlt: "Therapist giving a client a gentle, relaxing back massage" },
   { id: "tantric-experiences", name: "Tantric Experiences", category: "massage", description: "A private sensory experience centered around relaxation, touch, and mindful connection.", price: 10000, duration: 150, image: "/images/services/tantric-experiences.webp", imageAlt: "Client relaxing during a private candlelit massage experience" },
 ];
+
+const accommodations = [
+  {
+    name: "Premium Room",
+    slug: "premium-room",
+    description: "A temporary room listing. Replace this copy with confirmed accommodation details.",
+    pricePerNight: 8500,
+    isTemporary: true,
+    numberOfRooms: 3,
+    maxGuests: 2,
+    bedType: "Queen Bed",
+    bathroom: "Ensuite bathroom",
+    amenities: ["Wi-Fi", "Hot shower", "Comfortable bedding"],
+    breakfastIncluded: false,
+    wifiAvailable: true,
+    parkingAvailable: true,
+    childrenAllowed: false,
+    featured: true,
+    active: true,
+    order: 0,
+    imagePath: "images/accommodation/premium-room.webp",
+    imageAlt: "Temporary illustrative room preview; replace with a photo of this room",
+  },
+  {
+    name: "Deluxe Room",
+    slug: "deluxe-room",
+    description: "A temporary room listing. Replace this copy with confirmed accommodation details.",
+    pricePerNight: 11000,
+    isTemporary: true,
+    numberOfRooms: 2,
+    maxGuests: 2,
+    bedType: "Double Bed",
+    bathroom: "Ensuite bathroom",
+    amenities: ["Wi-Fi", "Parking", "Air conditioning", "TV"],
+    breakfastIncluded: true,
+    wifiAvailable: true,
+    parkingAvailable: true,
+    childrenAllowed: false,
+    featured: false,
+    active: true,
+    order: 1,
+    imagePath: "images/accommodation/deluxe-room.webp",
+    imageAlt: "Temporary illustrative room preview; replace with a photo of this room",
+  },
+  {
+    name: "Executive Room",
+    slug: "executive-room",
+    description: "A temporary room listing. Replace this copy with confirmed accommodation details.",
+    pricePerNight: 14500,
+    isTemporary: true,
+    numberOfRooms: 2,
+    maxGuests: 2,
+    bedType: "King Bed",
+    bathroom: "Ensuite bathroom",
+    amenities: ["Wi-Fi", "Hot shower", "Air conditioning", "Comfortable bedding"],
+    breakfastIncluded: false,
+    wifiAvailable: true,
+    parkingAvailable: true,
+    childrenAllowed: false,
+    featured: false,
+    active: true,
+    order: 2,
+    imagePath: "images/accommodation/executive-room.webp",
+    imageAlt: "Temporary illustrative room preview; replace with a photo of this room",
+  },
+];
+
+const resortFacilities = [
+  { name: "Garden", slug: "garden", category: "Grounds", description: "Garden space at the resort.", href: null, active: true, order: 0 },
+  { name: "Parking", slug: "parking", category: "Convenience", description: "Parking is available at the property.", href: null, active: true, order: 1 },
+  { name: "Wi-Fi", slug: "wifi", category: "Convenience", description: "Wi-Fi is available at the property.", href: null, active: true, order: 2 },
+  { name: "Food", slug: "food", category: "Dining", description: "Food is available through the resort menu.", href: "/menu", active: true, order: 3 },
+  { name: "Drinks", slug: "drinks", category: "Dining", description: "Drinks are available through the resort menu.", href: "/menu", active: true, order: 4 },
+  { name: "Spa & Wellness", slug: "spa-wellness", category: "Wellness", description: "Explore spa and wellness services.", href: "/services", active: true, order: 5 },
+  { name: "Barber & Grooming", slug: "barber-grooming", category: "Grooming", description: "Explore barbering and grooming services.", href: "/services", active: true, order: 6 },
+];
+
+async function seedAccommodation() {
+  for (const room of accommodations) {
+    const { imagePath, imageAlt, ...fields } = room;
+    const imageData = new Uint8Array(
+      await readFile(path.resolve(import.meta.dirname, "../public", imagePath)),
+    );
+
+    await prisma.accommodation.upsert({
+      where: { slug: room.slug },
+      create: {
+        ...fields,
+        priceIsIndicative: true,
+        images: {
+          create: {
+            data: imageData,
+            contentType: "image/webp",
+            altText: imageAlt,
+            order: 0,
+          },
+        },
+      },
+      update: {},
+    });
+  }
+
+  for (const facility of resortFacilities) {
+    await prisma.resortFacility.upsert({
+      where: { slug: facility.slug },
+      create: facility,
+      update: {},
+    });
+  }
+
+  await prisma.accommodationSettings.upsert({
+    where: { id: "default" },
+    create: { id: "default", checkIn: null, checkOut: null },
+    update: {},
+  });
+
+  console.log(`Seeded ${accommodations.length} temporary room types and ${resortFacilities.length} resort experiences.`);
+}
 
 async function seedServices() {
   for (const category of serviceCategories) {
@@ -252,6 +371,7 @@ async function seedAdmin() {
 async function main() {
   await seedServices();
   await seedMenu();
+  await seedAccommodation();
   await seedAdmin();
 }
 

@@ -2,14 +2,16 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 
 export default async function AdminHomePage() {
-  const [serviceCount, chapterCount, dishCount] = await Promise.all([
+  const [serviceCount, accommodationCount, chapterCount, dishCount] = await Promise.all([
     prisma.service.count(),
+    prisma.accommodation.count(),
     prisma.chapter.count(),
     prisma.dish.count(),
   ]);
 
   const cards = [
     { href: "/admin/services", label: "Services", count: serviceCount, sub: "barber & spa services" },
+    { href: "/admin/accommodation", label: "Accommodation", count: accommodationCount, sub: "room types" },
     { href: "/admin/menu", label: "Menu chapters", count: chapterCount, sub: "in the resort menu" },
     { href: "/admin/menu", label: "Menu dishes", count: dishCount, sub: "across all chapters" },
   ];
@@ -18,7 +20,7 @@ export default async function AdminHomePage() {
     <div>
       <h1 className="text-2xl font-light tracking-[-0.03em]">Dashboard</h1>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {cards.map((card) => (
           <Link
             key={card.label}

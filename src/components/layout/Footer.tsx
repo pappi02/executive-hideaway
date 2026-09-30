@@ -4,6 +4,7 @@ import {
   MapPin,
   Phone,
 } from "lucide-react";
+import Link from "next/link";
 
 import { businessContact } from "@/data/contact";
 
@@ -17,6 +18,7 @@ const navigation = [
   { label: "Home", href: "/" },
   { label: "About", href: "/#about" },
   { label: "Services", href: "/services" },
+  { label: "Accommodation", href: "/accommodation" },
   { label: "Resort Menu", href: "/menu" },
   { label: "Gallery", href: "/gallery" },
   { label: "Contact", href: "/contact" },
@@ -52,9 +54,8 @@ export default function Footer() {
             </h2>
 
             <p className="mt-4 max-w-xl text-sm leading-7 text-white/45 sm:text-base">
-              Whether you are here for a fresh cut, personal care, or simply
-              some time to unwind, your Executive Hideaway experience begins
-              with an appointment.
+              Whether you are planning a stay, a meal, or time for personal
+              care, our team can help you plan your visit.
             </p>
 
             <a
@@ -67,6 +68,13 @@ export default function Footer() {
                 <ArrowUpRight size={15} strokeWidth={1.4} />
               </span>
             </a>
+            <Link
+              href="/accommodation"
+              className="group mt-4 ml-0 inline-flex min-h-14 items-center gap-5 rounded-full border border-white/20 px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:border-(--accent) hover:text-(--accent-light) sm:ml-3 sm:px-8"
+            >
+              Explore accommodation
+              <ArrowUpRight size={15} strokeWidth={1.4} />
+            </Link>
           </div>
         </div>
 
@@ -81,7 +89,7 @@ export default function Footer() {
             </p>
 
             <p className="mt-2 text-xs text-white/30 sm:text-sm">
-              Barber and Spa
+              Resort & Spa
             </p>
 
             <div className="mt-6 sm:mt-16">
@@ -221,7 +229,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="flex flex-col gap-4 border-t border-white/10 py-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[8px] uppercase tracking-[0.18em] text-white/20">
-            © {new Date().getFullYear()} Executive Hideaway Barber and Spa
+            © {new Date().getFullYear()} Executive Hideaway Resort & Spa
           </p>
 
           <p className="text-[8px] uppercase tracking-[0.18em] text-white/15">

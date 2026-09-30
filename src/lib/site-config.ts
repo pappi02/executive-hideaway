@@ -12,11 +12,11 @@ export const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://executivehideaway.co.ke";
 
 export const siteConfig = {
-  name: "Executive Hideaway Barber and Spa",
+  name: "Executive Hideaway Resort & Spa",
   shortName: "Executive Hideaway",
-  tagline: "Barber · Spa · Wellness",
+  tagline: "Resort · Spa · Wellness",
   description:
-    "Executive Hideaway Barber and Spa in Nairobi — premium grooming, massage, spa treatments, and wellness experiences. Book your appointment today.",
+    "Executive Hideaway Resort & Spa in Nairobi — accommodation, dining, grooming, spa, and wellness experiences. Contact our team to plan your stay.",
   url: siteUrl,
   locale: "en_KE",
   themeColor: "#0b0b0a",

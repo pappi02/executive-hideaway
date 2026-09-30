@@ -32,7 +32,7 @@ export function buildMetadata({
   const imageUrl = new URL(image, siteUrl).toString();
 
   return {
-    title: resolvedTitle,
+    title: { absolute: resolvedTitle },
     description,
     alternates: {
       canonical: path,

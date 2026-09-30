@@ -36,6 +36,11 @@ const navItems: NavItem[] = [
     page: "/services",
   },
   {
+    label: "Accommodation",
+    href: "/accommodation",
+    page: "/accommodation",
+  },
+  {
     label: "Resort Menu",
     href: "/menu",
     page: "/menu",
@@ -57,6 +62,15 @@ export default function Navbar({ tone = "light" }: NavbarProps) {
   const pathname = usePathname();
 
   const isDark = tone === "dark";
+  const isAccommodation = pathname.startsWith("/accommodation");
+  const accommodationSlug = pathname.match(/^\/accommodation\/([^/]+)$/)?.[1];
+  const bookingCtaHref = isAccommodation
+    ? accommodationSlug
+      ? `/accommodation/request?room=${encodeURIComponent(accommodationSlug)}`
+      : "/accommodation#rooms"
+    : "/booking";
+  const bookingCtaLabel = isAccommodation ? "Request a Stay" : "Book Appointment";
+  const showBookingCta = pathname !== "/booking" && pathname !== "/accommodation/request";
 
   const visibleNavItems = navItems.filter((item) => {
     if (!item.page) return true;
@@ -107,12 +121,12 @@ export default function Navbar({ tone = "light" }: NavbarProps) {
               ))}
             </ul>
 
-            {pathname !== "/booking" && (
+            {showBookingCta && (
               <Link
-                href="/booking"
+                href={bookingCtaHref}
                 className="flex min-h-10 items-center justify-center rounded-full bg-(--accent) px-5 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#0b0b0a] transition-transform duration-300 hover:scale-[1.02]"
               >
-                Book Appointment
+                {bookingCtaLabel}
               </Link>
             )}
           </div>
@@ -164,14 +178,14 @@ export default function Navbar({ tone = "light" }: NavbarProps) {
           </nav>
 
           {/* Booking CTA */}
-          {pathname !== "/booking" && (
+          {showBookingCta && (
             <div className="mt-auto">
               <Link
-                href="/booking"
+                href={bookingCtaHref}
                 onClick={closeMenu}
                 className="flex min-h-11 w-full items-center justify-center rounded-full bg-(--accent) px-5 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#0b0b0a] transition-transform duration-300 hover:scale-[1.02]"
               >
-                Book Appointment
+                {bookingCtaLabel}
               </Link>
             </div>
           )}
