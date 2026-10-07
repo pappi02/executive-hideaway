@@ -7,11 +7,11 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-[75svh] overflow-hidden bg-[#0b0b0a] sm:min-h-[80svh] lg:min-h-[85svh]"
+      className="relative h-[60svh] overflow-hidden bg-[#0b0b0a]"
     >
       {/* Background Image */}
       <Image
-        src="/images/hero.png"
+        src="/images/hero2.png"
         alt="Executive Hideaway Resort & Spa"
         fill
         priority
@@ -25,10 +25,10 @@ export default function Hero() {
       <div className="absolute inset-0 bg-linear-to-b from-black/55 via-black/10 to-[#0b0b0a]" />
 
       {/* Hero Content */}
-      <div className="relative z-10 flex min-h-[75svh] flex-col justify-end px-5 pb-9 pt-32 sm:min-h-[80svh] sm:px-8 sm:pb-14 lg:min-h-[85svh] lg:px-10 lg:pb-16">
+      <div className="relative z-10 flex h-full flex-col justify-end px-5 pb-8 pt-24 sm:px-8 sm:pb-12 lg:px-10 lg:pb-14">
         <div className="mx-auto w-full max-w-7xl">
           {/* Eyebrow */}
-          <div className="mb-6 flex items-center gap-3">
+          <div className="mb-4 flex items-center gap-3 sm:mb-6">
             <span className="h-px w-8 bg-(--accent)" />
 
             <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-(--accent-light)">
@@ -37,23 +37,23 @@ export default function Hero() {
           </div>
 
           {/* Heading */}
-          <h1 className="max-w-4xl text-[clamp(3.25rem,14vw,8rem)] font-light leading-[0.88] tracking-[-0.055em] text-white">
-            Where time slows
+          <h1 className="max-w-5xl text-[clamp(2.25rem,8vw,5.5rem)] font-light uppercase leading-[0.92] tracking-[-0.04em] text-white">
+            The Hideaway
             <br />
-            <span className="text-white/80">and stays awhile.</span>
+            <span className="text-white/80">Spa and Resort</span>
           </h1>
 
           {/* Description */}
-          <p className="mt-7 max-w-md text-sm leading-6 text-white/70 sm:text-base sm:leading-7">
+          <p className="mt-5 hidden max-w-md text-sm sm:block leading-6 text-white/70 sm:text-base sm:leading-7">
             A thoughtful place to stay, unwind, enjoy resort dining, and find
             time for wellness and grooming.
           </p>
 
           {/* Actions */}
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
             <Link
               href="/booking"
-              className="group inline-flex min-h-13 items-center justify-center gap-3 rounded-full bg-(--accent) px-7 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b0b0a] transition-all duration-300 hover:bg-(--accent-light)"
+              className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-(--accent) px-5 sm:min-h-13 sm:px-7 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b0b0a] transition-all duration-300 hover:bg-(--accent-light)"
             >
               Book an Appointment
 
@@ -66,14 +66,14 @@ export default function Hero() {
 
             <Link
               href="/menu"
-              className="inline-flex min-h-13 items-center justify-center rounded-full border border-white/25 bg-white/5 px-7 text-[11px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
+              className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/25 bg-white/5 px-5 sm:min-h-13 sm:px-7 text-[11px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
             >
               View Resort Menu
             </Link>
 
             <Link
               href="#about"
-              className="inline-flex min-h-13 items-center justify-center rounded-full border border-white/25 bg-white/5 px-7 text-[11px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
+              className="hidden sm:inline-flex min-h-12 items-center justify-center rounded-full border border-white/25 bg-white/5 px-5 sm:min-h-13 sm:px-7 text-[11px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
             >
               Explore
             </Link>
