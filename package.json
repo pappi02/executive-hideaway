@@ -9,7 +9,9 @@
     "lint": "eslint",
     "postinstall": "prisma generate",
     "db:generate": "prisma generate",
-    "db:migrate": "prisma migrate dev",
+    "db:migrate": "node --env-file=.env.local node_modules/prisma/build/index.js migrate dev",
+    "db:deploy": "node --env-file=.env.local node_modules/prisma/build/index.js migrate deploy",
+    "db:status": "node --env-file=.env.local node_modules/prisma/build/index.js migrate status",
     "db:seed": "tsx prisma/seed.ts",
     "images:migrate": "tsx scripts/migrate-accommodation-images-to-blob.ts"
   },
