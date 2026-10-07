@@ -17,6 +17,21 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
 	allowedDevOrigins: ["192.168.1.6"],
 	serverExternalPackages: ["@prisma/client", "bcryptjs"],
+	// Prisma ships WebAssembly engines for every database (Postgres, MySQL, SQLite,
+	// SQL Server, CockroachDB) plus edge/React Native runtimes. This app uses the
+	// native library engine only (runtime/library.js), but file tracing copied all
+	// of them into every function: ~55 MB per function, multiplied across every
+	// retained deployment in the "Functions Storage" usage meter.
+	outputFileTracingExcludes: {
+		"/**": [
+			"./node_modules/@prisma/client/runtime/*.wasm-base64.*",
+			"./node_modules/@prisma/client/runtime/query_engine_bg.*",
+			"./node_modules/@prisma/client/runtime/query_compiler_bg.*",
+			"./node_modules/@prisma/client/runtime/wasm-*-edge.*",
+			"./node_modules/@prisma/client/runtime/edge*",
+			"./node_modules/@prisma/client/runtime/react-native.js",
+		],
+	},
 	experimental: {
 		serverActions: {
 			bodySizeLimit: "10mb",
