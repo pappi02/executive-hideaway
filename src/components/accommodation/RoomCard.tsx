@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { accommodationImageSrc } from "@/lib/accommodation-image-src";
 
 interface RoomCardProps {
   room: {
@@ -14,7 +15,7 @@ interface RoomCardProps {
     bedType: string | null;
     bathroom: string | null;
     amenities: string[];
-    images: { id: string; altText: string }[];
+    images: { id: string; url: string | null; altText: string }[];
     featured: boolean;
   };
 }
@@ -27,7 +28,7 @@ export function RoomCard({ room }: RoomCardProps) {
     <article className="group grid min-w-0 border-t border-black/15 py-5 sm:grid-cols-[0.92fr_1.08fr] sm:gap-6 sm:py-7 lg:gap-10">
       <Link href={`/accommodation/${room.slug}`} className="relative block aspect-[1.3] overflow-hidden bg-[#d7d1c4] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#80683c] sm:aspect-[1.18]">
         {image ? (
-          <Image src={`/api/accommodation-images/${image.id}`} alt={image.altText} fill priority={room.featured} sizes="(max-width: 640px) 100vw, 45vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.025] motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
+          <Image src={accommodationImageSrc(image)} alt={image.altText} fill priority={room.featured} sizes="(max-width: 640px) 100vw, 45vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.025] motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
         ) : (
           <div className="absolute inset-0 grid place-items-center px-6 text-center text-sm text-black/45">Room photography is being updated.</div>
         )}

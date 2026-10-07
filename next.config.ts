@@ -32,6 +32,16 @@ const nextConfig: NextConfig = {
 			"./node_modules/@prisma/client/runtime/react-native.js",
 		],
 	},
+	images: {
+		// Room photos are stored in Vercel Blob (see src/lib/accommodation-images.ts).
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "*.public.blob.vercel-storage.com",
+				pathname: "/accommodation/**",
+			},
+		],
+	},
 	experimental: {
 		serverActions: {
 			bodySizeLimit: "10mb",

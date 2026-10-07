@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import { RoomCard } from "@/components/accommodation/RoomCard";
 import { getAccommodationSettings, getActiveAccommodation, getActiveResortFacilities } from "@/data/accommodation";
 import { buildMetadata } from "@/lib/seo";
+import { accommodationImageSrc } from "@/lib/accommodation-image-src";
 
 export const metadata: Metadata = buildMetadata({
   title: "Accommodation",
@@ -15,7 +16,9 @@ export const metadata: Metadata = buildMetadata({
   image: "/images/accommodation/premium-room.webp",
 });
 
-export const dynamic = "force-dynamic";
+// Cached and served from the CDN; refreshed hourly, and immediately when the
+// admin dashboard saves a change (revalidatePath in the admin actions).
+export const revalidate = 3600;
 
 export default async function AccommodationPage() {
   const [rooms, facilities, settings] = await Promise.all([
@@ -31,7 +34,7 @@ export default async function AccommodationPage() {
       <main className="bg-[#f3efe6] text-[#0b0b0a]">
         <section className="relative min-h-[78svh] overflow-hidden bg-[#151513] text-white sm:min-h-[82svh]">
           {heroImage ? (
-            <Image src={`/api/accommodation-images/${heroImage.id}`} alt={heroImage.altText} fill priority sizes="100vw" className="object-cover object-center" />
+            <Image src={accommodationImageSrc(heroImage)} alt={heroImage.altText} fill priority sizes="100vw" className="object-cover object-center" />
           ) : (
             <Image src="/images/hero.png" alt="Executive Hideaway Resort & Spa" fill priority sizes="100vw" className="object-cover object-center" />
           )}
