@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { signOut } from "@/auth";
 import { ToastProvider } from "@/components/admin/Toast";
@@ -22,9 +23,19 @@ export default function AdminDashboardLayout({
     <div className="min-h-svh bg-[#f3efe6] text-[#0b0b0a]">
       <header className="flex items-center justify-between border-b border-black/10 bg-white px-5 py-4 sm:px-8">
         <div className="flex items-center gap-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em]">
-            Executive Hideaway — Admin
-          </p>
+          <Link href="/admin" className="flex shrink-0 items-center gap-3" aria-label="Executive Hideaway admin dashboard">
+            <Image
+              src="/images/eh-logo.png"
+              alt="Executive Hideaway Spa and Resort"
+              width={960}
+              height={600}
+              sizes="72px"
+              className="h-11 w-auto"
+            />
+            <span className="border-l border-black/15 pl-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/60">
+              Admin
+            </span>
+          </Link>
 
           <nav className="hidden items-center gap-6 sm:flex">
             {navItems.map((item) => (

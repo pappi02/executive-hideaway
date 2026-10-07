@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, RotateCcw } from "lucide-react";
 
@@ -19,7 +20,9 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
           <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full border border-black/5" />
           <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-7xl flex-col px-5 sm:px-8 lg:px-10">
             <div className="flex items-center py-7 sm:py-9">
-              <div className="flex items-center gap-3"><span className="h-px w-7 bg-[#80683c]" /><span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-black/55">Executive Hideaway</span></div>
+              <Link href="/" className="block shrink-0" aria-label="Executive Hideaway home">
+                <Image src="/images/eh-logo.png" alt="Executive Hideaway Spa and Resort" width={960} height={600} priority sizes="(min-width: 640px) 102px, 90px" className="h-14 w-auto sm:h-16" />
+              </Link>
             </div>
             <div className="flex flex-1 items-center py-16">
               <div className="max-w-4xl">

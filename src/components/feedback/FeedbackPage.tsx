@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, RotateCcw } from "lucide-react";
 
@@ -33,9 +34,16 @@ export default function FeedbackPage({
 
       <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-7xl flex-col px-5 sm:px-8 lg:px-10">
         <div className="flex items-center justify-between py-7 sm:py-9">
-          <Link href="/" className="group flex items-center gap-3" aria-label="Executive Hideaway home">
-            <span className="h-px w-7 bg-[#80683c] transition-all duration-300 group-hover:w-10" />
-            <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-black/55">Executive Hideaway</span>
+          <Link href="/" className="block shrink-0" aria-label="Executive Hideaway home">
+            <Image
+              src="/images/eh-logo.png"
+              alt="Executive Hideaway Spa and Resort"
+              width={960}
+              height={600}
+              priority
+              sizes="(min-width: 640px) 102px, 90px"
+              className="h-14 w-auto sm:h-16"
+            />
           </Link>
           <span className="text-[8px] uppercase tracking-[0.25em] text-black/25">Barber · Spa · Wellness</span>
         </div>

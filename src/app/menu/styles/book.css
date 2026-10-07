@@ -130,6 +130,7 @@
 
   .page-folio-rule { flex: 1 1 auto; height: 1px; background: currentColor; opacity: 0.35; }
   .page-folio-number { font-variant-numeric: tabular-nums; }
+  .page-folio-mark { display: inline-flex; flex: none; line-height: 0; }
 }
 
 /* ==========================================================================

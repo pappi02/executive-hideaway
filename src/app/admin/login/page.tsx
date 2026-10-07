@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { redirect } from "next/navigation";
 import { AuthError } from "next-auth";
 import { signIn } from "@/auth";
@@ -37,11 +38,17 @@ export default async function AdminLoginPage({
   return (
     <div className="flex min-h-svh items-center justify-center bg-[#0b0b0a] px-5">
       <div className="w-full max-w-sm">
-        <p className="text-center text-[10px] font-semibold uppercase tracking-[0.3em] text-(--accent)">
-          Executive Hideaway
-        </p>
+        <Image
+          src="/images/eh-logo.png"
+          alt="Executive Hideaway Spa and Resort"
+          width={960}
+          height={600}
+          priority
+          sizes="176px"
+          className="mx-auto h-auto w-44"
+        />
 
-        <h1 className="mt-3 text-center text-2xl font-light tracking-[-0.03em] text-white">
+        <h1 className="mt-6 text-center text-2xl font-light tracking-[-0.03em] text-white">
           Admin sign in
         </h1>
 
