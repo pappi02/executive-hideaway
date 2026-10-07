@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/auth";
+import NextAuth from "next-auth";
+import { authConfig } from "@/auth.config";
+
+// Uses the database-free config so Prisma is not bundled into the proxy function.
+const { auth } = NextAuth(authConfig);
 
 export default auth((req) => {
   // Server Action POSTs (React submits these to the current page's own URL
