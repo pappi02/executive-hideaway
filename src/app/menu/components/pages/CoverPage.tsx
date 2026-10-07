@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { CoverPage as CoverPageType } from '../../types/menu';
 import { venue } from '../../data/venue';
-import { CornerBrackets, Rule } from '../Ornament';
+import { BrandLogo, CornerBrackets, Rule } from '../Ornament';
 import { PageFrame } from './PageFrame';
 
 export function CoverPage({ page }: { page: CoverPageType }) {
@@ -30,8 +30,9 @@ export function CoverPage({ page }: { page: CoverPageType }) {
           {venue.city} · {venue.country}
         </p>
 
-        <h1 className="t-engraved cover-title">{venue.name}</h1>
-        <p className="cover-descriptor">{venue.descriptor}</p>
+        <h1 className="cover-title">
+          <BrandLogo width={340} />
+        </h1>
 
         <div className="cover-rule">
           <Rule width={150} />

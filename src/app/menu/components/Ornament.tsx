@@ -1,4 +1,5 @@
 import { venue } from '../data/venue';
+import { assetPath } from '../lib/basePath';
 
 /** A centred rule with a lozenge at its middle — the book's section divider. */
 export function Rule({ width = 120, tone = 'brass' }: { width?: number; tone?: 'brass' | 'ink' }) {
@@ -28,23 +29,34 @@ export function Hairline({ width = 64, tone = 'brass' }: { width?: number; tone?
   );
 }
 
-/** The house mark: initials inside a thin brass rectangle. */
-export function Monogram({ size = 56, tone = 'brass' }: { size?: number; tone?: 'brass' | 'ink' }) {
-  const color = tone === 'brass' ? 'var(--color-brass)' : 'var(--color-obsidian)';
+/** The house mark: the lotus from the resort logo. `tone` is kept for call-site compatibility. */
+export function Monogram({ size = 56 }: { size?: number; tone?: 'brass' | 'ink' }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 56 56" fill="none" aria-hidden="true">
-      <rect x="0.75" y="0.75" width="54.5" height="54.5" stroke={color} strokeWidth="0.75" opacity="0.55" />
-      <rect x="4.75" y="4.75" width="46.5" height="46.5" stroke={color} strokeWidth="0.5" opacity="0.3" />
-      <text
-        x="28"
-        y="35"
-        textAnchor="middle"
-        fill={color}
-        style={{ font: '400 19px var(--font-display)', letterSpacing: '0.14em' }}
-      >
-        {venue.monogram}
-      </text>
-    </svg>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={assetPath('/images/eh-mark.png')}
+      alt=""
+      aria-hidden="true"
+      width={size}
+      height={Math.round(size * (400 / 480))}
+      style={{ display: 'inline-block' }}
+      draggable={false}
+    />
+  );
+}
+
+/** The full resort logo: lotus and wordmark. */
+export function BrandLogo({ width = 240 }: { width?: number }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={assetPath('/images/eh-logo.png')}
+      alt={`${venue.name} ${venue.descriptor}`}
+      width={width}
+      height={Math.round(width * (600 / 960))}
+      style={{ display: 'block', marginInline: 'auto', height: 'auto', maxWidth: '100%' }}
+      draggable={false}
+    />
   );
 }
 

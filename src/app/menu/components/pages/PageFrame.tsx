@@ -2,7 +2,7 @@
 
 import { createContext, useContext, type ReactNode } from 'react';
 import type { BookPage } from '../../types/menu';
-import { venue } from '../../data/venue';
+import { Monogram } from '../Ornament';
 
 /**
  * Which half of the spread a page is printed on. Drives the gutter shadow and
@@ -38,7 +38,9 @@ export function PageFrame({ page, children, bare = false }: PageFrameProps) {
 
       {!bare && (
         <div className="page-folio" aria-hidden="true">
-          <span className="page-folio-mark">{venue.monogram}</span>
+          <span className="page-folio-mark">
+            <Monogram size={20} />
+          </span>
           <span className="page-folio-rule" />
           <span className="page-folio-number">
             {page.folio !== null ? String(page.folio).padStart(2, '0') : ''}

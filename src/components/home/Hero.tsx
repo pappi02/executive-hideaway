@@ -82,10 +82,7 @@ export default function Hero() {
       </div>
 
       {/* Bottom information */}
-      <div className="absolute bottom-6 left-5 right-5 z-10 hidden items-end justify-between sm:flex lg:left-10 lg:right-10">
-        <p className="text-[9px] uppercase tracking-[0.3em] text-white/40">
-          Executive Hideaway
-        </p>
+      <div className="absolute bottom-6 left-5 right-5 z-10 hidden items-end justify-end sm:flex lg:left-10 lg:right-10">
 
         <div className="flex items-center gap-3">
           <span className="text-[9px] uppercase tracking-[0.3em] text-white/40">

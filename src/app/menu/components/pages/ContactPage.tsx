@@ -1,6 +1,6 @@
 import type { ContactPage as ContactPageType } from '../../types/menu';
 import { venue, whatsappLink } from '../../data/venue';
-import { Monogram, Rule } from '../Ornament';
+import { BrandLogo, Monogram, Rule } from '../Ornament';
 import { PageFrame } from './PageFrame';
 import { assetPath } from '../../lib/basePath';
 
@@ -51,10 +51,9 @@ export function ContactPage({ page }: { page: ContactPageType }) {
           </a>
         </div>
 
-        <p className="contact-sign">
-          {venue.name}
-          <span className="contact-sign-sub">{venue.descriptor}</span>
-        </p>
+        <div className="contact-sign">
+          <BrandLogo width={170} />
+        </div>
       </div>
     </PageFrame>
   );

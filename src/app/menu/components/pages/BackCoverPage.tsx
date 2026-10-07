@@ -1,6 +1,6 @@
 import type { BackCoverPage as BackCoverPageType, PlatePage as PlatePageType } from '../../types/menu';
 import { venue } from '../../data/venue';
-import { CornerBrackets, Monogram } from '../Ornament';
+import { BrandLogo, CornerBrackets, Monogram } from '../Ornament';
 import { PageFrame } from './PageFrame';
 
 export function BackCoverPage({ page }: { page: BackCoverPageType }) {
@@ -9,8 +9,7 @@ export function BackCoverPage({ page }: { page: BackCoverPageType }) {
       <div className="back-cover-scrim" aria-hidden="true" />
       <CornerBrackets inset={30} length={40} />
       <div className="back-cover">
-        <Monogram size={72} />
-        <p className="t-engraved back-cover-name">{venue.name}</p>
+        <BrandLogo width={220} />
         <p className="back-cover-sub">
           {venue.address} · {venue.phoneDisplay}
         </p>
