@@ -33,9 +33,9 @@
   --color-parchment: #d8d1c2;
 
   /* Text on dark ground */
-  --color-ash: #9b978f;
-  --color-ash-dim: #6f6c66;
-  --color-ash-bright: #c6c2ba;
+  --color-ash: #bdb9b0;
+  --color-ash-dim: #97938b;
+  --color-ash-bright: #e2ded6;
 
   --font-display: var(--font-cinzel), 'Trajan Pro', Georgia, serif;
   --font-serif: var(--font-cormorant), Georgia, 'Times New Roman', serif;
@@ -93,11 +93,11 @@
   }
 
   .book-sheet-shade--front {
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.1) 42%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.06) 42%, rgba(0, 0, 0, 0) 100%);
   }
 
   .book-sheet-shade--back {
-    background: linear-gradient(270deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.1) 42%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(270deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.06) 42%, rgba(0, 0, 0, 0) 100%);
     opacity: 1;
   }
 
@@ -177,8 +177,8 @@
   .surface-onyx {
     background-color: var(--color-onyx);
     background-image:
-      radial-gradient(ellipse 120% 80% at 50% 0%, rgba(176, 141, 87, 0.07) 0%, transparent 62%),
-      linear-gradient(168deg, #1a1b1e 0%, #121214 46%, #0c0c0e 100%);
+      radial-gradient(ellipse 120% 80% at 50% 0%, rgba(176, 141, 87, 0.16) 0%, transparent 65%),
+      linear-gradient(168deg, #2e2f33 0%, #232428 46%, #1b1c1f 100%);
   }
 
   /* Warm bone stock, used for the contents and a few quiet spreads. */

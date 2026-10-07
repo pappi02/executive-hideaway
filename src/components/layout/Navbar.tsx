@@ -171,7 +171,7 @@ export default function Navbar({ tone = "light" }: NavbarProps) {
             ? "visible pointer-events-auto opacity-100"
             : "invisible pointer-events-none opacity-0"
         }`}
-        aria-hidden={!menuOpen}
+        inert={!menuOpen}
       >
         <div className="flex min-h-full flex-col px-5 pb-7 pt-24 sm:px-8 sm:pt-28">
           <nav className="flex flex-col gap-5" aria-label="Mobile navigation">

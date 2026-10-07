@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useMemo, useSyncExternalStore } from 'react';
 import { SINGLE, SPREAD, SPREAD_BREAKPOINT, type PageMetrics } from '../lib/metrics';
 
 export type BookMode = 'spread' | 'single';
@@ -34,21 +34,12 @@ const PAD_Y_DESKTOP = 44;
  * much type lands on a page — is decided here.
  */
 export function useBookFit(): Fit {
-  const [fit, setFit] = useState<Fit>({
-    mode: 'single',
-    metrics: SINGLE,
-    scale: 1,
-    stageW: SINGLE.pageW,
-    stageH: SINGLE.pageH,
-    offsetY: 0,
-    ready: false,
-  });
+  const viewport = useSyncExternalStore(subscribeViewport, readViewport, readServerViewport);
 
-  const measure = useCallback(() => {
-    const vw = window.innerWidth;
-    // visualViewport tracks what is left once mobile browser chrome and any
-    // on-screen keyboard are accounted for; innerHeight does not.
-    const vh = window.visualViewport?.height ?? window.innerHeight;
+  return useMemo(() => {
+    if (viewport === null) return INITIAL_FIT;
+
+    const [vw, vh] = viewport.split('x').map(Number);
 
     const mode: BookMode = vw >= SPREAD_BREAKPOINT ? 'spread' : 'single';
     const metrics = mode === 'spread' ? SPREAD : SINGLE;
@@ -65,7 +56,7 @@ export function useBookFit(): Fit {
       (vh - padY * 2 - chromeH) / stageH,
     );
 
-    setFit({
+    return {
       mode,
       metrics,
       scale: Math.max(scale, 0.1),
@@ -75,20 +66,42 @@ export function useBookFit(): Fit {
       // navigation pill would otherwise open up above it instead of below.
       offsetY: -chromeH / 2,
       ready: true,
-    });
-  }, []);
-
-  useEffect(() => {
-    measure();
-    window.addEventListener('resize', measure);
-    window.addEventListener('orientationchange', measure);
-    window.visualViewport?.addEventListener('resize', measure);
-    return () => {
-      window.removeEventListener('resize', measure);
-      window.removeEventListener('orientationchange', measure);
-      window.visualViewport?.removeEventListener('resize', measure);
     };
-  }, [measure]);
+  }, [viewport]);
+}
 
-  return fit;
+/** Shown on the server and before the first client measurement. */
+const INITIAL_FIT: Fit = {
+  mode: 'single',
+  metrics: SINGLE,
+  scale: 1,
+  stageW: SINGLE.pageW,
+  stageH: SINGLE.pageH,
+  offsetY: 0,
+  ready: false,
+};
+
+function subscribeViewport(onChange: () => void) {
+  window.addEventListener('resize', onChange);
+  window.addEventListener('orientationchange', onChange);
+  window.visualViewport?.addEventListener('resize', onChange);
+  return () => {
+    window.removeEventListener('resize', onChange);
+    window.removeEventListener('orientationchange', onChange);
+    window.visualViewport?.removeEventListener('resize', onChange);
+  };
+}
+
+/**
+ * Viewport size as a primitive, so React can compare snapshots by value.
+ * visualViewport tracks what is left once mobile browser chrome and any
+ * on-screen keyboard are accounted for; innerHeight does not.
+ */
+function readViewport(): string {
+  const vh = window.visualViewport?.height ?? window.innerHeight;
+  return `${window.innerWidth}x${vh}`;
+}
+
+function readServerViewport(): null {
+  return null;
 }
