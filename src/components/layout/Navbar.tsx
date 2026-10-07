@@ -1,6 +1,7 @@
 ﻿
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -92,16 +93,25 @@ export default function Navbar({ tone = "light" }: NavbarProps) {
             : ""
         }`}
       >
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 sm:py-5 lg:px-10">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 sm:px-8 sm:py-4 lg:px-10">
           {/* Brand */}
           <Link
             href="/"
             onClick={closeMenu}
-            className={`relative z-70 text-xs font-semibold uppercase tracking-[0.16em] transition-colors ${
-              isDark ? "text-[#0b0b0a]" : "text-white"
-            }`}
+            aria-label="Executive Hideaway Spa and Resort — home"
+            className="relative z-70 block shrink-0"
           >
-            Executive
+            <Image
+              src="/images/eh-logo.png"
+              alt="Executive Hideaway Spa and Resort"
+              width={512}
+              height={320}
+              priority
+              sizes="(min-width: 1024px) 116px, (min-width: 640px) 102px, 90px"
+              className={`h-14 w-auto sm:h-16 lg:h-18 ${
+                isDark ? "" : "drop-shadow-[0_1px_6px_rgba(0,0,0,0.55)]"
+              }`}
+            />
           </Link>
 
           {/* Desktop Navigation */}

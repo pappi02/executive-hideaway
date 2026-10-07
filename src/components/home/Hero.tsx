@@ -20,9 +20,9 @@ export default function Hero() {
       />
 
       {/* Image treatment */}
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-black/10" />
 
-      <div className="absolute inset-0 bg-linear-to-b from-black/55 via-black/10 to-[#0b0b0a]" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/35 via-transparent via-45% to-[#0b0b0a]/85" />
 
       {/* Hero Content */}
       <div className="relative z-10 flex h-full flex-col justify-end px-5 pb-8 pt-24 sm:px-8 sm:pb-12 lg:px-10 lg:pb-14">
