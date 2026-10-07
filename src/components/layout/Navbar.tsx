@@ -104,8 +104,8 @@ export default function Navbar({ tone = "light" }: NavbarProps) {
             <Image
               src="/images/eh-logo.png"
               alt="Executive Hideaway Spa and Resort"
-              width={512}
-              height={320}
+              width={960}
+              height={600}
               priority
               sizes="(min-width: 1024px) 116px, (min-width: 640px) 102px, 90px"
               className={`h-14 w-auto sm:h-16 lg:h-18 ${

@@ -4,6 +4,7 @@ import {
   MapPin,
   Phone,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { businessContact } from "@/data/contact";
@@ -78,21 +79,35 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Brand */}
+        <div className="flex flex-col items-center gap-6 border-b border-white/10 py-10 text-center sm:flex-row sm:items-end sm:justify-between sm:gap-10 sm:py-12 sm:text-left lg:py-14">
+          <Link
+            href="/"
+            aria-label="Executive Hideaway Spa and Resort — home"
+            className="block shrink-0"
+          >
+            <Image
+              src="/images/eh-logo.png"
+              alt="Executive Hideaway Spa and Resort"
+              width={960}
+              height={600}
+              sizes="(min-width: 1024px) 320px, (min-width: 640px) 288px, 240px"
+              className="h-auto w-60 sm:w-72 lg:w-80"
+            />
+          </Link>
+
+          <p className="max-w-xs text-xs leading-6 text-white/45 sm:pb-2 sm:text-right sm:text-sm">
+            Resort · Spa · Wellness · Stays
+            <br />
+            Kileleshwa, Nairobi
+          </p>
+        </div>
+
         {/* Footer information */}
         <div className="grid grid-cols-2">
-          {/* LEFT — Brand & Navigation */}
+          {/* LEFT — Navigation */}
           <div className="py-8 pr-5 sm:py-10 sm:pr-10 lg:py-14 lg:pr-8">
-            <p className="text-2xl font-light leading-[0.95] tracking-[-0.04em] sm:text-3xl lg:text-4xl">
-              Executive
-              <br />
-              <span className="text-white/30">Hideaway</span>
-            </p>
-
-            <p className="mt-2 text-xs text-white/30 sm:text-sm">
-              Resort & Spa
-            </p>
-
-            <div className="mt-6 sm:mt-16">
+            <div>
               <p className="text-[8px] font-semibold uppercase tracking-[0.25em] text-white/25">
                 Explore
               </p>
