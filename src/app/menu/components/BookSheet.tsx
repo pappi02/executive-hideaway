@@ -48,6 +48,7 @@ function BookSheetImpl({
     <div
       className="book-sheet"
       data-turned={turned}
+      data-far={!mounted || undefined}
       style={{
         zIndex,
         width: metrics.pageW,

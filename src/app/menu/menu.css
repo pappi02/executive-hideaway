@@ -65,7 +65,15 @@
     transform-origin: left center;
     transform-style: preserve-3d;
     transition: transform var(--flip-duration, 900ms) cubic-bezier(0.645, 0.045, 0.355, 1);
-    will-change: transform;
+  }
+
+  /* Leaves outside the reading window are hidden beneath the ones in it, so
+     they are taken out of rendering entirely. Every 3D-transformed leaf is
+     its own GPU layer, and on iOS a full book of them (at 3x pixel density)
+     exhausts WebKit's memory budget and Safari kills the tab with "A problem
+     repeatedly occurred". No permanent will-change for the same reason. */
+  .book-sheet[data-far='true'] {
+    display: none;
   }
 
   .book-sheet-face {

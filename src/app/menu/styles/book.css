@@ -670,6 +670,16 @@
     filter: drop-shadow(0 40px 70px rgba(0,0,0,0.7));
   }
 
+  /* On phones the stage is exactly one page, so a box-shadow draws the same
+     shadow. A filter over a 3D subtree makes iOS Safari render the whole
+     stage into a large offscreen buffer, which is what it runs out of memory on. */
+  @media (max-width: 1023px) {
+    .book-stage {
+      filter: none;
+      box-shadow: 0 40px 70px rgba(0,0,0,0.7);
+    }
+  }
+
   .book-edge--left {
     background: repeating-linear-gradient(
       90deg,
