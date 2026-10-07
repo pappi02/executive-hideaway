@@ -7,8 +7,16 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { getAccommodationSettings, getActiveAccommodationBySlug } from "@/data/accommodation";
 import { buildMetadata } from "@/lib/seo";
+import { accommodationImageSrc } from "@/lib/accommodation-image-src";
 
-export const dynamic = "force-dynamic";
+// Cached and served from the CDN; refreshed hourly, and immediately when the
+// admin dashboard saves a change (revalidatePath in the admin actions).
+export const revalidate = 3600;
+
+// No room pages are built ahead of time; each is rendered on its first visit and then cached.
+export function generateStaticParams() {
+  return [];
+}
 
 type RoomPageProps = { params: Promise<{ slug: string }> };
 
@@ -21,7 +29,7 @@ export async function generateMetadata({ params }: RoomPageProps): Promise<Metad
     title: room.name,
     description: room.description,
     path: `/accommodation/${room.slug}`,
-    image: room.images[0] ? `/api/accommodation-images/${room.images[0].id}` : "/images/hero.png",
+    image: room.images[0] ? accommodationImageSrc(room.images[0]) : "/images/hero.png",
   });
 }
 
@@ -61,7 +69,7 @@ export default async function AccommodationRoomPage({ params }: RoomPageProps) {
               <div className={`mt-8 grid gap-3 ${room.images.length > 1 ? "sm:grid-cols-2" : ""}`}>
                 {room.images.map((image, index) => (
                   <figure key={image.id} className={`relative overflow-hidden bg-[#ddd6ca] ${index === 0 ? "aspect-[1.28] sm:row-span-2 sm:aspect-auto sm:min-h-110" : "aspect-[1.28]"}`}>
-                    <Image src={`/api/accommodation-images/${image.id}`} alt={image.altText} fill priority={index === 0} sizes={index === 0 ? "(max-width: 640px) 100vw, 65vw" : "(max-width: 640px) 100vw, 35vw"} className="object-cover" />
+                    <Image src={accommodationImageSrc(image)} alt={image.altText} fill priority={index === 0} sizes={index === 0 ? "(max-width: 640px) 100vw, 65vw" : "(max-width: 640px) 100vw, 35vw"} className="object-cover" />
                   </figure>
                 ))}
               </div>

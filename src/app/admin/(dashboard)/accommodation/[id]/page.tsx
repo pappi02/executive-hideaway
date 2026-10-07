@@ -25,7 +25,7 @@ export default async function AccommodationEditorPage({
 
   const room = await prisma.accommodation.findUnique({
     where: { id },
-    include: { images: { orderBy: { order: "asc" }, select: { id: true, altText: true, order: true } } },
+    include: { images: { orderBy: { order: "asc" }, select: { id: true, url: true, altText: true, order: true } } },
   });
   if (!room) notFound();
 

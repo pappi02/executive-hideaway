@@ -9,11 +9,15 @@
     "lint": "eslint",
     "postinstall": "prisma generate",
     "db:generate": "prisma generate",
-    "db:migrate": "prisma migrate dev",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:migrate": "node --env-file=.env.local node_modules/prisma/build/index.js migrate dev",
+    "db:deploy": "node --env-file=.env.local node_modules/prisma/build/index.js migrate deploy",
+    "db:status": "node --env-file=.env.local node_modules/prisma/build/index.js migrate status",
+    "db:seed": "tsx prisma/seed.ts",
+    "images:migrate": "tsx scripts/migrate-accommodation-images-to-blob.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
+    "@vercel/blob": "^2.8.1",
     "bcryptjs": "^3.0.3",
     "lucide-react": "^1.35.0",
     "motion": "^13.1.1",

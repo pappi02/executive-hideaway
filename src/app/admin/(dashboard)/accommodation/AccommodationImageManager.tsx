@@ -7,9 +7,11 @@ import {
   updateAccommodationImageAlt,
   uploadAccommodationImages,
 } from "./actions";
+import { accommodationImageSrc } from "@/lib/accommodation-image-src";
 
 interface RoomImage {
   id: string;
+  url: string | null;
   altText: string;
   order: number;
 }
@@ -54,7 +56,7 @@ export function AccommodationImageManager({
             <li key={image.id} className="overflow-hidden border border-black/10 bg-white">
               <div className="relative aspect-4/3 bg-black/5">
                 <Image
-                  src={`/api/accommodation-images/${image.id}`}
+                  src={accommodationImageSrc(image)}
                   alt={image.altText}
                   fill
                   sizes="(max-width: 640px) 100vw, 50vw"

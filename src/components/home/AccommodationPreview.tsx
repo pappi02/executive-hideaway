@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { getFeaturedAccommodation } from "@/data/accommodation";
+import { accommodationImageSrc } from "@/lib/accommodation-image-src";
 
 export default async function AccommodationPreview() {
   let room: Awaited<ReturnType<typeof getFeaturedAccommodation>>;
@@ -18,7 +19,7 @@ export default async function AccommodationPreview() {
     <section className="bg-bone px-5 py-9 text-[#0b0b0a] sm:px-8 sm:py-12 lg:px-10 lg:py-14">
       <div className="mx-auto grid max-w-7xl gap-6 sm:grid-cols-[1.05fr_0.95fr] sm:items-center sm:gap-9 lg:gap-14">
         <Link href={`/accommodation/${room.slug}`} className="relative block aspect-[1.35] overflow-hidden bg-[#d7d1c4] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#80683c]">
-          {image ? <Image src={`/api/accommodation-images/${image.id}`} alt={image.altText} fill sizes="(max-width: 640px) 100vw, 50vw" className="object-cover" /> : <span className="absolute inset-0 grid place-items-center text-sm text-black/45">Room photography is being updated.</span>}
+          {image ? <Image src={accommodationImageSrc(image)} alt={image.altText} fill sizes="(max-width: 640px) 100vw, 50vw" className="object-cover" /> : <span className="absolute inset-0 grid place-items-center text-sm text-black/45">Room photography is being updated.</span>}
         </Link>
         <div className="max-w-xl">
           <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#80683c]">A place to stay</p>
