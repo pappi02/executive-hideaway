@@ -2,8 +2,9 @@ import type { MetadataRoute } from "next";
 import { prisma } from "@/lib/prisma";
 import { siteUrl } from "@/lib/site-config";
 
-// Room URLs come from the database, so render per request rather than at build time.
-export const dynamic = "force-dynamic";
+// Room URLs come from the database; cache the sitemap and refresh it hourly
+// (room edits in the admin dashboard also revalidate it).
+export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const rooms = await prisma.accommodation

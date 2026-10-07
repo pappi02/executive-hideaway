@@ -7,7 +7,9 @@ import AccommodationPreview from "@/components/home/AccommodationPreview";
 import Gallery from "@/components/home/Gallery";
 import Footer from "@/components/layout/Footer";
 
-export const dynamic = "force-dynamic";
+// Cached and served from the CDN; refreshed hourly, and immediately when the
+// admin dashboard saves a change (revalidatePath in the admin actions).
+export const revalidate = 3600;
 
 export default async function Home() {
   return (

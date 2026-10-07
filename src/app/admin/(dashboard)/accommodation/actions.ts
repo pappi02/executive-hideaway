@@ -3,6 +3,11 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/require-admin";
+import {
+  deleteAccommodationBlobs,
+  isBlobStorageConfigured,
+  storeAccommodationImage,
+} from "@/lib/accommodation-images";
 
 function slugify(value: string) {
   return value
@@ -74,6 +79,9 @@ function readAccommodationFields(formData: FormData) {
 }
 
 function revalidateAccommodation() {
+  // The home page shows the featured room and the sitemap lists room URLs.
+  revalidatePath("/");
+  revalidatePath("/sitemap.xml");
   revalidatePath("/accommodation");
   revalidatePath("/accommodation/[slug]", "page");
   revalidatePath("/admin/accommodation");
@@ -112,7 +120,13 @@ export async function deleteAccommodation(formData: FormData) {
   await requireAdmin();
   const id = requiredText(formData, "id", "Room ID");
 
+  // Image rows cascade-delete with the room; collect their Blob URLs first.
+  const images = await prisma.accommodationImage.findMany({
+    where: { accommodationId: id },
+    select: { url: true },
+  });
   await prisma.accommodation.delete({ where: { id } });
+  await deleteAccommodationBlobs(images.map((image) => image.url));
   revalidateAccommodation();
 }
 
@@ -164,16 +178,43 @@ export async function uploadAccommodationImages(
       throw new Error("The selected file contents do not match their image format.");
     }
 
-    return {
-      accommodationId,
-      data,
-      contentType: file.type,
-      altText,
-      order: firstOrder + index,
-    };
+    return { data, contentType: file.type, order: firstOrder + index };
   });
+  const validated = await Promise.all(uploads);
 
-  await prisma.accommodationImage.createMany({ data: await Promise.all(uploads) });
+  if (!isBlobStorageConfigured()) {
+    // Fallback until a Blob store is connected: keep the old behaviour of storing bytes in Postgres.
+    console.warn("BLOB_READ_WRITE_TOKEN is not set; storing accommodation images in the database.");
+    await prisma.accommodationImage.createMany({
+      data: validated.map((image) => ({ accommodationId, altText, ...image })),
+    });
+    revalidateAccommodation();
+    return;
+  }
+
+  const stored = await Promise.allSettled(
+    validated.map((image) => storeAccommodationImage(accommodationId, image.data, image.contentType)),
+  );
+  const failed = stored.find((result) => result.status === "rejected");
+  if (failed) {
+    await deleteAccommodationBlobs(stored.map((result) => (result.status === "fulfilled" ? result.value : null)));
+    throw new Error("An image could not be uploaded. Please try again.", { cause: failed.reason });
+  }
+  const urls = stored.map((result) => (result as PromiseFulfilledResult<string>).value);
+  try {
+    await prisma.accommodationImage.createMany({
+      data: validated.map((image, index) => ({
+        accommodationId,
+        altText,
+        url: urls[index],
+        contentType: image.contentType,
+        order: image.order,
+      })),
+    });
+  } catch (error) {
+    await deleteAccommodationBlobs(urls);
+    throw error;
+  }
   revalidateAccommodation();
 }
 
@@ -188,12 +229,12 @@ export async function updateAccommodationImageAlt(formData: FormData) {
 export async function deleteAccommodationImage(formData: FormData) {
   await requireAdmin();
   const id = requiredText(formData, "id", "Image ID");
-  await prisma.$transaction(async (transaction) => {
+  const deletedUrl = await prisma.$transaction(async (transaction) => {
     const image = await transaction.accommodationImage.findUnique({
       where: { id },
-      select: { accommodationId: true },
+      select: { accommodationId: true, url: true },
     });
-    if (!image) return;
+    if (!image) return null;
     await transaction.accommodationImage.delete({ where: { id } });
     const remaining = await transaction.accommodationImage.findMany({
       where: { accommodationId: image.accommodationId },
@@ -203,7 +244,9 @@ export async function deleteAccommodationImage(formData: FormData) {
     await Promise.all(remaining.map((item, order) =>
       transaction.accommodationImage.update({ where: { id: item.id }, data: { order } }),
     ));
+    return image.url;
   });
+  await deleteAccommodationBlobs([deletedUrl]);
   revalidateAccommodation();
 }
 

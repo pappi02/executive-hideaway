@@ -77,7 +77,10 @@ model AccommodationImage {
   id              String        @id @default(cuid())
   accommodationId String
   accommodation   Accommodation @relation(fields: [accommodationId], references: [id], onDelete: Cascade)
-  data            Bytes         @db.ByteA
+  // Vercel Blob URL. New uploads store the image there and leave `data` null.
+  url             String?
+  // Legacy: raw image bytes. Only set on rows not yet moved by `npm run images:migrate`.
+  data            Bytes?        @db.ByteA
   contentType     String
   altText         String
   order           Int           @default(0)
