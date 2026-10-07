@@ -139,6 +139,8 @@ export interface StatementPage extends BasePage {
   imagePosition?: string;
   /** Prints the key to the dietary marks beneath the text. */
   legend?: boolean;
+  /** Replaces `title` with a time-of-day greeting in East Africa Time. */
+  greeting?: boolean;
 }
 
 export interface ContactPage extends BasePage {

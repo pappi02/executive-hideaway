@@ -75,7 +75,8 @@ function buildBook(metrics: PageMetrics, chapters: Chapter[]): Book {
     kind: 'statement',
     stock: 'onyx',
     eyebrow: 'Welcome',
-    title: 'Good Evening',
+    title: 'Welcome',
+    greeting: true,
     body:
       'This is a kitchen without shortcuts. Stock is simmered overnight, bread is proved here, ' +
       'the fish comes up from the coast twice a week, and the beef is aged before it ever sees ' +

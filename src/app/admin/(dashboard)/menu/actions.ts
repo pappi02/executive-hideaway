@@ -96,7 +96,6 @@ export async function deleteSection(formData: FormData) {
   await requireAdmin();
 
   const id = String(formData.get("id") ?? "");
-  const chapterId = String(formData.get("chapterId") ?? "");
   if (!id) return;
 
   await prisma.section.delete({ where: { id } });
@@ -123,7 +122,6 @@ function readDishFields(formData: FormData) {
 export async function createDish(formData: FormData) {
   await requireAdmin();
 
-  const chapterId = String(formData.get("chapterId") ?? "");
   const sectionId = String(formData.get("sectionId") ?? "");
   const fields = readDishFields(formData);
   const id = `${sectionId}-${slugify(fields.name)}`;
@@ -153,7 +151,6 @@ export async function deleteDish(formData: FormData) {
   await requireAdmin();
 
   const id = String(formData.get("id") ?? "");
-  const chapterId = String(formData.get("chapterId") ?? "");
   if (!id) return;
 
   await prisma.dish.delete({ where: { id } });

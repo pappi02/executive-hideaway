@@ -9,7 +9,6 @@ export default function Loading() {
           alt="Executive Hideaway Spa and Resort"
           width={960}
           height={600}
-          priority
           sizes="(min-width: 640px) 192px, 160px"
           className="h-auto w-40 sm:w-48"
         />

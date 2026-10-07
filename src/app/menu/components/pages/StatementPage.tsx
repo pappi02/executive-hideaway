@@ -2,10 +2,13 @@ import type { StatementPage as StatementPageType } from '../../types/menu';
 import { Monogram, Rule } from '../Ornament';
 import { INLINE_TAGS, TAG_GLYPH, TAG_LABEL } from '../menu/DishTags';
 import { PageFrame } from './PageFrame';
+import { useEatGreeting } from '../../lib/greeting';
 
 /** A single paragraph given a whole page — the welcome and the allergen note. */
 export function StatementPage({ page }: { page: StatementPageType }) {
   const tone = page.stock === 'bone' ? 'ink' : 'brass';
+  const greeting = useEatGreeting();
+  const title = page.greeting ? greeting : page.title;
 
   return (
     <PageFrame page={page}>
@@ -23,7 +26,7 @@ export function StatementPage({ page }: { page: StatementPageType }) {
       <div className="statement">
         <Monogram size={54} tone={tone} />
         <p className="t-eyebrow statement-eyebrow">{page.eyebrow}</p>
-        <h2 className="t-engraved statement-title">{page.title}</h2>
+        <h2 className="t-engraved statement-title" suppressHydrationWarning>{title}</h2>
         <div className="statement-rule">
           <Rule width={118} tone={tone} />
         </div>
