@@ -40,14 +40,13 @@ export const businessContact = {
     country: "KE",
     postalCode: "00100",
     placeLabel: "PQ9H+2M Nairobi",
-    googleMapsUrl:
-      "https://www.google.com/maps/search/?api=1&query=275+Nyeri+Cl%2C+Nairobi%2C+Kenya",
+    // The venue's own Google Maps listing (place 0x182f1b003f17d659:0xcd16e03dedfdc84d).
+    googleMapsUrl: "https://maps.app.goo.gl/5pxCeKhh6aQ1fR1R6",
     embedUrl:
-      "https://www.google.com/maps?q=275+Nyeri+Cl,+Nairobi,+Kenya&output=embed",
-    // Approximate coordinates for Kileleshwa, Nairobi — used for JSON-LD geo.
-    // Replace with the exact venue coordinates once confirmed.
-    latitude: -1.2769,
-    longitude: 36.7793,
+      "https://www.google.com/maps?q=-1.2824949,36.7792489&z=17&output=embed",
+    // Exact pin of the Google Maps listing — used for the embed and JSON-LD geo.
+    latitude: -1.2824949,
+    longitude: 36.7792489,
   },
   socialLinks: [
     {
