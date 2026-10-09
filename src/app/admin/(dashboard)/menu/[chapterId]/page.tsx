@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { requireAdmin } from "@/lib/require-admin";
 import { AdminForm } from "@/components/admin/AdminForm";
 import {
   createChapter,
@@ -21,6 +22,7 @@ export default async function ChapterDetailPage({
 }: {
   params: Promise<{ chapterId: string }>;
 }) {
+  await requireAdmin();
   const { chapterId } = await params;
 
   if (chapterId === "new") {

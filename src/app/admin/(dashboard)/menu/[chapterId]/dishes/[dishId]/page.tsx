@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { requireAdmin } from "@/lib/require-admin";
 import { AdminForm } from "@/components/admin/AdminForm";
 import { updateDish } from "../../../actions";
 import { DeleteDishButton } from "../../../DeleteDishButton";
@@ -14,6 +15,7 @@ export default async function EditDishPage({
 }: {
   params: Promise<{ chapterId: string; dishId: string }>;
 }) {
+  await requireAdmin();
   const { chapterId, dishId } = await params;
   const dish = await prisma.dish.findUnique({ where: { id: dishId } });
 

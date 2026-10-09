@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { requireAdmin } from "@/lib/require-admin";
 
 export default async function AdminHomePage() {
+  await requireAdmin();
   const [serviceCount, accommodationCount, chapterCount, dishCount] = await Promise.all([
     prisma.service.count(),
     prisma.accommodation.count(),

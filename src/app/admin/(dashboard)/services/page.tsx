@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { requireAdmin } from "@/lib/require-admin";
 import { ServiceRow } from "./ServiceRow";
 import { DeleteServiceButton } from "./DeleteServiceButton";
 
 export default async function AdminServicesPage() {
+  await requireAdmin();
   const services = await prisma.service.findMany({
     orderBy: [{ categoryId: "asc" }, { order: "asc" }],
     include: { category: true },

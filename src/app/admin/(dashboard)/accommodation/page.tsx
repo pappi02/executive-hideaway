@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AdminForm } from "@/components/admin/AdminForm";
 import { prisma } from "@/lib/prisma";
+import { requireAdmin } from "@/lib/require-admin";
 import {
   createResortFacility,
   deleteResortFacility,
@@ -14,6 +15,7 @@ const inputClass = "min-h-10 w-full rounded-lg border border-black/15 bg-white p
 const labelClass = "mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.13em] text-black/55";
 
 export default async function AdminAccommodationPage() {
+  await requireAdmin();
   const [rooms, facilities, settings] = await Promise.all([
     prisma.accommodation.findMany({
       orderBy: [{ order: "asc" }, { name: "asc" }],

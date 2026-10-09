@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { requireAdmin } from "@/lib/require-admin";
 import { createService, updateService } from "../actions";
 import { ServiceForm } from "../ServiceForm";
 import { DeleteServiceButton } from "../DeleteServiceButton";
@@ -9,6 +10,7 @@ export default async function ServiceFormPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  await requireAdmin();
   const { id } = await params;
   const isNew = id === "new";
 

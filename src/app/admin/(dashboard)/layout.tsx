@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { signOut } from "@/auth";
 import { ToastProvider } from "@/components/admin/Toast";
+import { requireAdmin } from "@/lib/require-admin";
 
 // Auth-gated and always reflects live DB state — never statically prerendered.
 export const dynamic = "force-dynamic";
@@ -13,11 +14,15 @@ const navItems = [
   { href: "/admin/menu", label: "Menu" },
 ];
 
-export default function AdminDashboardLayout({
+export default async function AdminDashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // proxy.ts already redirects anonymous visitors; checking here too means the
+  // dashboard never renders on the strength of the proxy alone.
+  await requireAdmin();
+
   return (
     <ToastProvider>
     <div className="min-h-svh bg-[#f3efe6] text-[#0b0b0a]">

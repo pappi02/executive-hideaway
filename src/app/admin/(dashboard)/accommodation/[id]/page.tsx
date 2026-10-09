@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { requireAdmin } from "@/lib/require-admin";
 import { AccommodationForm, type AccommodationFormValues } from "../AccommodationForm";
 import { AccommodationImageManager } from "../AccommodationImageManager";
 import { createAccommodation, updateAccommodation } from "../actions";
@@ -10,6 +11,7 @@ export default async function AccommodationEditorPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  await requireAdmin();
   const { id } = await params;
   const isNew = id === "new";
 

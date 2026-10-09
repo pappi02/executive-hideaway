@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { requireAdmin } from "@/lib/require-admin";
 
 export default async function AdminMenuPage() {
+  await requireAdmin();
   const chapters = await prisma.chapter.findMany({
     orderBy: { order: "asc" },
     include: {
