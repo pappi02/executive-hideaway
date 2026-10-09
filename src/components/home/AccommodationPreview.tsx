@@ -5,12 +5,10 @@ import { getFeaturedAccommodation } from "@/data/accommodation";
 import { accommodationImageSrc } from "@/lib/accommodation-image-src";
 
 export default async function AccommodationPreview() {
-  let room: Awaited<ReturnType<typeof getFeaturedAccommodation>>;
-  try {
-    room = await getFeaturedAccommodation();
-  } catch {
-    return null;
-  }
+  // No try/catch on purpose: if the database is unreachable while the hourly
+  // revalidation runs, the render fails and Next.js keeps serving the last good
+  // home page. Catching here would cache a page without the room for an hour.
+  const room = await getFeaturedAccommodation();
   if (!room) return null;
 
   const image = room.images[0];

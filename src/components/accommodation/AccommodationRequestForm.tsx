@@ -2,6 +2,7 @@
 
 import { useState, useTransition, type FormEvent } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { createAccommodationRequestLink } from "@/app/accommodation/request/actions";
 import { isKenyanMobile } from "@/lib/phone";
@@ -212,4 +213,13 @@ export function AccommodationRequestForm({ rooms, initialSlug }: { rooms: Reques
       </aside>
     </div>
   );
+}
+/**
+ * Reads ?room= in the browser so the request page itself can be prerendered and
+ * cached (reading searchParams on the server made every visit a database query).
+ * Render inside <Suspense> with a plain AccommodationRequestForm as the fallback.
+ */
+export function AccommodationRequestFormFromUrl({ rooms }: { rooms: RequestRoom[] }) {
+  const initialSlug = useSearchParams().get("room") ?? "";
+  return <AccommodationRequestForm key={initialSlug} rooms={rooms} initialSlug={initialSlug} />;
 }

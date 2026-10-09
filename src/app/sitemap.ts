@@ -7,18 +7,14 @@ import { siteUrl } from "@/lib/site-config";
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // A database outage shouldn't take the whole sitemap down, but it must not
-  // pass silently either — the room URLs are missing until the next refresh.
-  const rooms = await prisma.accommodation
-    .findMany({
-      where: { active: true },
-      select: { slug: true, updatedAt: true },
-      orderBy: { order: "asc" },
-    })
-    .catch((error) => {
-      console.error("sitemap: could not load rooms; omitting room URLs", error);
-      return [];
-    });
+  // No catch: if the database is unreachable during revalidation, the
+  // regeneration fails and the last good sitemap keeps being served, instead of
+  // a sitemap without room URLs being cached for an hour.
+  const rooms = await prisma.accommodation.findMany({
+    where: { active: true },
+    select: { slug: true, updatedAt: true },
+    orderBy: { order: "asc" },
+  });
   const routes: { path: string; changeFrequency: "weekly" | "monthly"; priority: number }[] = [
     { path: "", changeFrequency: "weekly", priority: 1 },
     { path: "/accommodation", changeFrequency: "monthly", priority: 0.8 },

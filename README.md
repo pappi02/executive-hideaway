@@ -39,3 +39,8 @@ npm run db:deploy   # apply them
 ## Environment
 
 See `.env.example` for every variable the app reads.
+
+## Operations
+
+Plan upgrades, dashboard settings and manual steps the code cannot do are tracked in
+[`docs/OPERATIONS-CHECKLIST.md`](docs/OPERATIONS-CHECKLIST.md).

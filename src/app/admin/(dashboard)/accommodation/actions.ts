@@ -100,6 +100,7 @@ function revalidateAccommodation() {
   revalidatePath("/");
   revalidatePath("/sitemap.xml");
   revalidatePath("/accommodation");
+  revalidatePath("/accommodation/request");
   revalidatePath("/accommodation/[slug]", "page");
   revalidatePath("/admin/accommodation");
 }

@@ -44,6 +44,14 @@ const nextConfig: NextConfig = {
 	// compilers for every database in @prisma/client/runtime.
 	serverExternalPackages: ["bcryptjs"],
 	images: {
+		// Every distinct (image, width, format) is a billable transformation, and
+		// Hobby includes only 5,000 a month. Fewer widths means fewer variants
+		// (the defaults allow 15 per image), and a 31-day cache means each variant
+		// is transformed about once a month instead of every 4 hours.
+		// Replacing a file under /public: give it a new name so the change shows.
+		deviceSizes: [640, 828, 1080, 1440, 1920],
+		imageSizes: [64, 128, 256, 384],
+		minimumCacheTTL: 60 * 60 * 24 * 31,
 		// Room photos are stored in Vercel Blob (see src/lib/accommodation-images.ts).
 		remotePatterns: [
 			{
@@ -63,6 +71,16 @@ const nextConfig: NextConfig = {
 			{
 				source: "/:path*",
 				headers: securityHeaders,
+			},
+			{
+				// Original photos under /public/images (served directly by the menu's
+				// CSS backgrounds and used as next/image sources). Without this they go
+				// out with max-age=0 and every page view re-requests them. A day fresh,
+				// then a week of background revalidation.
+				source: "/images/:path*",
+				headers: [
+					{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
+				],
 			},
 		];
 	},

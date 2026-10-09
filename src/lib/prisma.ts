@@ -21,7 +21,8 @@ export function createPrismaClient(connectionUrl: string | undefined) {
     url.searchParams.delete(name);
     return value === null ? undefined : Number(value);
   };
-  const connectionLimit = param("connection_limit");
+  // Prisma 6's per-instance limit. Ignored: see `max` below.
+  param("connection_limit");
   const connectTimeout = param("connect_timeout");
   const poolTimeout = param("pool_timeout");
   url.searchParams.delete("pgbouncer");
@@ -30,8 +31,11 @@ export function createPrismaClient(connectionUrl: string | undefined) {
 
   const adapter = new PrismaPg({
     connectionString: url.toString(),
-    // One connection per serverless instance, as connection_limit=1 did before.
-    max: connectionLimit ?? 1,
+    // A few connections per function instance. One instance can serve several
+    // requests at once (Vercel Fluid compute), and with a single connection they
+    // queue behind each other and time out under bursts. Supabase's transaction
+    // pooler multiplexes these onto its own small set of database connections.
+    max: Number(process.env.DATABASE_POOL_MAX) || 3,
     connectionTimeoutMillis: (connectTimeout ?? poolTimeout ?? 10) * 1000,
     idleTimeoutMillis: 10_000,
     ssl: ca ? { ca } : { rejectUnauthorized: false },

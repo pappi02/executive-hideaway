@@ -34,7 +34,7 @@ export function Monogram({ size = 56 }: { size?: number; tone?: 'brass' | 'ink' 
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={assetPath('/images/eh-mark.png')}
+      src={assetPath('/images/eh-mark-menu.webp')}
       alt=""
       aria-hidden="true"
       width={size}
@@ -50,7 +50,7 @@ export function BrandLogo({ width = 240 }: { width?: number }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={assetPath('/images/eh-logo.png')}
+      src={assetPath('/images/eh-logo-menu.webp')}
       alt={`${venue.name} ${venue.descriptor}`}
       width={width}
       height={Math.round(width * (600 / 960))}
