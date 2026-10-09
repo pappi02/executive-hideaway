@@ -1,3 +1,4 @@
+import type { ActionResult } from "@/lib/admin-action";
 import Link from "next/link";
 import { AdminForm } from "@/components/admin/AdminForm";
 
@@ -24,7 +25,7 @@ export function ChapterForm({
   successMessage,
   redirectTo,
 }: {
-  action: (formData: FormData) => Promise<void>;
+  action: (formData: FormData) => Promise<ActionResult>;
   defaultValues?: ChapterFormValues;
   submitLabel: string;
   backHref?: string;

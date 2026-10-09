@@ -35,7 +35,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-3 border-t border-black/10 py-6 sm:flex-row sm:items-center sm:justify-between"><p className="text-[8px] uppercase tracking-[0.2em] text-black/25">Executive Hideaway Barber and Spa</p><p className="text-[8px] uppercase tracking-[0.2em] text-black/20">Nairobi, Kenya</p></div>
+            <div className="flex flex-col gap-3 border-t border-black/10 py-6 sm:flex-row sm:items-center sm:justify-between"><p className="text-[8px] uppercase tracking-[0.2em] text-black/25">Executive Hideaway Resort &amp; Spa</p><p className="text-[8px] uppercase tracking-[0.2em] text-black/20">Nairobi, Kenya</p></div>
           </div>
         </main>
       </body>

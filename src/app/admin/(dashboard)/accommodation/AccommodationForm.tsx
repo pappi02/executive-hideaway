@@ -1,3 +1,4 @@
+import type { ActionResult } from "@/lib/admin-action";
 import Link from "next/link";
 import { AdminForm } from "@/components/admin/AdminForm";
 
@@ -77,7 +78,7 @@ export function AccommodationForm({
   submitLabel,
   successMessage,
 }: {
-  action: (formData: FormData) => Promise<void>;
+  action: (formData: FormData) => Promise<ActionResult>;
   defaultValues?: AccommodationFormValues;
   submitLabel: string;
   successMessage: string;

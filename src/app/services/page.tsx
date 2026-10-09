@@ -9,7 +9,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildMetadata({
   title: "Services",
   description:
-    "Explore grooming, massage, spa, facial, nail care, and wellness services at Executive Hideaway Barber and Spa in Nairobi.",
+    "Explore grooming, massage, spa, facial, nail care, and wellness services at Executive Hideaway Resort & Spa in Nairobi.",
   path: "/services",
 });
 

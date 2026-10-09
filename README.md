@@ -19,5 +19,23 @@ The main application lives in `src/app`, with reusable UI in `src/components`.
 
 ```bash
 npm run lint
-npm run build
+npm run typecheck
+npm test
+npm run build   # needs DATABASE_URL / DIRECT_URL
 ```
+
+The same lint, type and test checks run in GitHub Actions on every push (`.github/workflows/ci.yml`).
+
+## Database changes
+
+Schema changes ship as Prisma migrations in `prisma/migrations`. Apply them to the
+production database **before** deploying code that depends on them:
+
+```bash
+npm run db:status   # see which migrations are pending
+npm run db:deploy   # apply them
+```
+
+## Environment
+
+See `.env.example` for every variable the app reads.

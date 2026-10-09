@@ -1,3 +1,4 @@
+import type { ActionResult } from "@/lib/admin-action";
 import Link from "next/link";
 import { AdminForm } from "@/components/admin/AdminForm";
 
@@ -23,7 +24,7 @@ export function ServiceForm({
   submitLabel,
   successMessage,
 }: {
-  action: (formData: FormData) => Promise<void>;
+  action: (formData: FormData) => Promise<ActionResult>;
   categories: { id: string; label: string }[];
   defaultValues?: ServiceFormValues;
   submitLabel: string;

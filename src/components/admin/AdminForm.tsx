@@ -1,16 +1,17 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
-import { useFormStatus } from "react-dom";
+import { useTransition, type ReactNode, type SubmitEvent } from "react";
+import type { ActionResult } from "@/lib/admin-action";
 import { useToast } from "./Toast";
 
 /**
- * Shows a success toast (and optionally redirects) after a Server Action
- * form finishes submitting. Deliberately does NOT change how the form
- * submits — the <form action={action}> below is the exact plain pattern
- * already proven reliable everywhere else in this app. This component only
- * *observes* completion via useFormStatus() in a child, which is a passive
- * companion hook and doesn't touch the submission itself.
+ * Runs a Server Action from a form and reports the outcome as a toast
+ * (optionally redirecting on success).
+ *
+ * Submission goes through onSubmit rather than <form action>: React resets a
+ * form after its action completes, which would wipe what the admin typed
+ * whenever the action reports a validation error. Here the form is only reset
+ * after a save that actually succeeded.
  *
  * The redirect itself is delegated to ToastProvider (mounted once at the
  * admin layout level) rather than scheduled here — Next.js's automatic
@@ -24,41 +25,52 @@ export function AdminForm({
   children,
   className,
 }: {
-  action: (formData: FormData) => Promise<void>;
+  action: (formData: FormData) => Promise<ActionResult>;
   successMessage: string;
   redirectTo?: string;
   children: ReactNode;
   className?: string;
 }) {
-  return (
-    <form action={action} className={className}>
-      {children}
-      <SubmitWatcher successMessage={successMessage} redirectTo={redirectTo} />
-    </form>
-  );
-}
-
-function SubmitWatcher({
-  successMessage,
-  redirectTo,
-}: {
-  successMessage: string;
-  redirectTo?: string;
-}) {
-  const { pending } = useFormStatus();
-  const wasPending = useRef(false);
+  const [pending, startTransition] = useTransition();
   const { showToast, showToastAndRedirect } = useToast();
 
-  useEffect(() => {
-    if (wasPending.current && !pending) {
+  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (pending) return;
+
+    const form = event.currentTarget;
+    const submitter = event.nativeEvent.submitter;
+    const formData = new FormData(form, submitter);
+
+    startTransition(async () => {
+      let result: ActionResult;
+      try {
+        result = await action(formData);
+      } catch (error) {
+        console.error(error);
+        showToast("Something went wrong. Please try again.", "error");
+        return;
+      }
+
+      if (result?.error) {
+        showToast(result.error, "error");
+        return;
+      }
+
+      form.reset();
       if (redirectTo) {
         showToastAndRedirect(successMessage, redirectTo);
       } else {
         showToast(successMessage);
       }
-    }
-    wasPending.current = pending;
-  }, [pending, successMessage, redirectTo, showToast, showToastAndRedirect]);
+    });
+  };
 
-  return null;
+  return (
+    <form onSubmit={handleSubmit} aria-busy={pending} className={className}>
+      <fieldset disabled={pending} className="contents">
+        {children}
+      </fieldset>
+    </form>
+  );
 }

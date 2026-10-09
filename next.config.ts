@@ -1,6 +1,29 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV !== "production";
+
+// No nonces: they would force every page to render dynamically and lose the
+// hourly ISR caching. 'unsafe-inline' scripts are still needed for Next.js's
+// own inline bootstrap and the scroll-reset script in app/layout.tsx; the rest
+// of the policy blocks third-party scripts, plugins, framing and form hijacking.
+// (vercel.live is the preview-deployment toolbar.)
+const contentSecurityPolicy = [
+	"default-src 'self'",
+	`script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://vercel.live`,
+	"style-src 'self' 'unsafe-inline'",
+	"img-src 'self' data: blob: https://*.public.blob.vercel-storage.com https://vercel.live https://vercel.com",
+	"font-src 'self' data: https://vercel.live",
+	"connect-src 'self' https://vercel.live wss://ws-us3.pusher.com",
+	"frame-src https://vercel.live",
+	"object-src 'none'",
+	"base-uri 'self'",
+	"form-action 'self'",
+	"frame-ancestors 'none'",
+	...(isDev ? [] : ["upgrade-insecure-requests"]),
+].join("; ");
+
 const securityHeaders = [
+	{ key: "Content-Security-Policy", value: contentSecurityPolicy },
 	{ key: "X-Content-Type-Options", value: "nosniff" },
 	{ key: "X-Frame-Options", value: "DENY" },
 	{ key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
@@ -16,22 +39,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
 	allowedDevOrigins: ["192.168.1.6"],
-	serverExternalPackages: ["@prisma/client", "bcryptjs"],
-	// Prisma ships WebAssembly engines for every database (Postgres, MySQL, SQLite,
-	// SQL Server, CockroachDB) plus edge/React Native runtimes. This app uses the
-	// native library engine only (runtime/library.js), but file tracing copied all
-	// of them into every function: ~55 MB per function, multiplied across every
-	// retained deployment in the "Functions Storage" usage meter.
-	outputFileTracingExcludes: {
-		"/**": [
-			"./node_modules/@prisma/client/runtime/*.wasm-base64.*",
-			"./node_modules/@prisma/client/runtime/query_engine_bg.*",
-			"./node_modules/@prisma/client/runtime/query_compiler_bg.*",
-			"./node_modules/@prisma/client/runtime/wasm-*-edge.*",
-			"./node_modules/@prisma/client/runtime/edge*",
-			"./node_modules/@prisma/client/runtime/react-native.js",
-		],
-	},
+	// Prisma 7's generated client (src/generated/prisma) is bundled like app code, so
+	// only the PostgreSQL query compiler it imports ships — not the ~70 MB of
+	// compilers for every database in @prisma/client/runtime.
+	serverExternalPackages: ["bcryptjs"],
 	images: {
 		// Room photos are stored in Vercel Blob (see src/lib/accommodation-images.ts).
 		remotePatterns: [

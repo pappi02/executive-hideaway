@@ -10,7 +10,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildMetadata({
   title: "Gallery",
   description:
-    "Browse photos of Executive Hideaway Barber and Spa in Nairobi — barbering, spa treatments, massage, wellness, and the space itself.",
+    "Browse photos of Executive Hideaway Resort & Spa in Nairobi — barbering, spa treatments, massage, wellness, and the space itself.",
   path: "/gallery",
 });
 

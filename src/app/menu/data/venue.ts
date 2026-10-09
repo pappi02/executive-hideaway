@@ -1,4 +1,6 @@
-/** Single source of truth for everything about the venue itself. */
+import { businessContact } from '@/lib/site-config';
+
+/** Menu-specific venue details; contact details come from the site-wide config. */
 export const venue = {
   name: 'Executive Hideaway',
   descriptor: 'Resort & Spa',
@@ -6,9 +8,9 @@ export const venue = {
   city: 'Nairobi',
   country: 'Kenya',
   address: '275 Nyeri Close, Kileleshwa, Nairobi',
-  phone: '+254759944566',
+  phone: `+${businessContact.whatsappNumber}`,
   phoneDisplay: '+254 759 944 566',
-  email: 'reservations@executivehideaway.com',
+  email: businessContact.email,
   currency: 'KSh',
   established: 'Est. Nairobi',
   hours: [

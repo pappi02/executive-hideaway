@@ -8,8 +8,15 @@
  * canonical URLs, sitemap.xml, and robots.txt.
  */
 
-export const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://executivehideaway.co.ke";
+export const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  // Vercel sets this to the project's production domain (custom domain if one
+  // is attached, otherwise *.vercel.app), so canonical URLs never point at a
+  // domain that isn't serving the site.
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000")
+).replace(/\/+$/, "");
 
 export const siteConfig = {
   name: "Executive Hideaway Resort & Spa",

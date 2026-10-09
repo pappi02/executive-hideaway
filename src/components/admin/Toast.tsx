@@ -11,8 +11,10 @@ import {
   type ReactNode,
 } from "react";
 
+type ToastTone = "success" | "error";
+
 interface ToastContextValue {
-  showToast: (message: string) => void;
+  showToast: (message: string, tone?: ToastTone) => void;
   showToastAndRedirect: (message: string, redirectTo: string) => void;
 }
 
@@ -21,20 +23,23 @@ const ToastContext = createContext<ToastContextValue | null>(null);
 export function ToastProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [message, setMessage] = useState<string | null>(null);
+  const [tone, setTone] = useState<ToastTone>("success");
   const [visible, setVisible] = useState(false);
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const redirectTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const present = useCallback((next: string) => {
+  const present = useCallback((next: string, nextTone: ToastTone = "success") => {
     setMessage(next);
+    setTone(nextTone);
     setVisible(true);
     if (hideTimer.current) clearTimeout(hideTimer.current);
-    hideTimer.current = setTimeout(() => setVisible(false), 2600);
+    // Errors stay up longer: they usually need reading, not just noticing.
+    hideTimer.current = setTimeout(() => setVisible(false), nextTone === "error" ? 6000 : 2600);
   }, []);
 
   const showToast = useCallback(
-    (next: string) => {
-      present(next);
+    (next: string, nextTone?: ToastTone) => {
+      present(next, nextTone);
     },
     [present],
   );
@@ -68,7 +73,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       {children}
 
       <div
-        aria-live="polite"
+        aria-live={tone === "error" ? "assertive" : "polite"}
         className="pointer-events-none fixed inset-0 z-[200] flex items-center justify-center px-5"
       >
         <div
@@ -76,13 +81,21 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             visible ? "translate-y-0 scale-100 opacity-100" : "translate-y-2 scale-95 opacity-0"
           }`}
         >
-          <Tick animate={visible} />
+          {tone === "error" ? <Alert /> : <Tick animate={visible} />}
           <span className="text-[12px] font-semibold uppercase tracking-[0.1em] text-white">
             {message}
           </span>
         </div>
       </div>
     </ToastContext.Provider>
+  );
+}
+
+function Alert() {
+  return (
+    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-red-500 text-sm font-bold text-white" aria-hidden="true">
+      !
+    </span>
   );
 }
 

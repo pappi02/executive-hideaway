@@ -1,16 +1,21 @@
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { AuthError } from "next-auth";
+import { AuthError, CredentialsSignin } from "next-auth";
 import { signIn } from "@/auth";
 
 export const dynamic = "force-dynamic";
+
+/** Only ever send a signed-in admin back into the dashboard. */
+function safeCallbackUrl(value: unknown) {
+  return typeof value === "string" && /^\/admin(?:[/?#]|$)/.test(value) ? value : "/admin";
+}
 
 async function login(formData: FormData) {
   "use server";
 
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
-  const callbackUrl = String(formData.get("callbackUrl") ?? "/admin");
+  const callbackUrl = safeCallbackUrl(formData.get("callbackUrl"));
 
   try {
     await signIn("credentials", {
@@ -20,7 +25,8 @@ async function login(formData: FormData) {
     });
   } catch (error) {
     if (error instanceof AuthError) {
-      redirect(`/admin/login?error=1&callbackUrl=${encodeURIComponent(callbackUrl)}`);
+      const code = error instanceof CredentialsSignin && error.code === "rate_limited" ? "locked" : "1";
+      redirect(`/admin/login?error=${code}&callbackUrl=${encodeURIComponent(callbackUrl)}`);
     }
     throw error;
   }
@@ -32,8 +38,8 @@ export default async function AdminLoginPage({
   searchParams: Promise<{ error?: string; callbackUrl?: string }>;
 }) {
   const params = await searchParams;
-  const hasError = params.error === "1";
-  const callbackUrl = params.callbackUrl ?? "/admin";
+  const error = params.error === "locked" ? "locked" : params.error === "1" ? "invalid" : null;
+  const callbackUrl = safeCallbackUrl(params.callbackUrl);
 
   return (
     <div className="flex min-h-svh items-center justify-center bg-[#0b0b0a] px-5">
@@ -83,8 +89,12 @@ export default async function AdminLoginPage({
             />
           </div>
 
-          {hasError && (
-            <p className="text-sm text-red-400">Incorrect email or password.</p>
+          {error && (
+            <p role="alert" className="text-sm text-red-400">
+              {error === "locked"
+                ? "Too many failed attempts. Wait 15 minutes, then try again."
+                : "Incorrect email or password."}
+            </p>
           )}
 
           <button

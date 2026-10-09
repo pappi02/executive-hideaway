@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # postinstall runs `prisma generate`, which needs no database.
+      - run: npm ci
+
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+
+      # Fails only on critical advisories in runtime dependencies; review the
+      # full `npm audit` output for anything lower.
+      - run: npm audit --omit=dev --audit-level=critical
+
+      # `next build` is left to Vercel: prerendering the public pages needs the
+      # production database, which CI deliberately has no access to.

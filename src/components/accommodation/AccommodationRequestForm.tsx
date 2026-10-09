@@ -4,6 +4,7 @@ import { useState, useTransition, type FormEvent } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { createAccommodationRequestLink } from "@/app/accommodation/request/actions";
+import { isKenyanMobile } from "@/lib/phone";
 
 interface RequestRoom {
   name: string;
@@ -77,7 +78,7 @@ export function AccommodationRequestForm({ rooms, initialSlug }: { rooms: Reques
     if (!Number.isSafeInteger(guests) || guests < 1) nextErrors.guests = "Enter at least one guest.";
     else if (room && guests > room.maxGuests) nextErrors.guests = `This room accepts up to ${room.maxGuests} guests.`;
     if (!form.name.trim()) nextErrors.name = "Enter your name.";
-    if (!/^(?:\+?254|0)\d{9}$/.test(form.phone.replace(/[\s()-]/g, ""))) nextErrors.phone = "Enter a valid Kenyan mobile number.";
+    if (!isKenyanMobile(form.phone)) nextErrors.phone = "Enter a valid Kenyan mobile number.";
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
@@ -161,14 +162,14 @@ export function AccommodationRequestForm({ rooms, initialSlug }: { rooms: Reques
               </div>
               <div>
                 <label htmlFor="request-name" className={labelClass}>Your name</label>
-                <input id="request-name" autoComplete="name" value={form.name} onChange={(event) => update("name", event.target.value)} aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "request-name-error" : undefined} className={fieldClass} />
+                <input id="request-name" maxLength={100} autoComplete="name" value={form.name} onChange={(event) => update("name", event.target.value)} aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "request-name-error" : undefined} className={fieldClass} />
                 {errors.name && <p id="request-name-error" className="mt-1 text-xs text-red-800">{errors.name}</p>}
               </div>
             </div>
 
               <div>
                 <label htmlFor="request-phone" className={labelClass}>Phone number</label>
-              <input id="request-phone" type="tel" autoComplete="tel" placeholder="07xx xxx xxx" value={form.phone} onChange={(event) => update("phone", event.target.value)} aria-invalid={Boolean(errors.phone)} aria-describedby={errors.phone ? "request-phone-error" : undefined} className={fieldClass} />
+              <input id="request-phone" maxLength={20} type="tel" autoComplete="tel" placeholder="07xx xxx xxx" value={form.phone} onChange={(event) => update("phone", event.target.value)} aria-invalid={Boolean(errors.phone)} aria-describedby={errors.phone ? "request-phone-error" : undefined} className={fieldClass} />
               {errors.phone && <p id="request-phone-error" className="mt-1 text-xs text-red-800">{errors.phone}</p>}
             </div>
 
@@ -195,7 +196,7 @@ export function AccommodationRequestForm({ rooms, initialSlug }: { rooms: Reques
               <div className="border-t border-black/8 py-3 sm:col-span-2"><dt className="text-xs text-black/45">Special request</dt><dd className="mt-1 wrap-break-word text-sm">{form.request.trim() || "None"}</dd></div>
               {room?.pricePerNight !== null && room?.pricePerNight !== undefined && <div className="border-t border-black/8 py-3 sm:col-span-2"><dt className="text-xs text-black/45">Rate shown</dt><dd className="mt-1 text-sm">KSh {room.pricePerNight.toLocaleString()} per night{room.priceIsIndicative ? " · indicative, please confirm" : ""}</dd></div>}
             </dl>
-            <p className="mt-3 text-xs leading-5 text-black/50">No payment is taken here. Our team will confirm availability and arrangements on WhatsApp.</p>
+            <p className="mt-3 text-xs leading-5 text-black/50">No payment is taken here. Our team will confirm availability and arrangements on WhatsApp. See our <Link href="/terms" className="underline underline-offset-2 hover:text-black">booking terms</Link> and <Link href="/privacy" className="underline underline-offset-2 hover:text-black">privacy notice</Link>.</p>
             <button type="button" disabled={isPending} onClick={continueToWhatsApp} className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#0b0b0a] px-6 text-[10px] font-semibold uppercase tracking-[0.14em] text-white hover:bg-[#80683c] disabled:cursor-wait disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c] sm:w-auto">{isPending ? "Preparing request…" : "Continue on WhatsApp"}<ArrowUpRight size={14} aria-hidden="true" /></button>
           </section>
         )}

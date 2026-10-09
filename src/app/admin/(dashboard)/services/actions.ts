@@ -2,70 +2,72 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import { requireAdmin } from "@/lib/require-admin";
+import {
+  AdminInputError,
+  adminAction,
+  optionalInteger,
+  requiredImagePath,
+  requiredInteger,
+  requiredText,
+  slugify,
+  type ActionResult,
+} from "@/lib/admin-action";
 
-function slugify(value: string) {
-  return value
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
-
-function readServiceFields(formData: FormData) {
-  const priceRaw = String(formData.get("price") ?? "").trim();
+async function readServiceFields(formData: FormData) {
+  const categoryId = requiredText(formData, "categoryId", { label: "Category" });
+  const category = await prisma.serviceCategory.findUnique({ where: { id: categoryId }, select: { id: true } });
+  if (!category) throw new AdminInputError("Choose a valid category.");
 
   return {
-    name: String(formData.get("name") ?? "").trim(),
-    categoryId: String(formData.get("categoryId") ?? "").trim(),
-    description: String(formData.get("description") ?? "").trim(),
-    price: priceRaw === "" ? null : Number(priceRaw),
-    duration: Number(formData.get("duration") ?? 0),
-    image: String(formData.get("image") ?? "").trim(),
-    imageAlt: String(formData.get("imageAlt") ?? "").trim(),
+    name: requiredText(formData, "name", { label: "Service name", max: 120 }),
+    categoryId,
+    description: requiredText(formData, "description", { label: "Description", max: 2000 }),
+    price: optionalInteger(formData, "price", { label: "Price" }),
+    duration: requiredInteger(formData, "duration", { label: "Duration (minutes)", min: 1, max: 24 * 60 }),
+    image: requiredImagePath(formData, "image", "Image path"),
+    imageAlt: requiredText(formData, "imageAlt", { label: "Image description", max: 200 }),
   };
 }
 
-export async function createService(formData: FormData) {
-  await requireAdmin();
-
-  const fields = readServiceFields(formData);
-  const id = slugify(fields.name);
-
-  const count = await prisma.service.count({
-    where: { categoryId: fields.categoryId },
-  });
-
-  await prisma.service.create({
-    data: { id, ...fields, order: count },
-  });
-
+function revalidateServices() {
   revalidatePath("/services");
+  revalidatePath("/booking");
   revalidatePath("/admin/services");
 }
 
-export async function updateService(id: string, formData: FormData) {
-  await requireAdmin();
+export async function createService(formData: FormData): Promise<ActionResult> {
+  return adminAction(async () => {
+    const fields = await readServiceFields(formData);
+    const id = slugify(fields.name);
+    if (!id) throw new AdminInputError("The service name needs at least one letter or number.");
+    // Ids double as URL segments; /admin/services/new is the create form.
+    if (id === "new") throw new AdminInputError(`"New" can't be used as a service name.`);
 
-  const fields = readServiceFields(formData);
+    const last = await prisma.service.findFirst({
+      where: { categoryId: fields.categoryId },
+      orderBy: { order: "desc" },
+      select: { order: true },
+    });
 
-  await prisma.service.update({
-    where: { id },
-    data: fields,
+    await prisma.service.create({
+      data: { id, ...fields, order: (last?.order ?? -1) + 1 },
+    });
+    revalidateServices();
   });
-
-  revalidatePath("/services");
-  revalidatePath("/admin/services");
 }
 
-export async function deleteService(formData: FormData) {
-  await requireAdmin();
+export async function updateService(id: string, formData: FormData): Promise<ActionResult> {
+  return adminAction(async () => {
+    const fields = await readServiceFields(formData);
+    await prisma.service.update({ where: { id }, data: fields });
+    revalidateServices();
+  });
+}
 
-  const id = String(formData.get("id") ?? "");
-  if (!id) return;
-
-  await prisma.service.delete({ where: { id } });
-
-  revalidatePath("/services");
-  revalidatePath("/admin/services");
+export async function deleteService(formData: FormData): Promise<ActionResult> {
+  return adminAction(async () => {
+    const id = requiredText(formData, "id", { label: "Service ID" });
+    await prisma.service.delete({ where: { id } });
+    revalidateServices();
+  });
 }

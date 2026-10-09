@@ -43,3 +43,6 @@ next-env.d.ts
 .vercel
 .env*
 !.env.example
+
+# prisma generate output (prisma-client generator)
+/src/generated/

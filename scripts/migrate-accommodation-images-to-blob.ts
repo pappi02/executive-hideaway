@@ -11,10 +11,11 @@
  * Afterwards, run `VACUUM FULL "AccommodationImage";` on the database to hand the
  * freed space back — Postgres keeps it reserved until then.
  */
-import { PrismaClient } from "@prisma/client";
+import { createPrismaClient } from "../src/lib/prisma";
 import { storeAccommodationImage } from "../src/lib/accommodation-images";
 
-const prisma = new PrismaClient();
+// Scripts run outside the app: use the direct connection, like migrations do.
+const prisma = createPrismaClient(process.env.DIRECT_URL ?? process.env.DATABASE_URL);
 const dryRun = process.argv.includes("--dry-run");
 
 async function main() {

@@ -21,7 +21,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildMetadata({
   title: "Contact",
   description:
-    "Get in touch with Executive Hideaway Barber and Spa in Kileleshwa, Nairobi. Call, WhatsApp, or visit us to book your appointment.",
+    "Get in touch with Executive Hideaway Resort & Spa in Kileleshwa, Nairobi. Call, WhatsApp, or visit us to book your appointment.",
   path: "/contact",
 });
 

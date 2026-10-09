@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { isKenyanMobile } from "@/lib/phone";
 import { businessContact } from "@/lib/site-config";
 
 interface AccommodationRequest {
@@ -28,7 +29,23 @@ function formatDate(value: string) {
   });
 }
 
+const LIMITS = { slug: 120, name: 100, phone: 20, request: 500, checkIn: 10, checkOut: 10 } as const;
+
+/** This action is public: check shapes and sizes before touching the database. */
+function isValidInput(input: unknown): input is AccommodationRequest {
+  if (typeof input !== "object" || input === null) return false;
+  const value = input as Record<string, unknown>;
+  return (
+    (Object.keys(LIMITS) as (keyof typeof LIMITS)[]).every(
+      (key) => typeof value[key] === "string" && (value[key] as string).length <= LIMITS[key],
+    ) &&
+    (typeof value.guests === "number" || typeof value.guests === "string")
+  );
+}
+
 export async function createAccommodationRequestLink(input: AccommodationRequest) {
+  if (!isValidInput(input)) return { error: "Please check your details and try again." };
+
   const room = await prisma.accommodation.findFirst({
     where: { slug: input.slug, active: true },
     select: { name: true, maxGuests: true, pricePerNight: true, priceIsIndicative: true },
@@ -37,12 +54,10 @@ export async function createAccommodationRequestLink(input: AccommodationRequest
 
   const name = input.name.trim();
   const phone = input.phone.trim();
-  const normalizedPhone = phone.replace(/[\s()-]/g, "");
-  const phonePattern = /^(?:\+?254|0)\d{9}$/;
   const guests = Number(input.guests);
 
   if (!name) return { error: "Enter your name to continue." };
-  if (!phonePattern.test(normalizedPhone)) return { error: "Enter a valid Kenyan mobile number." };
+  if (!isKenyanMobile(phone)) return { error: "Enter a valid Kenyan mobile number." };
   if (!isValidDate(input.checkIn) || !isValidDate(input.checkOut)) return { error: "Enter valid check-in and check-out dates." };
   if (input.checkIn < new Date().toISOString().slice(0, 10)) return { error: "Check-in must be today or a future date." };
   if (input.checkOut <= input.checkIn) return { error: "Check-out must be after check-in." };

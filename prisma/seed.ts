@@ -9,7 +9,7 @@ import { loadEnvFile } from "node:process";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import bcrypt from "bcryptjs";
-import { PrismaClient } from "@prisma/client";
+import { createPrismaClient } from "../src/lib/prisma";
 import { chapters } from "../src/app/menu/data/menu";
 
 try {
@@ -18,7 +18,8 @@ try {
   // .env.local not present — fine when DATABASE_URL etc. are set another way.
 }
 
-const prisma = new PrismaClient();
+// Scripts run outside the app: use the direct connection, like migrations do.
+const prisma = createPrismaClient(process.env.DIRECT_URL ?? process.env.DATABASE_URL);
 
 const categoryImages = {
   haircut: "/images/services/normal-hair-cut.webp",

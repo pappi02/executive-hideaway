@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Clock3, X } from "lucide-react";
 import type { Service } from "@/data/services";
+import { isKenyanMobile } from "@/lib/phone";
 import { businessContact } from "@/lib/site-config";
 
 interface BookingFormProps {
@@ -54,10 +56,7 @@ export default function BookingForm({ services }: BookingFormProps) {
     if (!form.phone.trim()) {
       nextErrors.phone = "Please enter your phone number.";
     } else {
-      const normalizedPhone = form.phone.replace(/[\s()-]/g, "");
-      const kenyanPhonePattern = /^(?:\+?254|0)7\d{8}$/;
-
-      if (!kenyanPhonePattern.test(normalizedPhone)) {
+      if (!isKenyanMobile(form.phone)) {
         nextErrors.phone =
           "Enter a valid Kenyan mobile number, e.g. 07xx xxx xxx.";
       }
@@ -232,6 +231,7 @@ export default function BookingForm({ services }: BookingFormProps) {
 
               <input
                 id="booking-name"
+                maxLength={100}
                 type="text"
                 autoComplete="name"
                 value={form.name}
@@ -264,6 +264,7 @@ export default function BookingForm({ services }: BookingFormProps) {
 
               <input
                 id="booking-phone"
+                maxLength={20}
                 type="tel"
                 autoComplete="tel"
                 value={form.phone}
@@ -363,6 +364,7 @@ export default function BookingForm({ services }: BookingFormProps) {
 
             <textarea
               id="booking-notes"
+              maxLength={500}
               value={form.notes}
               onChange={(event) =>
                 updateField("notes", event.target.value)
@@ -592,6 +594,12 @@ export default function BookingForm({ services }: BookingFormProps) {
                   />
                 </button>
               </div>
+
+              <p className="mt-3 text-center text-[11px] leading-4 text-black/45">
+                This opens WhatsApp with your request; nothing is booked until we confirm. See our{" "}
+                <Link href="/terms" className="underline underline-offset-2 hover:text-black">booking terms</Link> and{" "}
+                <Link href="/privacy" className="underline underline-offset-2 hover:text-black">privacy notice</Link>.
+              </p>
             </div>
           </div>
         </div>

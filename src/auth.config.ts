@@ -15,5 +15,9 @@ export const authConfig = {
   },
   session: {
     strategy: "jwt",
+    // Admin sessions last a working day (refreshed while in use) rather than
+    // the 30-day default, so a stolen cookie goes stale quickly.
+    maxAge: 8 * 60 * 60,
+    updateAge: 60 * 60,
   },
 } satisfies NextAuthConfig;

@@ -7,7 +7,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-import { businessContact } from "@/data/contact";
+import { businessContact } from "@/lib/site-config";
 
 const phoneNumber = businessContact.primaryPhone;
 const phoneUrl = businessContact.primaryPhoneHref;
@@ -247,9 +247,17 @@ export default function Footer() {
             © {new Date().getFullYear()} Executive Hideaway Resort & Spa
           </p>
 
-          <p className="text-[8px] uppercase tracking-[0.18em] text-white/15">
-            Nairobi, Kenya
-          </p>
+          <div className="flex items-center gap-5">
+            <Link href="/privacy" className="text-[9px] uppercase tracking-[0.18em] text-white/40 transition-colors hover:text-white">
+              Privacy
+            </Link>
+            <Link href="/terms" className="text-[9px] uppercase tracking-[0.18em] text-white/40 transition-colors hover:text-white">
+              Booking terms
+            </Link>
+            <p className="text-[8px] uppercase tracking-[0.18em] text-white/15">
+              Nairobi, Kenya
+            </p>
+          </div>
         </div>
       </div>
     </footer>

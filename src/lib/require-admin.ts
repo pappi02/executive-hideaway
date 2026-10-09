@@ -1,6 +1,8 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { decode } from "next-auth/jwt";
+import { prisma } from "@/lib/prisma";
+import { passwordFingerprint } from "@/lib/admin-session";
 
 /**
  * Server Action POSTs to an /admin/* route don't reliably go through
@@ -14,6 +16,10 @@ import { decode } from "next-auth/jwt";
  * connection, not NODE_ENV. Checking both directly (rather than guessing
  * from NODE_ENV) keeps this correct in every environment: local dev,
  * `next start` over plain HTTP, and HTTPS production.
+ *
+ * Beyond the token's signature and expiry, the admin must still exist and
+ * their password must not have changed since the token was issued — so a
+ * deleted admin or a password reset ends existing sessions immediately.
  */
 export async function requireAdmin() {
   const cookieStore = await cookies();
@@ -26,9 +32,14 @@ export async function requireAdmin() {
 
   const token =
     raw && process.env.AUTH_SECRET
-      ? await decode({ token: raw, secret: process.env.AUTH_SECRET, salt: cookieName })
+      ? await decode({ token: raw, secret: process.env.AUTH_SECRET, salt: cookieName }).catch(() => null)
       : null;
 
-  if (!token) redirect("/admin/login");
+  const admin = token?.sub
+    ? await prisma.admin.findUnique({ where: { id: token.sub }, select: { passwordHash: true } })
+    : null;
+  if (!token || !admin || token.pwd !== passwordFingerprint(admin.passwordHash)) {
+    redirect("/admin/login");
+  }
   return token;
 }

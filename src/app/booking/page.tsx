@@ -5,7 +5,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildMetadata({
   title: "Book an Appointment",
   description:
-    "Book your appointment at Executive Hideaway Barber and Spa in Nairobi. Choose your services and request a time that works for you.",
+    "Book your appointment at Executive Hideaway Resort & Spa in Nairobi. Choose your services and request a time that works for you.",
   path: "/booking",
 });
 
