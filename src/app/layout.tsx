@@ -75,7 +75,8 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(localBusinessJsonLd()),
+            // Escape "<" so no value can ever close the <script> tag early.
+            __html: JSON.stringify(localBusinessJsonLd()).replace(/</g, "\\u003c"),
           }}
         />
       </head>
