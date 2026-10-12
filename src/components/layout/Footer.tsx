@@ -9,11 +9,18 @@ import Link from "next/link";
 
 import { businessContact } from "@/lib/site-config";
 
-const phoneNumber = businessContact.primaryPhone;
-const phoneUrl = businessContact.primaryPhoneHref;
+const phoneNumbers = [
+  { label: businessContact.primaryPhone, href: businessContact.primaryPhoneHref },
+  ...businessContact.secondaryPhones,
+];
 const whatsappUrl = businessContact.whatsappUrl;
 const locationUrl = businessContact.location.googleMapsUrl;
 const socialLinks = businessContact.socialLinks;
+
+const contactLinkClass =
+  "group flex min-w-0 items-center gap-3 text-[10px] uppercase tracking-[0.14em] text-white/55 transition-colors duration-300 hover:text-white";
+const contactIconClass =
+  "flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/10 transition-colors duration-300 group-hover:border-(--accent)";
 
 const navigation = [
   { label: "Home", href: "/" },
@@ -31,7 +38,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
 
         {/* CTA */}
-        <div className="relative border-b border-white/10 py-12 sm:py-16 lg:py-20">
+        <div className="relative border-b border-white/10 py-12 sm:py-14 lg:py-16">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -right-40 -top-40 h-120 w-120 rounded-full border border-white/3.5"
@@ -48,7 +55,7 @@ export default function Footer() {
               Your time starts here
             </p>
 
-            <h2 className="mt-6 text-5xl font-light leading-[0.9] tracking-[-0.055em] sm:text-6xl lg:text-[7rem]">
+            <h2 className="mt-6 text-5xl font-light leading-[0.9] tracking-[-0.055em] sm:text-6xl lg:text-[5.5rem]">
               Make time for
               <br />
               <span className="text-white/30">yourself.</span>
@@ -79,60 +86,58 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Brand */}
-        <div className="flex flex-col items-center gap-6 border-b border-white/10 py-10 text-center sm:flex-row sm:items-end sm:justify-between sm:gap-10 sm:py-12 sm:text-left lg:py-14">
-          <Link
-            href="/"
-            aria-label="Executive Hideaway Spa and Resort — home"
-            className="block shrink-0"
-          >
-            <Image
-              src="/images/hideaway-logo-light.svg"
-              alt="Executive Hideaway Spa and Resort"
-              width={509}
-              height={591}
-              className="h-auto w-36 sm:w-40 lg:w-44"
-            />
-          </Link>
+        {/* Brand, navigation, location and contact: one row of four columns on large screens */}
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 border-b border-white/10 py-10 sm:gap-x-10 sm:py-12 lg:grid-cols-[1fr_1.15fr_1.25fr_1fr] lg:gap-x-12 lg:py-14">
+          {/* Brand */}
+          <div className="col-span-2 flex items-center gap-5 lg:col-span-1 lg:flex-col lg:items-start">
+            <Link
+              href="/"
+              aria-label="Executive Hideaway Spa and Resort — home"
+              className="block shrink-0"
+            >
+              <Image
+                src="/images/hideaway-logo-light.svg"
+                alt="Executive Hideaway Spa and Resort"
+                width={509}
+                height={591}
+                className="h-auto w-20 sm:w-24"
+              />
+            </Link>
 
-          <p className="max-w-xs text-xs leading-6 text-white/45 sm:pb-2 sm:text-right sm:text-sm">
-            Resort · Spa · Wellness · Stays
-            <br />
-            Kileleshwa, Nairobi
-          </p>
-        </div>
-
-        {/* Footer information */}
-        <div className="grid grid-cols-2">
-          {/* LEFT — Navigation */}
-          <div className="py-8 pr-5 sm:py-10 sm:pr-10 lg:py-14 lg:pr-8">
-            <div>
-              <p className="text-[8px] font-semibold uppercase tracking-[0.25em] text-white/25">
-                Explore
-              </p>
-
-              <nav className="mt-5 flex flex-col items-start gap-4">
-                {navigation.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="group flex items-center gap-2 text-xs text-white/55 transition-colors duration-300 hover:text-white sm:text-sm"
-                  >
-                    {item.label}
-
-                    <ArrowUpRight
-                      size={11}
-                      strokeWidth={1.3}
-                      className="opacity-0 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100"
-                    />
-                  </a>
-                ))}
-              </nav>
-            </div>
+            <p className="text-xs leading-6 text-white/45 sm:text-sm">
+              Resort · Spa · Wellness · Stays
+              <br />
+              Kileleshwa, Nairobi
+            </p>
           </div>
 
-          {/* RIGHT — Location */}
-          <div className="py-8 pl-5 sm:py-10 sm:pl-10 lg:py-14 lg:pl-8">
+          {/* Navigation */}
+          <div>
+            <p className="text-[8px] font-semibold uppercase tracking-[0.25em] text-white/25">
+              Explore
+            </p>
+
+            <nav className="mt-5 grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
+              {navigation.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="group flex items-center gap-2 whitespace-nowrap text-xs text-white/55 transition-colors duration-300 hover:text-white sm:text-sm"
+                >
+                  {item.label}
+
+                  <ArrowUpRight
+                    size={11}
+                    strokeWidth={1.3}
+                    className="opacity-0 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100"
+                  />
+                </a>
+              ))}
+            </nav>
+          </div>
+
+          {/* Location */}
+          <div>
             <p className="text-[8px] font-semibold uppercase tracking-[0.25em] text-white/25">
               Find us
             </p>
@@ -141,7 +146,7 @@ export default function Footer() {
               href={locationUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group mt-6 block"
+              className="group mt-5 block"
             >
               <div className="flex items-start gap-3">
                 <MapPin
@@ -151,13 +156,9 @@ export default function Footer() {
                 />
 
                 <div>
-                  <p className="text-sm leading-5 text-white/75 sm:text-base">
+                  <p className="text-sm leading-5 text-white/75">
                     275 Nyeri close, kileleshwa estate,
                     Moi, Nairobi Area, 00100
-                  </p>
-
-                  <p className="mt-1 text-sm text-white/40">
-                    Nairobi
                   </p>
 
                   <p className="mt-2 text-[8px] uppercase tracking-[0.15em] text-white/20">
@@ -166,7 +167,7 @@ export default function Footer() {
                 </div>
               </div>
 
-              <span className="mt-5 flex items-center gap-2 text-[8px] font-semibold uppercase tracking-[0.18em] text-(--accent)">
+              <span className="mt-4 flex items-center gap-2 text-[8px] font-semibold uppercase tracking-[0.18em] text-(--accent)">
                 Open in Maps
 
                 <ArrowUpRight
@@ -177,66 +178,57 @@ export default function Footer() {
               </span>
             </a>
           </div>
-        </div>
 
-        {/* Contact links — full width, single horizontal row */}
-        <div className="w-full py-4 sm:py-4">
-          <div className="grid grid-cols-4 items-center">
+          {/* Contact */}
+          <div className="col-span-2 lg:col-span-1">
+            <p className="text-[8px] font-semibold uppercase tracking-[0.25em] text-white/25">
+              Contact
+            </p>
 
-            {/* Phone */}
-            <a
-              href={phoneUrl}
-              aria-label={`Call ${phoneNumber}`}
-              className="group flex min-w-0 items-center justify-center gap-2 text-white/45 transition-colors duration-300 hover:text-white sm:gap-3"
-            >
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 transition-colors duration-300 group-hover:border-(--accent)">
-                <Phone
-                  size={13}
-                  strokeWidth={1.3}
-                />
-              </span>
+            <div className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3 lg:grid-cols-1">
+              {phoneNumbers.map((phone) => (
+                <a
+                  key={phone.href}
+                  href={phone.href}
+                  aria-label={`Call ${phone.label}`}
+                  className={contactLinkClass}
+                >
+                  <span className={contactIconClass}>
+                    <Phone size={13} strokeWidth={1.3} />
+                  </span>
+                  <span className="truncate">{phone.label}</span>
+                </a>
+              ))}
 
-              <span className="truncate text-[8px] uppercase tracking-[0.12em] sm:text-[10px] sm:tracking-[0.16em]">
-                {phoneNumber}
-              </span>
-            </a>
-
-            {/* WhatsApp */}
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Contact us on WhatsApp"
-              className="group flex min-w-0 items-center justify-center gap-2 text-white/45 transition-colors duration-300 hover:text-white sm:gap-3"
-            >
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 transition-colors duration-300 group-hover:border-(--accent)">
-                <WhatsAppIcon />
-              </span>
-
-              <span className="text-[8px] uppercase tracking-[0.12em] sm:text-[10px] sm:tracking-[0.16em]">
-                WhatsApp
-              </span>
-            </a>
-
-            {socialLinks.map((social) => (
               <a
-                key={social.platform}
-                href={social.href}
+                href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={social.ariaLabel}
-                className="group flex min-w-0 items-center justify-center gap-2 text-white/45 transition-colors duration-300 hover:text-white sm:gap-3"
+                aria-label="Contact us on WhatsApp"
+                className={contactLinkClass}
               >
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 transition-colors duration-300 group-hover:border-(--accent)">
-                  {social.platform === "Instagram" ? <InstagramIcon /> : <TikTokIcon />}
+                <span className={contactIconClass}>
+                  <WhatsAppIcon />
                 </span>
-
-                <span className="text-[8px] uppercase tracking-[0.12em] sm:text-[10px] sm:tracking-[0.16em]">
-                  {social.platform}
-                </span>
+                WhatsApp
               </a>
-            ))}
 
+              {socialLinks.map((social) => (
+                <a
+                  key={social.platform}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.ariaLabel}
+                  className={contactLinkClass}
+                >
+                  <span className={contactIconClass}>
+                    {social.platform === "Instagram" ? <InstagramIcon /> : <TikTokIcon />}
+                  </span>
+                  {social.platform}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 
