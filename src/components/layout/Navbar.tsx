@@ -102,13 +102,12 @@ export default function Navbar({ tone = "light" }: NavbarProps) {
             className="relative z-70 block shrink-0"
           >
             <Image
-              src="/images/eh-logo.png"
+              src={isDark ? "/images/hideaway-lockup.svg" : "/images/hideaway-lockup-light.svg"}
               alt="Executive Hideaway Spa and Resort"
-              width={960}
-              height={600}
+              width={341}
+              height={100}
               priority
-              sizes="(min-width: 1024px) 116px, (min-width: 640px) 102px, 90px"
-              className={`h-14 w-auto sm:h-16 lg:h-18 ${
+              className={`h-11 w-auto sm:h-12 lg:h-14 ${
                 isDark ? "" : "drop-shadow-[0_1px_6px_rgba(0,0,0,0.55)]"
               }`}
             />

@@ -30,12 +30,11 @@ export default async function AdminDashboardLayout({
         <div className="flex items-center gap-8">
           <Link href="/admin" className="flex shrink-0 items-center gap-3" aria-label="Executive Hideaway admin dashboard">
             <Image
-              src="/images/eh-logo.png"
+              src="/images/hideaway-lockup.svg"
               alt="Executive Hideaway Spa and Resort"
-              width={960}
-              height={600}
-              sizes="72px"
-              className="h-11 w-auto"
+              width={341}
+              height={100}
+              className="h-10 w-auto"
             />
             <span className="border-l border-black/15 pl-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/60">
               Admin

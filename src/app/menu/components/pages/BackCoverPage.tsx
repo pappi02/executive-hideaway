@@ -9,7 +9,7 @@ export function BackCoverPage({ page }: { page: BackCoverPageType }) {
       <div className="back-cover-scrim" aria-hidden="true" />
       <CornerBrackets inset={30} length={40} />
       <div className="back-cover">
-        <BrandLogo width={220} />
+        <BrandLogo width={150} />
         <p className="back-cover-sub">
           {venue.address} · {venue.phoneDisplay}
         </p>

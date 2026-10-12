@@ -87,12 +87,11 @@ export default function Footer() {
             className="block shrink-0"
           >
             <Image
-              src="/images/eh-logo.png"
+              src="/images/hideaway-logo-light.svg"
               alt="Executive Hideaway Spa and Resort"
-              width={960}
-              height={600}
-              sizes="(min-width: 1024px) 320px, (min-width: 640px) 288px, 240px"
-              className="h-auto w-60 sm:w-72 lg:w-80"
+              width={509}
+              height={591}
+              className="h-auto w-36 sm:w-40 lg:w-44"
             />
           </Link>
 

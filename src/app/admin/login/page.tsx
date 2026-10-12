@@ -45,13 +45,12 @@ export default async function AdminLoginPage({
     <div className="flex min-h-svh items-center justify-center bg-[#0b0b0a] px-5">
       <div className="w-full max-w-sm">
         <Image
-          src="/images/eh-logo.png"
+          src="/images/hideaway-logo-light.svg"
           alt="Executive Hideaway Spa and Resort"
-          width={960}
-          height={600}
+          width={509}
+          height={591}
           priority
-          sizes="176px"
-          className="mx-auto h-auto w-44"
+          className="mx-auto h-auto w-32"
         />
 
         <h1 className="mt-6 text-center text-2xl font-light tracking-[-0.03em] text-white">

@@ -39,7 +39,7 @@ export function PageFrame({ page, children, bare = false }: PageFrameProps) {
       {!bare && (
         <div className="page-folio" aria-hidden="true">
           <span className="page-folio-mark">
-            <Monogram size={20} />
+            <Monogram size={20} tone={page.stock === 'bone' ? 'ink' : 'brass'} />
           </span>
           <span className="page-folio-rule" />
           <span className="page-folio-number">

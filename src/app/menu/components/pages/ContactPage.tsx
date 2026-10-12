@@ -52,7 +52,7 @@ export function ContactPage({ page }: { page: ContactPageType }) {
         </div>
 
         <div className="contact-sign">
-          <BrandLogo width={170} />
+          <BrandLogo width={110} />
         </div>
       </div>
     </PageFrame>

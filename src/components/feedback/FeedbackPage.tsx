@@ -36,13 +36,12 @@ export default function FeedbackPage({
         <div className="flex items-center justify-between py-7 sm:py-9">
           <Link href="/" className="block shrink-0" aria-label="Executive Hideaway home">
             <Image
-              src="/images/eh-logo.png"
+              src="/images/hideaway-lockup.svg"
               alt="Executive Hideaway Spa and Resort"
-              width={960}
-              height={600}
+              width={341}
+              height={100}
               priority
-              sizes="(min-width: 640px) 102px, 90px"
-              className="h-14 w-auto sm:h-16"
+              className="h-11 w-auto sm:h-12"
             />
           </Link>
           <span className="text-[8px] uppercase tracking-[0.25em] text-black/25">Barber · Spa · Wellness</span>

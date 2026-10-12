@@ -31,7 +31,7 @@ export function CoverPage({ page }: { page: CoverPageType }) {
         </p>
 
         <h1 className="cover-title">
-          <BrandLogo width={340} />
+          <BrandLogo width={200} />
         </h1>
 
         <div className="cover-rule">

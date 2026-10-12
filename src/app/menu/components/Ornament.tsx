@@ -29,31 +29,31 @@ export function Hairline({ width = 64, tone = 'brass' }: { width?: number; tone?
   );
 }
 
-/** The house mark: the lotus from the resort logo. `tone` is kept for call-site compatibility. */
-export function Monogram({ size = 56 }: { size?: number; tone?: 'brass' | 'ink' }) {
+/** The house mark: the palm-and-sun emblem from the resort logo. `ink` is the navy cut for bone stock. */
+export function Monogram({ size = 56, tone = 'brass' }: { size?: number; tone?: 'brass' | 'ink' }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={assetPath('/images/eh-mark-menu.webp')}
+      src={assetPath(tone === 'ink' ? '/images/hideaway-emblem.svg' : '/images/hideaway-emblem-light.svg')}
       alt=""
       aria-hidden="true"
       width={size}
-      height={Math.round(size * (400 / 480))}
+      height={Math.round(size * (415 / 422))}
       style={{ display: 'inline-block' }}
       draggable={false}
     />
   );
 }
 
-/** The full resort logo: lotus and wordmark. */
+/** The full resort logo: emblem and wordmark. */
 export function BrandLogo({ width = 240 }: { width?: number }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={assetPath('/images/eh-logo-menu.webp')}
+      src={assetPath('/images/hideaway-logo-light.svg')}
       alt={`${venue.name} ${venue.descriptor}`}
       width={width}
-      height={Math.round(width * (600 / 960))}
+      height={Math.round(width * (591 / 509))}
       style={{ display: 'block', marginInline: 'auto', height: 'auto', maxWidth: '100%' }}
       draggable={false}
     />

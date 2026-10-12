@@ -21,7 +21,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
           <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-7xl flex-col px-5 sm:px-8 lg:px-10">
             <div className="flex items-center py-7 sm:py-9">
               <Link href="/" className="block shrink-0" aria-label="Executive Hideaway home">
-                <Image src="/images/eh-logo.png" alt="Executive Hideaway Spa and Resort" width={960} height={600} priority sizes="(min-width: 640px) 102px, 90px" className="h-14 w-auto sm:h-16" />
+                <Image src="/images/hideaway-lockup.svg" alt="Executive Hideaway Spa and Resort" width={341} height={100} priority className="h-11 w-auto sm:h-12" />
               </Link>
             </div>
             <div className="flex flex-1 items-center py-16">
