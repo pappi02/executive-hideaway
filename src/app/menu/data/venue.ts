@@ -8,8 +8,8 @@ export const venue = {
   city: 'Nairobi',
   country: 'Kenya',
   address: '275 Nyeri Close, Kileleshwa, Nairobi',
-  phone: `+${businessContact.whatsappNumber}`,
-  phoneDisplay: '+254 759 944 566',
+  phone: businessContact.primaryPhoneHref.replace('tel:', ''),
+  phoneDisplay: businessContact.primaryPhone,
   email: businessContact.email,
   currency: 'KSh',
   established: 'Est. Nairobi',
@@ -21,4 +21,4 @@ export const venue = {
   ],
 } as const;
 
-export const whatsappLink = `https://wa.me/${venue.phone.replace(/[^0-9]/g, '')}`;
+export const whatsappLink = businessContact.whatsappUrl;

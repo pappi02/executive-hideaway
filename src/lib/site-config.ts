@@ -32,11 +32,10 @@ export const siteConfig = {
 export const businessContact = {
   primaryPhone: "+254 719 506 995",
   primaryPhoneHref: "tel:+254719506995",
-  whatsappNumber: "254759944566",
-  whatsappUrl: "https://wa.me/254759944566",
+  whatsappNumber: "254719506995",
+  whatsappUrl: "https://wa.me/254719506995",
   secondaryPhones: [
     { label: "+254 111 500 150", href: "tel:+254111500150" },
-    { label: "+254 759 944 566", href: "tel:+254759944566" },
   ],
   email: "executivehideawaybarberandspa@gmail.com",
   emailHref: "mailto:executivehideawaybarberandspa@gmail.com",
