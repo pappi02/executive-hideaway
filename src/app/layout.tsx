@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { BookingProvider } from "@/components/booking/BookingProvider";
+import InstallPrompt from "@/components/layout/InstallPrompt";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import { buildMetadata } from "@/lib/seo";
 import { localBusinessJsonLd } from "@/lib/json-ld";
@@ -12,6 +13,12 @@ export const metadata: Metadata = {
     path: "/",
   }),
   metadataBase: new URL(siteUrl),
+  // Lets iPhone and iPad users add the site to the home screen as a full-screen app.
+  appleWebApp: {
+    capable: true,
+    title: "Hideaway",
+    statusBarStyle: "black",
+  },
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.shortName}`,
@@ -84,6 +91,7 @@ export default function RootLayout({
         <BookingProvider>
           <ScrollToTop />
           {children}
+          <InstallPrompt />
         </BookingProvider>
       </body>
     </html>

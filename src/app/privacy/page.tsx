@@ -64,8 +64,9 @@ export default function PrivacyPage() {
         </p>
         <p className="mt-3">
           While you choose services, your selection is kept in your own browser for that session only (session storage) so
-          that it survives a page refresh. It is cleared when you close the tab. This website doesn&apos;t use advertising
-          or analytics cookies.
+          that it survives a page refresh. It is cleared when you close the tab. If you close the &ldquo;install the
+          app&rdquo; prompt, your browser remembers that for two weeks (local storage) so it doesn&apos;t keep asking; it
+          holds only the date, nothing about you. This website doesn&apos;t use advertising or analytics cookies.
         </p>
       </section>
 

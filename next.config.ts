@@ -73,6 +73,15 @@ const nextConfig: NextConfig = {
 				headers: securityHeaders,
 			},
 			{
+				// The installable-app service worker must never be served stale, or
+				// a fix to it could take days to reach installed copies.
+				source: "/sw.js",
+				headers: [
+					{ key: "Content-Type", value: "application/javascript; charset=utf-8" },
+					{ key: "Cache-Control", value: "no-cache, no-store, must-revalidate" },
+				],
+			},
+			{
 				// Original photos under /public/images (served directly by the menu's
 				// CSS backgrounds and used as next/image sources). Without this they go
 				// out with max-age=0 and every page view re-requests them. A day fresh,
