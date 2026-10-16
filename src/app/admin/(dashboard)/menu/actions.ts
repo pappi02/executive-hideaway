@@ -47,6 +47,7 @@ function readChapterFields(formData: FormData) {
     footnote: optionalText(formData, "footnote", { label: "Footnote", max: 500 }),
     columns: Number(oneOf(formData, "columns", ["1", "2"] as const, "column count")),
     stock: oneOf(formData, "stock", ["onyx", "bone"] as const, "page style"),
+    published: formData.get("published") === "on",
   };
 }
 

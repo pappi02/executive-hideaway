@@ -48,6 +48,11 @@ export interface Chapter {
   sections: Section[];
   /** Footnote printed at the foot of the chapter's final page. */
   footnote?: string;
+  /**
+   * False keeps the chapter out of the public book; it shows only in the
+   * admin preview at /menu/preview. Omitted means published.
+   */
+  published?: boolean;
 }
 
 /* -------------------------------------------------------------------------

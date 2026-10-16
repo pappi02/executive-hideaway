@@ -118,6 +118,7 @@ model Chapter {
   columns       Int       @default(1) // 1 | 2
   stock         String    @default("onyx") // "onyx" | "bone"
   order         Int       @default(0)
+  published     Boolean   @default(true) // false: admin preview only
   sections      Section[]
 }
 

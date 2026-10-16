@@ -67,7 +67,7 @@ export const viewport: Viewport = {
 
 export default function MenuLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={`${cinzel.variable} ${cormorant.variable} ${inter.variable}`}>
+    <div className={`menu-type ${cinzel.variable} ${cormorant.variable} ${inter.variable}`}>
       {/* The cover is the first thing anyone sees after scanning the QR code,
           and it is a CSS background, so the browser cannot discover it until
           the stylesheet has parsed. Preloading it removes that round trip. */}

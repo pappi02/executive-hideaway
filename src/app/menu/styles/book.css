@@ -75,6 +75,13 @@
     color: var(--color-bone);
   }
 
+  /* A long running head at full size would wrap and push the eyebrow out of
+     the fixed-height header on a phone; two lines at this size still fit. */
+  .page-head-title--long {
+    font-size: 22px;
+    line-height: 24px;
+  }
+
   [data-stock='bone'] .page-head-title { color: var(--color-obsidian); }
 
   .page-head-rule {
@@ -338,6 +345,8 @@
     position: relative;
     z-index: 10;
     margin-top: auto;
+    /* Clears the folio line, whose emblem stands 62px off the foot of the page. */
+    margin-bottom: 36px;
     max-width: 480px;
   }
 

@@ -42,6 +42,17 @@
   --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
+/* @theme emits the tokens above on :root, but next/font sets --font-cinzel,
+   --font-cormorant and --font-inter on the menu layout's wrapper. A var() in a
+   custom property resolves where the property is declared, so at :root they
+   came out empty and the whole book fell back to the site's Arial. Declaring
+   the tokens again on the wrapper resolves them where the fonts exist. */
+.menu-type {
+  --font-display: var(--font-cinzel), 'Trajan Pro', Georgia, serif;
+  --font-serif: var(--font-cormorant), Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
 /* ==========================================================================
    Book mechanics — the 3D flip
    These properties (perspective, transform-style, backface-visibility) are

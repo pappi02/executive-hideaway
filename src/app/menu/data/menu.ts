@@ -379,6 +379,160 @@ export const chapters: Chapter[] = [
     ],
   },
 
+  /* ----------------------------------------------------------------
+     DRAFT, pending owner approval. Every brand, measure and price below
+     is a provisional example: nothing here is confirmed as stocked. The
+     chapter stays out of the public book until `published` is switched
+     on in the admin. Johnnie Walker Red Label (500) was added on request
+     with a placeholder price. */
+  {
+    id: 'bar-drinks',
+    eyebrow: 'Wine & Spirits',
+    title: 'Bar & Drinks',
+    standfirst: 'Spirits, cocktails and wine',
+    // The back bar on the left of the lounge photograph.
+    image: assetPath('/images/menu/cover.jpg'),
+    imagePosition: '12% center',
+    note: 'Ask for your spirit neat, over ice or with a mixer.',
+    columns: 2,
+    published: false,
+    sections: [
+      {
+        id: 'beer-cider',
+        title: 'Beer & Cider',
+        dishes: [
+          d('bd-beer-1', 'Tusker Lager', 450),
+          d('bd-beer-2', 'White Cap Lager', 450),
+          d('bd-beer-3', 'Tusker Lite', 450),
+          d('bd-beer-4', 'Heineken', 600),
+          d('bd-beer-5', 'Corona Extra', 750),
+          d('bd-beer-6', 'Savanna Cider', 600),
+        ],
+      },
+      {
+        id: 'whisky-bourbon',
+        title: 'Whisky & Bourbon',
+        note: 'Per 30 ml',
+        dishes: [
+          d('bd-wh-1', 'Jameson', 550),
+          d('bd-wh-2', "Jack Daniel's", 600),
+          d('bd-wh-6', 'Johnnie Walker Red Label', 500),
+          d('bd-wh-3', 'Johnnie Walker Black Label', 650),
+          d('bd-wh-4', 'Chivas Regal 12 Year', 700),
+          d('bd-wh-5', 'Glenfiddich 12 Year', 950),
+        ],
+      },
+      {
+        id: 'gin-vodka-rum',
+        title: 'Gin, Vodka & Rum',
+        note: 'Per 30 ml',
+        dishes: [
+          d('bd-gvr-1', "Gordon's Gin", 500),
+          d('bd-gvr-2', 'Tanqueray Gin', 650),
+          d('bd-gvr-3', 'Smirnoff Vodka', 500),
+          d('bd-gvr-4', 'Absolut Vodka', 550),
+          d('bd-gvr-5', 'Captain Morgan Spiced Rum', 500),
+          d('bd-gvr-6', 'Bacardi Carta Blanca', 550),
+        ],
+      },
+      {
+        id: 'cognac-brandy',
+        title: 'Cognac & Brandy',
+        note: 'Per 30 ml',
+        dishes: [
+          d('bd-cb-1', 'Viceroy Brandy', 450),
+          d('bd-cb-2', 'Hennessy VS', 900),
+          d('bd-cb-3', 'Martell VS', 850),
+          d('bd-cb-4', 'Rémy Martin VSOP', 1200),
+        ],
+      },
+      {
+        id: 'tequila-other',
+        title: 'Tequila & Other Spirits',
+        note: 'Per 30 ml',
+        dishes: [
+          d('bd-tq-1', 'Jose Cuervo', 650),
+          d('bd-tq-2', 'Don Julio Blanco', 1100),
+        ],
+      },
+      {
+        id: 'classic-cocktails',
+        title: 'Classic Cocktails',
+        dishes: [
+          d('bd-cc-1', 'Mojito', 1100, 'White rum, lime, mint, sugar, soda'),
+          d('bd-cc-2', 'Margarita', 1200, 'Tequila, orange liqueur, lime'),
+          d('bd-cc-3', 'Passion Fruit Martini', 1300, 'Vodka, passion fruit, vanilla, lime'),
+          d('bd-cc-4', 'Old Fashioned', 1300, 'Bourbon, sugar, bitters, orange'),
+          d('bd-cc-5', 'Whisky Sour', 1200, 'Whisky, lemon, sugar'),
+          d('bd-cc-6', 'Negroni', 1300, 'Gin, bitter aperitivo, sweet vermouth'),
+          d('bd-cc-7', 'Espresso Martini', 1400, 'Vodka, coffee liqueur, espresso'),
+          d('bd-cc-8', 'Aperol Spritz', 1300, 'Aperol, sparkling wine, soda'),
+        ],
+      },
+      {
+        // Proposed names only. No recipes are set: the bar writes the
+        // descriptions once each drink exists.
+        id: 'signature-cocktails',
+        title: 'Signature Cocktails',
+        note: 'Proposed, recipes to be confirmed',
+        dishes: [
+          d('bd-sc-1', 'Hideaway Sunset', 1400),
+          d('bd-sc-2', 'Nairobi Garden', 1400),
+          d('bd-sc-3', 'Tropical No. 8', 1500),
+        ],
+      },
+      {
+        id: 'wine',
+        title: 'Red, White & Rosé Wine',
+        dishes: [
+          d('bd-wn-1', 'House Red', 900, '150 ml glass'),
+          d('bd-wn-2', 'House White', 900, '150 ml glass'),
+          d('bd-wn-3', 'Rosé', 1000, '150 ml glass'),
+          d('bd-wn-4', 'Selected Bottle', undefined, 'Ask for the wine list', { priceNote: 'from 3,500' }),
+        ],
+      },
+      {
+        id: 'sparkling',
+        title: 'Sparkling Wine',
+        dishes: [
+          d('bd-sp-1', 'Sparkling Wine', undefined, 'By the bottle', { priceNote: 'from 5,000' }),
+        ],
+      },
+    ],
+    footnote: 'Selection and prices subject to availability. Please drink responsibly. Not served to anyone under 18.',
+  },
+
+  /* ----------------------------------------------------------------
+     DRAFT, NOT FOR PUBLICATION. Package names and prices are proposals.
+     Inclusions, durations and flavours are deliberately left out until
+     they are specified. Shisha is restricted in Kenya (see the Public
+     Health (Control of Shisha Smoking) Rules, 2017), so this chapter
+     must stay unpublished until the owner has written confirmation that
+     offering and advertising it is lawful. */
+  {
+    id: 'shisha',
+    eyebrow: 'Packages',
+    title: 'The Shisha Experience',
+    standfirst: 'Three ways to settle in',
+    // The low lounge seating on the right of the same photograph.
+    image: assetPath('/images/menu/cover.jpg'),
+    imagePosition: '88% center',
+    note: 'Ask your host what each package includes.',
+    columns: 1,
+    published: false,
+    sections: [
+      {
+        id: 'shisha-packages',
+        title: 'Packages',
+        dishes: [
+          d('sh-1', 'Classic Experience', 1500, 'Our everyday package'),
+          d('sh-2', 'Premium Experience', 2000, 'A step up from the Classic'),
+          d('sh-3', 'Signature Experience', 2500, 'The house package'),
+        ],
+      },
+    ],
+  },
+
   /* ---------------------------------------------------------------- */
   {
     id: 'spa',

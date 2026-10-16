@@ -17,6 +17,9 @@ export function usePageSide(): PageSide {
   return useContext(PageSideContext);
 }
 
+/** The resort emblem on every folio line; large enough to read as the logo on a phone. */
+const FOLIO_MARK = 36;
+
 interface PageFrameProps {
   page: BookPage;
   children: ReactNode;
@@ -39,7 +42,7 @@ export function PageFrame({ page, children, bare = false }: PageFrameProps) {
       {!bare && (
         <div className="page-folio" aria-hidden="true">
           <span className="page-folio-mark">
-            <Monogram size={20} tone={page.stock === 'bone' ? 'ink' : 'brass'} />
+            <Monogram size={FOLIO_MARK} tone={page.stock === 'bone' ? 'ink' : 'brass'} />
           </span>
           <span className="page-folio-rule" />
           <span className="page-folio-number">

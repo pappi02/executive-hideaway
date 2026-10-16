@@ -2,6 +2,9 @@ import type { ListPage as ListPageType } from '../../types/menu';
 import { SectionBlock } from '../menu/SectionBlock';
 import { PageFrame } from './PageFrame';
 
+/** Running heads longer than this are set smaller so they fit the fixed header. */
+const LONG_TITLE = 16;
+
 /**
  * A page of the menu proper.
  *
@@ -28,7 +31,13 @@ export function ListPage({ page }: { page: ListPageType }) {
           {page.eyebrow}
           {page.continued && <span className="page-head-cont"> · continued</span>}
         </p>
-        <h2 className="t-engraved page-head-title">{page.title}</h2>
+        <h2
+          className={`t-engraved page-head-title${
+            page.title.length > LONG_TITLE ? ' page-head-title--long' : ''
+          }`}
+        >
+          {page.title}
+        </h2>
         <span className="page-head-rule" aria-hidden="true" />
       </header>
 

@@ -6,9 +6,15 @@ import type {
   Section,
 } from "@/app/menu/types/menu";
 
-/** Reads the whole menu, ordered for display, from the database. */
-export async function getMenuChapters(): Promise<Chapter[]> {
+/**
+ * Reads the menu, ordered for display, from the database. Unpublished
+ * chapters are left out unless `includeDrafts` is set (the admin preview).
+ */
+export async function getMenuChapters({
+  includeDrafts = false,
+}: { includeDrafts?: boolean } = {}): Promise<Chapter[]> {
   const chapters = await prisma.chapter.findMany({
+    where: includeDrafts ? undefined : { published: true },
     orderBy: { order: "asc" },
     include: {
       sections: {
@@ -34,6 +40,7 @@ function toChapter(chapter: {
   footnote: string | null;
   columns: number;
   stock: string;
+  published: boolean;
   sections: Array<{
     id: string;
     title: string;
@@ -60,6 +67,7 @@ function toChapter(chapter: {
     footnote: chapter.footnote ?? undefined,
     columns: chapter.columns === 2 ? 2 : 1,
     stock: chapter.stock === "bone" ? "bone" : "onyx",
+    published: chapter.published,
     sections: chapter.sections.map(toSection),
   };
 }

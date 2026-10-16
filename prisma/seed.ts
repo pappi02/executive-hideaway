@@ -276,6 +276,8 @@ async function seedMenu() {
         columns: chapter.columns ?? 1,
         stock: chapter.stock ?? "onyx",
         order: chapterOrder,
+        // Set once: re-seeding never overrides a publish decision made in the admin.
+        published: chapter.published ?? true,
       },
       update: {
         eyebrow: chapter.eyebrow,

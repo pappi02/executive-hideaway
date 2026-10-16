@@ -24,6 +24,13 @@ export default async function AdminMenuPage() {
         </Link>
       </div>
 
+      <p className="mt-3 text-sm text-black/50">
+        Draft chapters are hidden from guests.{" "}
+        <a href="/menu/preview" target="_blank" className="underline hover:text-black">
+          Preview the menu with drafts
+        </a>
+      </p>
+
       <div className="mt-6 grid gap-3">
         {chapters.map((chapter) => {
           const dishCount = chapter.sections.reduce(
@@ -41,7 +48,14 @@ export default async function AdminMenuPage() {
                 <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-black/40">
                   {chapter.eyebrow}
                 </p>
-                <p className="mt-0.5 font-medium">{chapter.title}</p>
+                <p className="mt-0.5 font-medium">
+                  {chapter.title}
+                  {!chapter.published && (
+                    <span className="ml-2 rounded-full bg-amber-100 px-2 py-0.5 align-middle text-[10px] font-semibold uppercase tracking-[0.12em] text-amber-800">
+                      Draft
+                    </span>
+                  )}
+                </p>
               </div>
 
               <p className="text-xs text-black/45">

@@ -15,6 +15,7 @@ export interface ChapterFormValues {
   footnote: string | null;
   columns: number;
   stock: string;
+  published: boolean;
 }
 
 export function ChapterForm({
@@ -86,6 +87,22 @@ export function ChapterForm({
           </select>
         </div>
       </div>
+
+      <label className="flex items-start gap-3 text-sm">
+        <input
+          type="checkbox"
+          name="published"
+          defaultChecked={defaultValues?.published ?? true}
+          className="mt-0.5 h-4 w-4 accent-(--accent)"
+        />
+        <span>
+          Published on the menu
+          <span className="mt-0.5 block text-xs text-black/45">
+            Unticked, the chapter is a draft: guests don&apos;t see it, and it shows only in the{" "}
+            <a href="/menu/preview" target="_blank" className="underline">admin preview</a>.
+          </span>
+        </span>
+      </label>
 
       <div className="flex items-center gap-4">
         <button
