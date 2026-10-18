@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type NavItem = {
   label: string;
@@ -65,7 +65,17 @@ const navItems: NavItem[] = [
 
 export default function Navbar({ tone = "light" }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+
+  // The light navbar is transparent over the hero; once the page scrolls it
+  // takes a dark backdrop so its white links stay legible over cream sections.
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 8);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
   const isDark = tone === "dark";
   const isAccommodation = pathname.startsWith("/accommodation");
@@ -92,12 +102,14 @@ export default function Navbar({ tone = "light" }: NavbarProps) {
     <>
       {/* Navbar */}
       <header
-        className={`fixed inset-x-0 top-0 z-60 ${
+        className={`fixed inset-x-0 top-0 z-60 transition-[background-color,box-shadow] duration-300 ${
           isDark
             ? "bg-[#f3efe6]/90 backdrop-blur-sm"
             : menuOpen
               ? "bg-[#0b0b0a]"
-              : ""
+              : scrolled
+                ? "bg-[#0b0b0a]/90 shadow-[0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-md"
+                : ""
         }`}
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between gap-12 px-5 py-3 sm:px-8 sm:py-4 lg:px-10 xl:gap-16">
