@@ -380,11 +380,10 @@ export const chapters: Chapter[] = [
   },
 
   /* ----------------------------------------------------------------
-     DRAFT, pending owner approval. Every brand, measure and price below
-     is a provisional example: nothing here is confirmed as stocked. The
-     chapter stays out of the public book until `published` is switched
-     on in the admin. Johnnie Walker Red Label (500) was added on request
-     with a placeholder price. */
+     Published on the owner's go-ahead (2026-10-18). Every brand, measure
+     and price below is still a provisional example awaiting confirmation
+     of stock. Johnnie Walker Red Label (500) was added on request with a
+     placeholder price. */
   {
     id: 'bar-drinks',
     eyebrow: 'Wine & Spirits',
@@ -395,7 +394,6 @@ export const chapters: Chapter[] = [
     imagePosition: '12% center',
     note: 'Ask for your spirit neat, over ice or with a mixer.',
     columns: 2,
-    published: false,
     sections: [
       {
         id: 'beer-cider',
@@ -503,12 +501,11 @@ export const chapters: Chapter[] = [
   },
 
   /* ----------------------------------------------------------------
-     DRAFT, NOT FOR PUBLICATION. Package names and prices are proposals.
-     Inclusions, durations and flavours are deliberately left out until
-     they are specified. Shisha is restricted in Kenya (see the Public
-     Health (Control of Shisha Smoking) Rules, 2017), so this chapter
-     must stay unpublished until the owner has written confirmation that
-     offering and advertising it is lawful. */
+     Published on the owner's go-ahead (2026-10-18), on their confirmation
+     that offering and advertising shisha is permitted (it is restricted in
+     Kenya: see the Public Health (Control of Shisha Smoking) Rules, 2017).
+     Package names and prices are proposals. Inclusions, durations and
+     flavours are deliberately left out until they are specified. */
   {
     id: 'shisha',
     eyebrow: 'Packages',
@@ -519,7 +516,6 @@ export const chapters: Chapter[] = [
     imagePosition: '88% center',
     note: 'Ask your host what each package includes.',
     columns: 1,
-    published: false,
     sections: [
       {
         id: 'shisha-packages',
