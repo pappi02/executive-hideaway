@@ -28,6 +28,7 @@ const navigation = [
   { label: "Services", href: "/services" },
   { label: "Accommodation", href: "/accommodation" },
   { label: "Resort Menu", href: "/menu" },
+  { label: "Games", href: "/games" },
   { label: "Gallery", href: "/gallery" },
   { label: "Contact", href: "/contact" },
 ];

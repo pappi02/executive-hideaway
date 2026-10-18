@@ -1,0 +1,141 @@
+/**
+ * Copy for the resort's leisure areas: food, the bar & lounge, and games.
+ *
+ * The games list mirrors the five games the owner has confirmed as available
+ * (Gents Games & Entertainment, docs/PHASE_0_DISCOVERY.md §3). Keep the same
+ * rules here: no table or equipment counts, and no prices, which stay
+ * enquiry-only until the owner confirms them.
+ */
+
+export type LeisureArea = {
+  id: string;
+  number: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  /** Tailwind object-position class for the crop. */
+  imagePosition: string;
+  cta: { label: string; href: string };
+};
+
+export const leisureAreas: LeisureArea[] = [
+  {
+    id: "food",
+    number: "01",
+    eyebrow: "Food & Dining",
+    title: "The Kitchen",
+    description:
+      "Breakfast through to dinner: Kenyan classics, dishes from the grill and the sea, light plates and something sweet to finish.",
+    image: "/images/menu/grill.jpg",
+    imageAlt: "Steaks cooking over an open flame grill",
+    imagePosition: "object-[70%_60%]",
+    cta: { label: "View the food menu", href: "/menu" },
+  },
+  {
+    id: "bar-lounge",
+    number: "02",
+    eyebrow: "Bar & Lounge",
+    title: "The Lounge",
+    description:
+      "Low light, deep seating and an unhurried pace. Beers, spirits, classic cocktails and wine by the glass or bottle.",
+    image: "/images/menu/cover.jpg",
+    imageAlt: "A dimly lit lounge with a long bar and velvet seating",
+    imagePosition: "object-[30%_center]",
+    cta: { label: "View the drinks menu", href: "/menu" },
+  },
+  {
+    id: "games",
+    number: "03",
+    eyebrow: "Games & Activities",
+    title: "The Games Room",
+    description:
+      "Pool, chess, cards, table tennis and darts. Settle in for a quiet game or a friendly rivalry.",
+    image: "/images/games/pool-room.webp",
+    imageAlt: "A pool table under pendant lights in a dark wood games room",
+    imagePosition: "object-[center_70%]",
+    cta: { label: "Explore games", href: "/games" },
+  },
+];
+
+export type Game = {
+  id: string;
+  name: string;
+  tagline: string;
+  description: string;
+  players: string;
+  duration: string;
+  equipment: string;
+  image: string;
+  imageAlt: string;
+  imagePosition: string;
+};
+
+export const games: Game[] = [
+  {
+    id: "pool",
+    name: "Pool",
+    tagline: "Precision meets competition at the table.",
+    description:
+      "Line up your shot and challenge a friend. Whether you're learning the basics or refining your technique, pool rewards concentration, positioning and tactical thinking.",
+    players: "2, or teams in doubles",
+    duration: "30–60 minutes a game",
+    equipment: "Cues and balls provided",
+    image: "/images/games/pool-room.webp",
+    imageAlt: "A pool table under pendant lights",
+    imagePosition: "object-[center_75%]",
+  },
+  {
+    id: "chess",
+    name: "Chess",
+    tagline: "Think ahead, outplay your opponent.",
+    description:
+      "A two-player game of planning and anticipation, as relaxed or as serious as you make it. New to chess? Our team can walk you through how the pieces move.",
+    players: "2",
+    duration: "15–45 minutes for a casual game",
+    equipment: "Boards and sets provided",
+    image: "/images/games/chess-lounge.webp",
+    imageAlt: "A chess board set up in a lounge",
+    imagePosition: "object-center",
+  },
+  {
+    id: "cards",
+    name: "Cards",
+    tagline: "Casual, social and group-friendly.",
+    description:
+      "A relaxed way to spend time together between other activities. Ask our team which card games are available during your visit.",
+    players: "2 or more",
+    duration: "Varies by game",
+    equipment: "Standard decks provided",
+    image: "/images/games/games-spread.webp",
+    imageAlt: "Playing cards, dominoes and chess pieces on a wooden table",
+    imagePosition: "object-[center_85%]",
+  },
+  {
+    id: "table-tennis",
+    name: "Table Tennis",
+    tagline: "Fast reflexes, head-to-head rallies.",
+    description:
+      "Fast-paced and competitive, for singles or doubles. Knock the ball around casually or play a serious rally.",
+    players: "2 for singles, 4 for doubles",
+    duration: "10–20 minutes a game",
+    equipment: "Paddles and balls provided",
+    image: "/images/games/table-tennis-clean.webp",
+    imageAlt: "A table tennis table with paddles and a ball",
+    imagePosition: "object-center",
+  },
+  {
+    id: "darts",
+    name: "Darts",
+    tagline: "Steady aim, friendly rivalry.",
+    description:
+      "A classic game of precision and focus: easy to pick up, satisfying to master. Good for a casual round or a running rivalry.",
+    players: "2 or more",
+    duration: "10–15 minutes a game",
+    equipment: "Darts provided",
+    image: "/images/games/darts.webp",
+    imageAlt: "Darts in a dartboard",
+    imagePosition: "object-center",
+  },
+];
