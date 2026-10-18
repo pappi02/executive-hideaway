@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowDownRight, ArrowUpRight, MessageCircle, Phone } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { games } from "@/data/leisure";
+import { comingSoonGames, games } from "@/data/leisure";
 import { buildMetadata } from "@/lib/seo";
 import { businessContact } from "@/lib/site-config";
 
@@ -124,6 +124,49 @@ export default function GamesPage() {
                     </dl>
                   </div>
                 </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Coming soon */}
+        <section
+          id="coming-soon"
+          className="scroll-mt-20 border-t border-black/10 bg-[#f3efe6] px-5 py-8 text-[#0b0b0a] sm:px-8 sm:py-14 lg:px-10 lg:py-20"
+        >
+          <div className="mx-auto max-w-7xl">
+            <div className="max-w-2xl">
+              <p className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
+                <span className="h-px w-8 bg-[#80683c]" />
+                Coming soon
+              </p>
+              <h2 className="mt-4 text-3xl font-light leading-[1.02] tracking-[-0.04em] sm:text-5xl">
+                More on the way.
+              </h2>
+              <p className="mt-3 text-sm leading-7 text-black/60 sm:text-base">
+                Games and activities we&apos;re planning to add. They aren&apos;t
+                available yet; ask our team for the latest.
+              </p>
+            </div>
+
+            <div className="mt-8 grid gap-x-12 gap-y-8 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3">
+              {comingSoonGames.map((group) => (
+                <div key={group.id}>
+                  <h3 className="border-b border-black/15 pb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#80683c]">
+                    {group.title}
+                  </h3>
+                  <ul className="mt-1 divide-y divide-black/5">
+                    {group.games.map((game) => (
+                      <li key={game.name} className="py-3">
+                        <p className="text-base font-normal tracking-[-0.01em]">{game.name}</p>
+                        <p className="mt-0.5 text-sm leading-6 text-black/55">{game.description}</p>
+                      </li>
+                    ))}
+                  </ul>
+                  {group.note && (
+                    <p className="mt-2 text-xs italic leading-5 text-black/45">{group.note}</p>
+                  )}
+                </div>
               ))}
             </div>
           </div>

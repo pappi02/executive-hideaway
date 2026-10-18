@@ -139,3 +139,74 @@ export const games: Game[] = [
     imagePosition: "object-center",
   },
 ];
+
+export type ComingSoonGroup = {
+  id: string;
+  title: string;
+  note?: string;
+  games: { name: string; description: string }[];
+};
+
+/**
+ * Proposed games that are not yet confirmed at the venue (the Gents project's
+ * draft, unverified records). Listed as "coming soon" only: describe the game,
+ * never what is on site. Move a game into `games` above once the owner
+ * confirms it and the venue facts (players, duration, equipment) are known.
+ */
+export const comingSoonGames: ComingSoonGroup[] = [
+  {
+    id: "table-games",
+    title: "Table Games",
+    games: [
+      { name: "Snooker", description: "Long tables, small pockets, patient break-building." },
+      { name: "Foosball", description: "Spin the rods and score: table football, head to head." },
+      { name: "Air Hockey", description: "A puck on a cushion of air, and very little time to react." },
+    ],
+  },
+  {
+    id: "board-games",
+    title: "Board Games",
+    games: [
+      { name: "Draughts", description: "Diagonal moves, forced captures, kings in the back row." },
+      { name: "Backgammon", description: "Dice, tactics and a race to bear off first." },
+      { name: "Scrabble", description: "Build words and chase the premium squares." },
+      { name: "Ludo", description: "Race your pieces home and send rivals back to start." },
+      { name: "Monopoly", description: "Buy, trade and build your way around the board." },
+    ],
+  },
+  {
+    id: "social-games",
+    title: "Cards & Social Games",
+    games: [
+      { name: "UNO", description: "Match colours or numbers and be first to empty your hand." },
+      { name: "Dominoes", description: "Match the ends, block the table, play out your tiles." },
+      { name: "Jenga", description: "Pull a block, stack it on top, and hope the tower holds." },
+      { name: "Connect Four", description: "Line up four discs before your opponent does." },
+    ],
+  },
+  {
+    id: "outdoor-leisure",
+    title: "Outdoor & Leisure",
+    games: [
+      { name: "Mini Golf", description: "A short putting course with ramps, bends and a few tricky holes." },
+      { name: "Swimming Pool", description: "A pool to swim, cool off and relax beside." },
+    ],
+  },
+  {
+    id: "live-entertainment",
+    title: "Live Entertainment",
+    games: [
+      { name: "Live Band & Salsa Dancers", description: "A live band on stage with salsa dancers leading the floor." },
+    ],
+  },
+  {
+    id: "casino-style",
+    title: "Casino-Style Games",
+    note: "For fun only: play chips with no cash value, no wagering and no prizes.",
+    games: [
+      { name: "Roulette", description: "Call your numbers and watch the wheel." },
+      { name: "Blackjack", description: "Beat the dealer to 21 without going over." },
+      { name: "Poker (Texas Hold'em)", description: "Two cards each, five on the table, and a lot of reading the room." },
+    ],
+  },
+];
