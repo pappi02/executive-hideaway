@@ -52,9 +52,9 @@ export const leisureAreas: LeisureArea[] = [
     title: "The Games Room",
     description:
       "Pool, chess, cards, table tennis and darts. Settle in for a quiet game or a friendly rivalry.",
-    image: "/images/games/pool-room.webp",
-    imageAlt: "A pool table under pendant lights in a dark wood games room",
-    imagePosition: "object-[center_70%]",
+    image: "/images/games/pool-table-lounge.webp",
+    imageAlt: "The pool table in the lounge, with high-backed chairs and sofas behind it",
+    imagePosition: "object-[center_60%]",
     cta: { label: "Explore games", href: "/games" },
   },
 ];
@@ -82,9 +82,9 @@ export const games: Game[] = [
     players: "2, or teams in doubles",
     duration: "30–60 minutes a game",
     equipment: "Cues and balls provided",
-    image: "/images/games/pool-room.webp",
-    imageAlt: "A pool table under pendant lights",
-    imagePosition: "object-[center_75%]",
+    image: "/images/games/pool-table.webp",
+    imageAlt: "The pool table, racked and ready with two cues on the cloth",
+    imagePosition: "object-[center_60%]",
   },
   {
     id: "chess",
@@ -95,8 +95,8 @@ export const games: Game[] = [
     players: "2",
     duration: "15–45 minutes for a casual game",
     equipment: "Boards and sets provided",
-    image: "/images/games/chess-lounge.webp",
-    imageAlt: "A chess board set up in a lounge",
+    image: "/images/games/chess-board.webp",
+    imageAlt: "A chess set laid out for a new game on a round lounge table",
     imagePosition: "object-center",
   },
   {

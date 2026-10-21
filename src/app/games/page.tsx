@@ -13,7 +13,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Pool, chess, cards, table tennis and darts at Executive Hideaway Resort & Spa in Nairobi. Ask our team about availability when you visit.",
   path: "/games",
-  image: "/images/games/pool-room.webp",
+  image: "/images/games/pool-table-lounge.webp",
 });
 
 export default function GamesPage() {
@@ -25,12 +25,12 @@ export default function GamesPage() {
         {/* Hero */}
         <section className="relative min-h-[50svh] overflow-hidden bg-[#0b0b0a] text-white">
           <Image
-            src="/images/games/pool-room.webp"
-            alt="A pool table under pendant lights in a dark wood games room"
+            src="/images/games/pool-table-lounge.webp"
+            alt="The pool table in the lounge, with high-backed chairs and sofas behind it"
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[center_70%]"
+            className="object-cover object-[center_60%]"
           />
 
           <div className="absolute inset-0 bg-black/45" />
