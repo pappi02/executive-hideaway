@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { BookingProvider } from "@/components/booking/BookingProvider";
 import InstallPrompt from "@/components/layout/InstallPrompt";
+import PosterPopup from "@/components/layout/PosterPopup";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import { buildMetadata } from "@/lib/seo";
 import { localBusinessJsonLd } from "@/lib/json-ld";
@@ -92,6 +93,7 @@ export default function RootLayout({
           <ScrollToTop />
           {children}
           <InstallPrompt />
+          <PosterPopup />
         </BookingProvider>
       </body>
     </html>

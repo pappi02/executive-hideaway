@@ -4,11 +4,12 @@ import { requireAdmin } from "@/lib/require-admin";
 
 export default async function AdminHomePage() {
   await requireAdmin();
-  const [serviceCount, accommodationCount, chapterCount, dishCount] = await Promise.all([
+  const [serviceCount, accommodationCount, chapterCount, dishCount, livePosterCount] = await Promise.all([
     prisma.service.count(),
     prisma.accommodation.count(),
     prisma.chapter.count(),
     prisma.dish.count(),
+    prisma.poster.count({ where: { active: true, startsAt: { lte: new Date() }, endsAt: { gt: new Date() } } }),
   ]);
 
   const cards = [
@@ -16,6 +17,7 @@ export default async function AdminHomePage() {
     { href: "/admin/accommodation", label: "Accommodation", count: accommodationCount, sub: "room types" },
     { href: "/admin/menu", label: "Menu chapters", count: chapterCount, sub: "in the resort menu" },
     { href: "/admin/menu", label: "Menu dishes", count: dishCount, sub: "across all chapters" },
+    { href: "/admin/posters", label: "Live posters", count: livePosterCount, sub: "pop-ups on the site now" },
   ];
 
   return (

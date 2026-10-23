@@ -159,3 +159,32 @@ model LoginAttempt {
 
   @@index([key, createdAt])
 }
+
+/// Promotional poster shown as a timed pop-up on the public site (see
+/// src/components/layout/PosterPopup.tsx), managed at /admin/posters. Runs
+/// from startsAt to endsAt; each device sees it at most once a day.
+model Poster {
+  id               String   @id @default(cuid())
+  title            String
+  // A file under /public (e.g. /posters/x.webp) or a Vercel Blob URL.
+  imageUrl         String?
+  // Fallback when no Blob store is connected: the image bytes themselves,
+  // served by /api/posters/[id]/image.
+  imageData        Bytes?   @db.ByteA
+  imageType        String?
+  // Optional: where clicking the poster goes (a site path, https:// or tel:).
+  linkUrl          String?
+  startsAt         DateTime
+  endsAt           DateTime
+  // Seconds after landing before it pops up.
+  delaySeconds     Int      @default(10)
+  // Seconds before it closes itself; 0 = until the visitor closes it.
+  autoCloseSeconds Int      @default(6)
+  // When several posters run at once, the highest priority shows.
+  priority         Int      @default(0)
+  active           Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([active, endsAt])
+}
