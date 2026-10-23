@@ -3,8 +3,10 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ServicesHero from "@/components/services/ServicesHero";
 import ServiceCategory from "@/components/services/ServiceCategory";
+import PosterOffers from "@/components/services/PosterOffers";
 import { getServiceCategories } from "@/data/services";
 import { buildMetadata } from "@/lib/seo";
+import { listLivePosterDetails, type PosterDetails } from "@/lib/posters";
 
 export const metadata: Metadata = buildMetadata({
   title: "Services",
@@ -15,12 +17,21 @@ export const metadata: Metadata = buildMetadata({
 
 // Reads live from the database (admin-editable) — always render fresh
 // rather than depend on build-time DB reachability or cache revalidation.
-// Cached and served from the CDN; refreshed hourly, and immediately when the
-// admin dashboard saves a change (revalidatePath in the admin actions).
-export const revalidate = 3600;
+// Cached and served from the CDN; refreshed every 5 minutes (so a poster's
+// offer appears and drops off on schedule), and immediately when the admin
+// dashboard saves a change (revalidatePath in the admin actions).
+export const revalidate = 300;
 
 export default async function ServicesPage() {
-  const serviceCategories = await getServiceCategories();
+  const [serviceCategories, posters] = await Promise.all([
+    getServiceCategories(),
+    // Running posters in full - a poster pop-up click lands on its section.
+    // A failure here only hides the offers, never the services.
+    listLivePosterDetails().catch((error): PosterDetails[] => {
+      console.error("Poster offers unavailable", error);
+      return [];
+    }),
+  ]);
 
   return (
     <>
@@ -28,6 +39,8 @@ export default async function ServicesPage() {
 
       <main>
         <ServicesHero />
+
+        <PosterOffers posters={posters} />
 
         <section
           id="services"

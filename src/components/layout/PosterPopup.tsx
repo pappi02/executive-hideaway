@@ -1,6 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { PublicPoster } from "@/lib/posters";
@@ -40,7 +41,13 @@ function isHiddenPath(pathname: string | null) {
  * button, and (when it closes itself) a countdown bar that pauses while the
  * pointer is over it. Shared with the admin preview.
  */
-export function PosterView({ poster, onClose }: { poster: Pick<PublicPoster, "title" | "imageUrl" | "linkUrl" | "autoCloseSeconds">; onClose: () => void }) {
+export function PosterView({
+  poster,
+  onClose,
+}: {
+  poster: Pick<PublicPoster, "title" | "imageUrl" | "autoCloseSeconds"> & { detailsUrl: string | null };
+  onClose: () => void;
+}) {
   const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -64,13 +71,15 @@ export function PosterView({ poster, onClose }: { poster: Pick<PublicPoster, "ti
       className="poster-fade fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm"
     >
       <div className="group relative" onClick={(event) => event.stopPropagation()}>
-        {poster.linkUrl ? (
-          <a href={poster.linkUrl} onClick={onClose} aria-label={`${poster.title} - find out more`} className="block">
+        {/* Opens the poster's own section at the top of the services page,
+            where the full details and the booking button live. */}
+        {poster.detailsUrl ? (
+          <Link href={poster.detailsUrl} onClick={onClose} aria-label={`${poster.title} - see details`} className="block">
             {image}
             <span className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/70 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#f5f1e8]">
               Tap for details
             </span>
-          </a>
+          </Link>
         ) : (
           image
         )}

@@ -41,6 +41,14 @@ export default async function PosterFormPage({ params }: { params: Promise<{ id:
           autoCloseSeconds: poster.autoCloseSeconds,
           priority: poster.priority,
           active: poster.active,
+          kind: poster.kind,
+          summary: poster.summary,
+          highlights: poster.highlights,
+          details: poster.details,
+          priceText: poster.priceText,
+          location: poster.location,
+          ctaLabel: poster.ctaLabel,
+          terms: poster.terms,
         }}
         submitLabel="Save changes"
         successMessage="Poster updated"

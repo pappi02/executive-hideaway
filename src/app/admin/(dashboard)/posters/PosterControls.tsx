@@ -7,10 +7,9 @@ import { deletePoster, setPosterActive } from "./actions";
 
 const buttonClass = "text-[11px] font-semibold uppercase tracking-[0.12em]";
 
-export function PosterPreviewButton({ title, imageUrl, linkUrl, autoCloseSeconds }: {
+export function PosterPreviewButton({ title, imageUrl, autoCloseSeconds }: {
   title: string;
   imageUrl: string;
-  linkUrl: string | null;
   autoCloseSeconds: number;
 }) {
   const [open, setOpen] = useState(false);
@@ -19,7 +18,7 @@ export function PosterPreviewButton({ title, imageUrl, linkUrl, autoCloseSeconds
       <button type="button" onClick={() => setOpen(true)} className={`${buttonClass} text-black/55 hover:text-black`}>
         Preview
       </button>
-      {open && <PosterView poster={{ title, imageUrl, linkUrl, autoCloseSeconds }} onClose={() => setOpen(false)} />}
+      {open && <PosterView poster={{ title, imageUrl, detailsUrl: null, autoCloseSeconds }} onClose={() => setOpen(false)} />}
     </>
   );
 }

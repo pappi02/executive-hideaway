@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/require-admin";
-import { posterImageSrc, posterStatus, type PosterStatus } from "@/lib/posters";
+import { posterDetailsUrl, posterImageSrc, posterStatus, type PosterStatus } from "@/lib/posters";
 import { formatNairobi } from "@/lib/poster-time";
 import { DeletePosterButton, PosterPreviewButton, TogglePosterButton } from "./PosterControls";
 
@@ -33,7 +33,7 @@ export default async function AdminPostersPage() {
       </div>
       <p className="mt-2 max-w-2xl text-sm text-black/55">
         Promotional posters that pop up on the website a few seconds after a visitor arrives. Each poster shows once a day on
-        each device while it runs. Times are Nairobi time.
+        each device while it runs, and tapping it opens its offer details at the top of the services page. Times are Nairobi time.
       </p>
 
       {posters.length === 0 ? (
@@ -63,13 +63,18 @@ export default async function AdminPostersPage() {
                     Shows after {poster.delaySeconds}s ·{" "}
                     {poster.autoCloseSeconds ? `closes after ${poster.autoCloseSeconds}s` : "stays until closed"} · priority{" "}
                     {poster.priority}
-                    {poster.linkUrl ? ` · links to ${poster.linkUrl}` : ""}
+                    {poster.linkUrl ? ` · button goes to ${poster.linkUrl}` : ""}
                   </p>
                   <div className="mt-3 flex flex-wrap items-center gap-4">
                     <Link href={`/admin/posters/${poster.id}`} className="text-[11px] font-semibold uppercase tracking-[0.12em] text-black/55 hover:text-black">
                       Edit
                     </Link>
-                    <PosterPreviewButton title={poster.title} imageUrl={src} linkUrl={null} autoCloseSeconds={poster.autoCloseSeconds} />
+                    {status === "live" && (
+                      <Link href={posterDetailsUrl(poster.id)} target="_blank" className="text-[11px] font-semibold uppercase tracking-[0.12em] text-black/55 hover:text-black">
+                        View offer
+                      </Link>
+                    )}
+                    <PosterPreviewButton title={poster.title} imageUrl={src} autoCloseSeconds={poster.autoCloseSeconds} />
                     {status !== "ended" && <TogglePosterButton id={poster.id} active={poster.active} />}
                     <DeletePosterButton id={poster.id} title={poster.title} />
                   </div>

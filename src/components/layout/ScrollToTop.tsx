@@ -10,12 +10,16 @@ export default function ScrollToTop() {
     if (typeof window === "undefined") return;
 
     const resetScroll = () => {
-      if (!window.location.hash) {
-        const root = document.documentElement;
-        root.style.scrollBehavior = "auto";
-        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-        root.style.scrollBehavior = "";
-      }
+      const root = document.documentElement;
+      const hash = window.location.hash.slice(1);
+      // A link to a section (e.g. a poster pop-up opening /services#offer-...)
+      // lands on that section, re-aligned as images above it load.
+      const target = hash ? document.getElementById(decodeURIComponent(hash)) : null;
+      if (hash && !target) return;
+      root.style.scrollBehavior = "auto";
+      if (target) target.scrollIntoView({ block: "start" });
+      else window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      root.style.scrollBehavior = "";
     };
 
     resetScroll();

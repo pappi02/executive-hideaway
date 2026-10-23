@@ -172,8 +172,18 @@ model Poster {
   // served by /api/posters/[id]/image.
   imageData        Bytes?   @db.ByteA
   imageType        String?
-  // Optional: where clicking the poster goes (a site path, https:// or tel:).
+  // The booking button on the poster's offer section (a site path, https:// or
+  // tel:). Clicking the pop-up itself always opens /services#offer-<id>.
   linkUrl          String?
+  ctaLabel         String?
+  // Shown in the poster's section at the top of /services.
+  kind             String   @default("offer") // "offer" | "event" | "announcement"
+  summary          String?
+  details          String?
+  highlights       String[] @default([]) // "What's included", in order
+  priceText        String?
+  location         String?
+  terms            String?
   startsAt         DateTime
   endsAt           DateTime
   // Seconds after landing before it pops up.

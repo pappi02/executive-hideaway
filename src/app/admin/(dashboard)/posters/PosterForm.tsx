@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { AdminForm } from "@/components/admin/AdminForm";
 import type { ActionResult } from "@/lib/admin-action";
+import { POSTER_KIND_LABELS, POSTER_KINDS } from "@/lib/poster-kinds";
 import { endOfSunday, toNairobiInput } from "@/lib/poster-time";
 
 const inputClass =
@@ -24,6 +25,14 @@ export interface PosterFormValues {
   autoCloseSeconds: number;
   priority: number;
   active: boolean;
+  kind: string;
+  summary: string | null;
+  highlights: string[];
+  details: string | null;
+  priceText: string | null;
+  location: string | null;
+  ctaLabel: string | null;
+  terms: string | null;
 }
 
 export function PosterForm({
@@ -68,16 +77,6 @@ export function PosterForm({
         <p className="mt-1 text-xs text-black/40">JPEG, PNG or WebP, up to 4 MB. A portrait poster works best.</p>
       </div>
 
-      <div>
-        <label className={labelClass} htmlFor="linkUrl">Link when tapped (optional)</label>
-        <input
-          id="linkUrl"
-          name="linkUrl"
-          placeholder="/services, https://... or tel:+254719506995"
-          defaultValue={defaultValues?.linkUrl ?? ""}
-          className={inputClass}
-        />
-      </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
@@ -113,6 +112,71 @@ export function PosterForm({
       <p className="-mt-3 text-xs text-black/40">
         Delay: seconds after a visitor arrives. Auto-close: 0 keeps it up until they close it. When several posters run at once, the highest priority shows.
       </p>
+
+      <fieldset className="space-y-5 rounded-2xl border border-black/10 bg-white/60 p-5">
+        <legend className="px-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-black/60">Offer details</legend>
+        <p className="-mt-2 text-xs text-black/45">
+          Tapping the pop-up opens this poster&apos;s section at the top of the services page, showing these details.
+        </p>
+
+        <div>
+          <label className={labelClass} htmlFor="kind">Type</label>
+          <select id="kind" name="kind" defaultValue={defaultValues?.kind ?? "offer"} className={inputClass}>
+            {POSTER_KINDS.map((kind) => (
+              <option key={kind} value={kind}>{POSTER_KIND_LABELS[kind]}</option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className={labelClass} htmlFor="summary">Summary</label>
+          <textarea id="summary" name="summary" rows={2} maxLength={300} defaultValue={defaultValues?.summary ?? ""} className={inputClass} />
+        </div>
+
+        <div>
+          <label className={labelClass} htmlFor="highlights">What&apos;s included (one per line)</label>
+          <textarea id="highlights" name="highlights" rows={5} defaultValue={defaultValues?.highlights.join("\n") ?? ""} className={inputClass} />
+        </div>
+
+        <div>
+          <label className={labelClass} htmlFor="details">Description (blank line between paragraphs)</label>
+          <textarea id="details" name="details" rows={4} maxLength={4000} defaultValue={defaultValues?.details ?? ""} className={inputClass} />
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label className={labelClass} htmlFor="priceText">Price (optional)</label>
+            <input id="priceText" name="priceText" maxLength={80} placeholder="e.g. From KSh 3,500" defaultValue={defaultValues?.priceText ?? ""} className={inputClass} />
+          </div>
+          <div>
+            <label className={labelClass} htmlFor="location">Location (optional)</label>
+            <input id="location" name="location" maxLength={160} defaultValue={defaultValues?.location ?? ""} className={inputClass} />
+          </div>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label className={labelClass} htmlFor="ctaLabel">Button label</label>
+            <input id="ctaLabel" name="ctaLabel" maxLength={40} placeholder="Book now" defaultValue={defaultValues?.ctaLabel ?? ""} className={inputClass} />
+          </div>
+          <div>
+            <label className={labelClass} htmlFor="linkUrl">Button link</label>
+            <input
+              id="linkUrl"
+              name="linkUrl"
+              placeholder="/booking, https://... or tel:+254719506995"
+              defaultValue={defaultValues?.linkUrl ?? ""}
+              className={inputClass}
+            />
+          </div>
+        </div>
+        <p className="-mt-3 text-xs text-black/40">No link: the button goes to the booking page.</p>
+
+        <div>
+          <label className={labelClass} htmlFor="terms">Terms (optional)</label>
+          <textarea id="terms" name="terms" rows={2} maxLength={1000} defaultValue={defaultValues?.terms ?? ""} className={inputClass} />
+        </div>
+      </fieldset>
 
       <label className="flex items-center gap-2 text-sm">
         <input type="checkbox" name="active" defaultChecked={defaultValues?.active ?? true} className="h-4 w-4 accent-(--accent)" />
