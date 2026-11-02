@@ -1,9 +1,13 @@
 /**
  * One-time (re-runnable) seed: loads the site's original hardcoded content
  * into the database so nothing is lost when services.ts / menu data switch
- * to being DB-backed. Safe to run more than once — every write is an upsert.
+ * to being DB-backed. Only creates what is missing: anything that already exists
+ * is left alone, so re-running never undoes edits made in the admin dashboard.
+ * Changing an admin's password is scripts/reset-admin-password.ts.
  *
  * Run with: npm run db:seed
+ * Against a hosted database it also needs --allow-remote, so it can't run on
+ * production by accident.
  */
 import { loadEnvFile } from "node:process";
 import { readFile } from "node:fs/promises";
@@ -19,7 +23,12 @@ try {
 }
 
 // Scripts run outside the app: use the direct connection, like migrations do.
-const prisma = createPrismaClient(process.env.DIRECT_URL ?? process.env.DATABASE_URL);
+const seedUrl = process.env.DIRECT_URL ?? process.env.DATABASE_URL;
+if (!/@(localhost|127\.0\.0\.1)[:/]/.test(seedUrl ?? "") && !process.argv.includes("--allow-remote")) {
+  console.error("Refusing to seed a hosted database. Pass --allow-remote if that is really what you want.");
+  process.exit(1);
+}
+const prisma = createPrismaClient(seedUrl);
 
 const categoryImages = {
   haircut: "/images/services/normal-hair-cut.webp",
@@ -239,7 +248,7 @@ async function seedServices() {
     await prisma.serviceCategory.upsert({
       where: { id: category.id },
       create: category,
-      update: category,
+      update: {},
     });
   }
 
@@ -250,7 +259,7 @@ async function seedServices() {
     await prisma.service.upsert({
       where: { id: service.id },
       create: data,
-      update: data,
+      update: {},
     });
   }
 
@@ -276,21 +285,9 @@ async function seedMenu() {
         columns: chapter.columns ?? 1,
         stock: chapter.stock ?? "onyx",
         order: chapterOrder,
-        // Set once: re-seeding never overrides a publish decision made in the admin.
         published: chapter.published ?? true,
       },
-      update: {
-        eyebrow: chapter.eyebrow,
-        title: chapter.title,
-        standfirst: chapter.standfirst,
-        image: chapter.image,
-        imagePosition: chapter.imagePosition,
-        note: chapter.note,
-        footnote: chapter.footnote,
-        columns: chapter.columns ?? 1,
-        stock: chapter.stock ?? "onyx",
-        order: chapterOrder,
-      },
+      update: {},
     });
     chapterOrder += 1;
 
@@ -305,12 +302,7 @@ async function seedMenu() {
           note: section.note,
           order: sectionOrder,
         },
-        update: {
-          chapterId: chapter.id,
-          title: section.title,
-          note: section.note,
-          order: sectionOrder,
-        },
+        update: {},
       });
       sectionOrder += 1;
 
@@ -329,16 +321,7 @@ async function seedMenu() {
             unavailable: dish.unavailable ?? false,
             order: dishOrder,
           },
-          update: {
-            sectionId: section.id,
-            name: dish.name,
-            description: dish.description,
-            price: dish.price,
-            priceNote: dish.priceNote,
-            tags: dish.tags ?? [],
-            unavailable: dish.unavailable ?? false,
-            order: dishOrder,
-          },
+          update: {},
         });
         dishOrder += 1;
         dishTotal += 1;
@@ -360,13 +343,14 @@ async function seedAdmin() {
     return;
   }
 
+  if (await prisma.admin.findUnique({ where: { email }, select: { id: true } })) {
+    console.log(`Admin ${email} already exists; password left unchanged.`);
+    return;
+  }
+
   const passwordHash = await bcrypt.hash(password, 12);
 
-  await prisma.admin.upsert({
-    where: { email },
-    create: { email, passwordHash },
-    update: { passwordHash },
-  });
+  await prisma.admin.create({ data: { email, passwordHash } });
 
   console.log(`Seeded admin account: ${email}`);
 }

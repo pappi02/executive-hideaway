@@ -15,7 +15,39 @@ model Admin {
   id           String   @id @default(cuid())
   email        String   @unique
   passwordHash String
+  // Raised on sign-out, ending that admin's sessions on every device.
+  sessionVersion Int       @default(0)
+  // Two-factor sign-in (src/lib/totp.ts). The secret is encrypted; totpEnabledAt
+  // stays null until a first code confirms the setup. totpLastStep stops a code
+  // being used twice.
+  totpSecret     String?
+  totpEnabledAt  DateTime?
+  totpLastStep   Int?
   createdAt    DateTime @default(now())
+}
+
+/// What each admin changed; shown on /admin/account.
+model AdminActivity {
+  id         String   @id @default(cuid())
+  adminEmail String
+  action     String
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+/// A guest's request, saved as they continue to WhatsApp (src/lib/booking-requests.ts).
+/// Free-text notes are not stored; rows are deleted after a year.
+model BookingRequest {
+  id        String   @id @default(cuid())
+  kind      String   // "appointment" | "accommodation"
+  name      String
+  phone     String
+  summary   String
+  status    String   @default("new") // "new" | "contacted" | "confirmed" | "cancelled"
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
 }
 
 model ServiceCategory {
@@ -149,9 +181,9 @@ model Dish {
   @@index([sectionId])
 }
 
-/// One row per failed admin sign-in, keyed by "email:<address>" and "ip:<address>".
-/// Read by src/lib/login-throttle.ts to slow down password guessing; rows older
-/// than a day are pruned as new failures come in.
+/// One row per limit for each admin sign-in attempt, keyed by a hash of the email,
+/// the IP and the two together. Read by src/lib/login-throttle.ts to slow down
+/// password guessing; rows older than a day are pruned as new attempts come in.
 model LoginAttempt {
   id        String   @id @default(cuid())
   key       String

@@ -472,7 +472,6 @@ export const chapters: Chapter[] = [
         // descriptions once each drink exists.
         id: 'signature-cocktails',
         title: 'Signature Cocktails',
-        note: 'Proposed, recipes to be confirmed',
         dishes: [
           d('bd-sc-1', 'Hideaway Sunset', 1400),
           d('bd-sc-2', 'Nairobi Garden', 1400),
