@@ -8,9 +8,10 @@ import { PrismaClient } from "@/generated/prisma/client";
  * pool options here instead.
  *
  * TLS: the Supabase URLs carry no sslmode, and pg — unlike Prisma 6's engine —
- * would then connect unencrypted. The connection is always encrypted; the
- * server certificate is verified when DATABASE_CA_CERT holds Supabase's CA
- * certificate (PEM, from the Supabase dashboard), as Prisma 6 never did.
+ * would then connect unencrypted. The connection is always encrypted, and the
+ * server certificate is verified against DATABASE_CA_CERT (Supabase's CA, PEM).
+ * On Vercel that certificate is required, so a deploy can't quietly lose the
+ * check. Elsewhere it stays optional for tools run without it.
  */
 export function createPrismaClient(connectionUrl: string | undefined) {
   if (!connectionUrl) throw new Error("No database URL configured (DATABASE_URL / DIRECT_URL).");
@@ -28,9 +29,7 @@ export function createPrismaClient(connectionUrl: string | undefined) {
   url.searchParams.delete("pgbouncer");
 
   const ca = process.env.DATABASE_CA_CERT?.replace(/\\n/g, "\n");
-  if (!ca && process.env.VERCEL_ENV === "production") {
-    console.warn("DATABASE_CA_CERT is not set: the database certificate is not being verified.");
-  }
+  if (!ca && process.env.VERCEL_ENV) throw new Error("DATABASE_CA_CERT is not set.");
 
   const adapter = new PrismaPg({
     connectionString: url.toString(),

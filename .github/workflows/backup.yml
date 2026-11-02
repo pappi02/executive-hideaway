@@ -1,0 +1,73 @@
+name: Database backup
+
+# The Supabase free plan keeps no backups of its own. This takes one every day,
+# proves it restores into a clean Postgres, and keeps it encrypted for 30 days
+# as a workflow artifact. To restore one, see docs/OPERATIONS-CHECKLIST.md.
+on:
+  schedule:
+    - cron: "30 0 * * *" # 03:30 Nairobi time
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      restore-test:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: restore-test-only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - name: Dump the database
+        env:
+          BACKUP_DATABASE_URL: ${{ secrets.BACKUP_DATABASE_URL }}
+          DATABASE_CA_CERT: ${{ secrets.DATABASE_CA_CERT }}
+        run: |
+          mkdir -p work
+          printf '%b' "$DATABASE_CA_CERT" > work/ca.crt
+          docker run --rm --network host -v "$PWD/work:/work" \
+            -e BACKUP_DATABASE_URL -e PGSSLMODE=verify-full -e PGSSLROOTCERT=/work/ca.crt \
+            postgres:17 sh -c 'pg_dump "$BACKUP_DATABASE_URL" --schema=public --no-owner --no-privileges -Fc -f /work/backup.dump'
+          test -s work/backup.dump
+
+      - name: Prove it restores
+        env:
+          PGPASSWORD: restore-test-only
+        run: |
+          run_psql() {
+            docker run --rm --network host -e PGPASSWORD postgres:17 \
+              psql -h localhost -U postgres -d postgres -At -v ON_ERROR_STOP=1 -c "$1"
+          }
+          docker run --rm --network host -v "$PWD/work:/work" -e PGPASSWORD postgres:17 \
+            pg_restore -h localhost -U postgres -d postgres --no-owner --no-privileges --exit-on-error --clean --if-exists /work/backup.dump
+          for table in Admin Service Chapter Dish Accommodation; do
+            count=$(run_psql "select count(*) from \"$table\"")
+            echo "$table: $count rows"
+            test "$count" -gt 0
+          done
+
+      - name: Encrypt
+        env:
+          BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+        run: |
+          test -n "$BACKUP_PASSPHRASE"
+          gpg --batch --yes --pinentry-mode loopback --passphrase-fd 3 --symmetric --cipher-algo AES256 \
+            --output "backup-$(date -u +%Y-%m-%d).dump.gpg" work/backup.dump 3<<<"$BACKUP_PASSPHRASE"
+          rm -rf work
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: database-backup
+          path: backup-*.dump.gpg
+          retention-days: 30
+          if-no-files-found: error

@@ -25,7 +25,7 @@ try {
 // Scripts run outside the app: use the direct connection, like migrations do.
 const seedUrl = process.env.DIRECT_URL ?? process.env.DATABASE_URL;
 if (!/@(localhost|127\.0\.0\.1)[:/]/.test(seedUrl ?? "") && !process.argv.includes("--allow-remote")) {
-  console.error("Refusing to seed a hosted database. Pass --allow-remote if that is really what you want.");
+  console.error("Refusing to seed a hosted database. Pass --allow-remote if that is really what you want (npm run db:seed -- --allow-remote).");
   process.exit(1);
 }
 const prisma = createPrismaClient(seedUrl);

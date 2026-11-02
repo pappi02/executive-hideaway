@@ -28,13 +28,15 @@ The same lint, type and test checks run in GitHub Actions on every push (`.githu
 
 ## Database changes
 
-Schema changes ship as Prisma migrations in `prisma/migrations`. Apply them to the
-production database **before** deploying code that depends on them:
+Schema changes ship as Prisma migrations in `prisma/migrations`. `.env.local` points at a separate development database, so `npm run dev` and `npm run db:migrate` can't touch live data. Apply migrations to production, using `.env.prod`, **before** deploying code that depends on them:
 
 ```bash
-npm run db:status   # see which migrations are pending
-npm run db:deploy   # apply them
+npm run db:status   # production: see which migrations are pending
+npm run db:deploy   # production: apply them
+npm run db:deploy:dev   # development database
 ```
+
+The production database is backed up daily by `.github/workflows/backup.yml`, and the site is checked hourly by `.github/workflows/uptime.yml`.
 
 `npm run db:seed` only creates what is missing, and refuses a hosted database unless given `--allow-remote`. To reset an admin's password, use `npm run admin:reset`; see `scripts/reset-admin-password.ts`.
 

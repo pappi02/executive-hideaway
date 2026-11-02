@@ -4,6 +4,19 @@ Things the code can't fix by itself: plan upgrades, dashboard settings, and
 one-off manual steps. Written 9 October 2026 after the scaling audit. Tick items
 off as they're done.
 
+## Restoring a backup
+
+Backups run daily (GitHub → Actions → Database backup) and each run proves it restores.
+Artifacts last 30 days; the passphrase is in `.env.prod` as `BACKUP_PASSPHRASE`.
+
+1. Download the `database-backup` artifact from a recent run, and unzip it.
+2. `gpg --decrypt backup-YYYY-MM-DD.dump.gpg > backup.dump`
+3. Restore into a new Supabase project first, and check it there:
+   `pg_restore --no-owner --no-privileges --clean --if-exists -d "<DIRECT_URL of that project>" backup.dump`
+4. Only then point production at it, or restore into production itself.
+
+The dump holds the database only. Images in Vercel Blob are kept by Blob.
+
 ## 1. Releases
 
 - [x] `login_attempts` migration applied (`db:status`: up to date, 9 Oct 2026).
