@@ -48,9 +48,7 @@ export const businessContact = {
     placeLabel: "PQ9H+2M Nairobi",
     // The venue's own Google Maps listing (place 0x182f1b003f17d659:0xcd16e03dedfdc84d).
     googleMapsUrl: "https://maps.app.goo.gl/5pxCeKhh6aQ1fR1R6",
-    embedUrl:
-      "https://www.google.com/maps?q=-1.2824949,36.7792489&z=17&output=embed",
-    // Exact pin of the Google Maps listing — used for the embed and JSON-LD geo.
+    // Exact pin of the Google Maps listing — used for JSON-LD geo.
     latitude: -1.2824949,
     longitude: 36.7792489,
   },

@@ -1,6 +1,6 @@
-import { del, put } from "@vercel/blob";
+import { put } from "@vercel/blob";
 import { AdminInputError } from "@/lib/admin-action";
-import { isBlobStorageConfigured } from "@/lib/accommodation-images";
+import { deleteBlobs, isBlobStorageConfigured } from "@/lib/accommodation-images";
 
 /**
  * Poster images: stored in Vercel Blob when a store is connected (served from
@@ -57,10 +57,5 @@ export async function storePosterImage(image: { data: Uint8Array<ArrayBuffer>; t
 
 /** Best-effort: removes an uploaded Blob image (files under /public are left alone). */
 export async function deletePosterBlob(url: string | null | undefined) {
-  if (!url || !url.startsWith("https://") || !isBlobStorageConfigured()) return;
-  try {
-    await del(url);
-  } catch (error) {
-    console.error("Failed to delete poster image from Blob storage", error);
-  }
+  if (url?.startsWith("https://")) await deleteBlobs([url]);
 }

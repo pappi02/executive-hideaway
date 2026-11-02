@@ -1,20 +1,21 @@
 import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV !== "production";
+// The vercel.live toolbar only runs on preview deployments.
+const isPreview = process.env.VERCEL_ENV === "preview";
 
 // No nonces: they would force every page to render dynamically and lose the
 // hourly ISR caching. 'unsafe-inline' scripts are still needed for Next.js's
 // own inline bootstrap and the scroll-reset script in app/layout.tsx; the rest
 // of the policy blocks third-party scripts, plugins, framing and form hijacking.
-// (vercel.live is the preview-deployment toolbar.)
 const contentSecurityPolicy = [
 	"default-src 'self'",
-	`script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://vercel.live`,
+	`script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}${isPreview ? " https://vercel.live" : ""}`,
 	"style-src 'self' 'unsafe-inline'",
-	"img-src 'self' data: blob: https://*.public.blob.vercel-storage.com https://vercel.live https://vercel.com",
-	"font-src 'self' data: https://vercel.live",
-	"connect-src 'self' https://vercel.live wss://ws-us3.pusher.com",
-	"frame-src https://vercel.live",
+	`img-src 'self' data: blob: https://*.public.blob.vercel-storage.com${isPreview ? " https://vercel.live https://vercel.com" : ""}`,
+	`font-src 'self' data:${isPreview ? " https://vercel.live" : ""}`,
+	`connect-src 'self'${isPreview ? " https://vercel.live wss://ws-us3.pusher.com" : ""}`,
+	isPreview ? "frame-src https://vercel.live" : "frame-src 'none'",
 	"object-src 'none'",
 	"base-uri 'self'",
 	"form-action 'self'",
@@ -38,6 +39,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+	poweredByHeader: false,
 	allowedDevOrigins: ["192.168.1.6"],
 	// Prisma 7's generated client (src/generated/prisma) is bundled like app code, so
 	// only the PostgreSQL query compiler it imports ships — not the ~70 MB of
@@ -63,7 +65,8 @@ const nextConfig: NextConfig = {
 	},
 	experimental: {
 		serverActions: {
-			bodySizeLimit: "10mb",
+			// Vercel refuses anything over 4.5 MB, so uploads are limited to 4 MB of files.
+			bodySizeLimit: "4.5mb",
 		},
 	},
 	async headers() {

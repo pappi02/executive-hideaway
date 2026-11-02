@@ -1,12 +1,14 @@
 import { prisma } from "@/lib/prisma";
 import { posterStatus } from "@/lib/posters";
+import { getAdminSession } from "@/lib/require-admin";
 
 export const runtime = "nodejs";
 
 /**
  * Serves a poster image stored in the database (the fallback when no Vercel
- * Blob store is connected). Cached hard only while the poster is live, so
- * the admin preview of a scheduled or paused one is always current.
+ * Blob store is connected). Only a live poster is public and cached hard; a
+ * scheduled, paused or ended one is shown to a signed-in admin, uncached, so
+ * the admin preview is always current.
  */
 export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -17,6 +19,8 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
   if (!poster?.imageData || !poster.imageType) return new Response("Image not found", { status: 404 });
 
   const live = posterStatus(poster) === "live";
+  if (!live && !(await getAdminSession())) return new Response("Image not found", { status: 404 });
+
   return new Response(Buffer.from(poster.imageData), {
     headers: {
       "Content-Type": poster.imageType,

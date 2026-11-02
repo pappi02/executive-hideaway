@@ -55,8 +55,8 @@ needs it, and keep migrations additive.
 - [ ] Confirm backups exist, then do one test restore into a scratch project. Note how long
       it took and how much data could be lost.
 - [ ] Create a separate development database (or a Supabase branch) and point `.env.local`
-      at it. Today local `next dev`, `next build`, the seed script and every `db:*` script
-      run against **production**. The seed script also resets the admin password.
+      at it. Today local `next dev`, `next build` and every `db:*` script run against
+      **production**. The seed script refuses a hosted database without `--allow-remote`.
 
 **GitHub:**
 - [ ] Settings → Branches: require the **CI** check (`.github/workflows/ci.yml`) to pass
@@ -70,10 +70,11 @@ needs it, and keep migrations additive.
       featured-room photo is one of them; it currently takes 3–4 s on a cache miss.
 - [ ] Have someone review the wording of `/privacy` and `/terms`. Check with an adviser
       whether the business must register with the Data Protection Commissioner.
+- [ ] Remove `SEED_ADMIN_PASSWORD` and the unused Neon variables from `.env.local`, and change the
+      admin password if that seed password is still in use.
+- [ ] Turn on two-factor sign-in at `/admin/account`.
 - [ ] Set up an uptime monitor (any free service) on `https://<domain>/api/health` and the
       home page, alerting after 2 failed checks in a row.
-- [ ] Decide whether to keep `qr-code/`, an older copy of the menu QR code (the current
-      one is `qr/`).
 - [ ] When replacing a photo under `public/images`, **give it a new file name**.
       Optimized images are now cached for 31 days.
 

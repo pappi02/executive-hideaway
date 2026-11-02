@@ -35,13 +35,15 @@ export async function storeAccommodationImage(
   return blob.url;
 }
 
-/** Best-effort cleanup: a failed delete leaves an orphaned blob, never a broken page. */
-export async function deleteAccommodationBlobs(urls: (string | null | undefined)[]) {
+/** Tried twice. A failed delete leaves an orphaned blob, never a broken page, so it is logged by URL for removal by hand. */
+export async function deleteBlobs(urls: (string | null | undefined)[]) {
   const targets = urls.filter((url): url is string => Boolean(url));
   if (!targets.length || !isBlobStorageConfigured()) return;
   try {
-    await del(targets);
+    await del(targets).catch(() => del(targets));
   } catch (error) {
-    console.error("Failed to delete accommodation images from Blob storage", error);
+    console.error(`Failed to delete from Blob storage: ${targets.join(", ")}`, error);
   }
 }
+
+export const deleteAccommodationBlobs = deleteBlobs;

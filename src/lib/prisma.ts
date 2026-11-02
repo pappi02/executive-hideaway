@@ -28,6 +28,9 @@ export function createPrismaClient(connectionUrl: string | undefined) {
   url.searchParams.delete("pgbouncer");
 
   const ca = process.env.DATABASE_CA_CERT?.replace(/\\n/g, "\n");
+  if (!ca && process.env.VERCEL_ENV === "production") {
+    console.warn("DATABASE_CA_CERT is not set: the database certificate is not being verified.");
+  }
 
   const adapter = new PrismaPg({
     connectionString: url.toString(),

@@ -1,6 +1,6 @@
 # Executive Hideaway
 
-The Executive Hideaway Barber and Spa homepage, built with Next.js and Tailwind CSS.
+The Executive Hideaway Resort & Spa website and its admin dashboard: Next.js on Vercel, Prisma with Supabase Postgres, and Vercel Blob for images. Guests send booking requests through WhatsApp, and a copy is saved for the admin at `/admin/bookings`. Everything in the database is reached through Prisma; Supabase's Data API is closed to it.
 
 # Getting Started
 
@@ -35,6 +35,10 @@ production database **before** deploying code that depends on them:
 npm run db:status   # see which migrations are pending
 npm run db:deploy   # apply them
 ```
+
+`npm run db:seed` only creates what is missing, and refuses a hosted database unless given `--allow-remote`. To reset an admin's password, use `npm run admin:reset`; see `scripts/reset-admin-password.ts`.
+
+A production build on Vercel fails if a migration is still pending, which leaves the current site live.
 
 ## Environment
 
