@@ -5,7 +5,8 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { createAccommodationRequestLink } from "@/app/accommodation/request/actions";
-import { isKenyanMobile } from "@/lib/phone";
+import { isValidPhone } from "@/lib/phone";
+import { nairobiDay } from "@/lib/poster-time";
 
 interface RequestRoom {
   name: string;
@@ -25,8 +26,6 @@ interface FormValues {
   request: string;
 }
 
-const today = new Date();
-const todayValue = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 const fieldClass = "mt-1.5 min-h-12 w-full min-w-0 rounded-lg border border-black/15 bg-white px-3.5 py-2.5 text-sm text-[#0b0b0a] outline-none focus:border-[#80683c] focus-visible:ring-2 focus-visible:ring-[#80683c]/25";
 const labelClass = "block text-[10px] font-semibold uppercase tracking-[0.13em] text-black/55";
 
@@ -47,6 +46,7 @@ function dateLabel(value: string) {
 }
 
 export function AccommodationRequestForm({ rooms, initialSlug }: { rooms: RequestRoom[]; initialSlug: string }) {
+  const [todayValue] = useState(() => nairobiDay());
   const [form, setForm] = useState<FormValues>({
     room: rooms.some((room) => room.slug === initialSlug) ? initialSlug : rooms[0]?.slug ?? "",
     checkIn: "",
@@ -79,7 +79,7 @@ export function AccommodationRequestForm({ rooms, initialSlug }: { rooms: Reques
     if (!Number.isSafeInteger(guests) || guests < 1) nextErrors.guests = "Enter at least one guest.";
     else if (room && guests > room.maxGuests) nextErrors.guests = `This room accepts up to ${room.maxGuests} guests.`;
     if (!form.name.trim()) nextErrors.name = "Enter your name.";
-    if (!isKenyanMobile(form.phone)) nextErrors.phone = "Enter a valid Kenyan mobile number.";
+    if (!isValidPhone(form.phone)) nextErrors.phone = "Enter a valid phone number, with the country code if outside Kenya.";
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
@@ -170,7 +170,7 @@ export function AccommodationRequestForm({ rooms, initialSlug }: { rooms: Reques
 
               <div>
                 <label htmlFor="request-phone" className={labelClass}>Phone number</label>
-              <input id="request-phone" maxLength={20} type="tel" autoComplete="tel" placeholder="07xx xxx xxx" value={form.phone} onChange={(event) => update("phone", event.target.value)} aria-invalid={Boolean(errors.phone)} aria-describedby={errors.phone ? "request-phone-error" : undefined} className={fieldClass} />
+              <input id="request-phone" maxLength={20} type="tel" autoComplete="tel" placeholder="07xx xxx xxx or +44..." value={form.phone} onChange={(event) => update("phone", event.target.value)} aria-invalid={Boolean(errors.phone)} aria-describedby={errors.phone ? "request-phone-error" : undefined} className={fieldClass} />
               {errors.phone && <p id="request-phone-error" className="mt-1 text-xs text-red-800">{errors.phone}</p>}
             </div>
 
@@ -197,7 +197,7 @@ export function AccommodationRequestForm({ rooms, initialSlug }: { rooms: Reques
               <div className="border-t border-black/8 py-3 sm:col-span-2"><dt className="text-xs text-black/45">Special request</dt><dd className="mt-1 wrap-break-word text-sm">{form.request.trim() || "None"}</dd></div>
               {room?.pricePerNight !== null && room?.pricePerNight !== undefined && <div className="border-t border-black/8 py-3 sm:col-span-2"><dt className="text-xs text-black/45">Rate shown</dt><dd className="mt-1 text-sm">KSh {room.pricePerNight.toLocaleString()} per night{room.priceIsIndicative ? " · indicative, please confirm" : ""}</dd></div>}
             </dl>
-            <p className="mt-3 text-xs leading-5 text-black/50">No payment is taken here. Our team will confirm availability and arrangements on WhatsApp. See our <Link href="/terms" className="underline underline-offset-2 hover:text-black">booking terms</Link> and <Link href="/privacy" className="underline underline-offset-2 hover:text-black">privacy notice</Link>.</p>
+            <p className="mt-3 text-xs leading-5 text-black/50">No payment is taken here. We keep your name, phone, room and dates to follow up. Our team will confirm availability and arrangements on WhatsApp. See our <Link href="/terms" className="underline underline-offset-2 hover:text-black">booking terms</Link> and <Link href="/privacy" className="underline underline-offset-2 hover:text-black">privacy notice</Link>.</p>
             <button type="button" disabled={isPending} onClick={continueToWhatsApp} className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#0b0b0a] px-6 text-[10px] font-semibold uppercase tracking-[0.14em] text-white hover:bg-[#80683c] disabled:cursor-wait disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c] sm:w-auto">{isPending ? "Preparing request…" : "Continue on WhatsApp"}<ArrowUpRight size={14} aria-hidden="true" /></button>
           </section>
         )}

@@ -17,7 +17,7 @@ export default function PrivacyPage() {
     <LegalPage
       eyebrow="Your data"
       title="Privacy Notice"
-      updated="2026-10-09"
+      updated="2026-11-02"
       intro={
         <p>
           This notice explains what personal data {siteConfig.name} (&ldquo;we&rdquo;, &ldquo;us&rdquo;) collects through this
@@ -58,15 +58,17 @@ export default function PrivacyPage() {
       <section>
         <h2>How the website handles it</h2>
         <p>
-          The booking forms on this website don&apos;t store your details on our servers. When you press send, the website
-          prepares a WhatsApp message containing your request and opens WhatsApp so that you can review it and send it to
-          us yourself. Until you send that message, we receive nothing.
+          When you continue from a booking form, we save your name, phone number and a short summary of the request (the
+          services or room, and the date and time or dates) in our booking records, so we can follow up if your message
+          doesn&apos;t reach us. The website then prepares a WhatsApp message containing your request and opens WhatsApp so
+          that you can review it and send it to us yourself. Notes and special requests aren&apos;t saved in our records;
+          they go only in your WhatsApp message.
         </p>
         <p className="mt-3">
           While you choose services, your selection is kept in your own browser for that session only (session storage) so
           that it survives a page refresh. It is cleared when you close the tab. If you close the &ldquo;install the
           app&rdquo; prompt, your browser remembers that for two weeks (local storage) so it doesn&apos;t keep asking; it
-          holds only the date, nothing about you. This website doesn&apos;t use advertising or analytics cookies.
+          holds only the date, nothing about you. Promotional pop-ups work the same way, remembering the day one was last shown so that it appears once a day. Our staff sign-in also uses a security cookie and keeps scrambled records of sign-in attempts for up to a day. This website doesn&apos;t use advertising or analytics cookies.
         </p>
       </section>
 
@@ -87,7 +89,7 @@ export default function PrivacyPage() {
         <h2>Who else processes it</h2>
         <p>
           Booking messages travel through WhatsApp, a service of Meta Platforms, which may process data outside Kenya under
-          its own privacy policy. Our website is hosted by Vercel. We don&apos;t share your details with anyone else except
+          its own privacy policy. Our website and its images are hosted by Vercel, and our booking records are held in a database run by Supabase; both operate outside Kenya, currently in Ireland. We don&apos;t share your details with anyone else except
           where the law requires it.
         </p>
       </section>
@@ -95,7 +97,7 @@ export default function PrivacyPage() {
       <section>
         <h2>How long we keep it</h2>
         <p>
-          We keep booking conversations for as long as we need them to manage your booking and any follow-up, and then delete
+          We delete saved booking records after 12 months. We keep booking conversations for as long as we need them to manage your booking and any follow-up, and then delete
           them, unless we must keep a record for legal, tax or accounting reasons.
         </p>
       </section>

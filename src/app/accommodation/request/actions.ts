@@ -1,7 +1,9 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { isKenyanMobile } from "@/lib/phone";
+import { isBookingRateLimited, saveBookingRequest } from "@/lib/booking-requests";
+import { isValidPhone } from "@/lib/phone";
+import { nairobiDay } from "@/lib/poster-time";
 import { businessContact } from "@/lib/site-config";
 
 interface AccommodationRequest {
@@ -45,6 +47,7 @@ function isValidInput(input: unknown): input is AccommodationRequest {
 
 export async function createAccommodationRequestLink(input: AccommodationRequest) {
   if (!isValidInput(input)) return { error: "Please check your details and try again." };
+  if (await isBookingRateLimited()) return { error: "Too many requests. Please wait a few minutes and try again." };
 
   const room = await prisma.accommodation.findFirst({
     where: { slug: input.slug, active: true },
@@ -57,9 +60,9 @@ export async function createAccommodationRequestLink(input: AccommodationRequest
   const guests = Number(input.guests);
 
   if (!name) return { error: "Enter your name to continue." };
-  if (!isKenyanMobile(phone)) return { error: "Enter a valid Kenyan mobile number." };
+  if (!isValidPhone(phone)) return { error: "Enter a valid phone number, with the country code if outside Kenya." };
   if (!isValidDate(input.checkIn) || !isValidDate(input.checkOut)) return { error: "Enter valid check-in and check-out dates." };
-  if (input.checkIn < new Date().toISOString().slice(0, 10)) return { error: "Check-in must be today or a future date." };
+  if (input.checkIn < nairobiDay()) return { error: "Check-in must be today or a future date." };
   if (input.checkOut <= input.checkIn) return { error: "Check-out must be after check-in." };
   if (!Number.isSafeInteger(guests) || guests < 1) return { error: "Guest count must be at least one." };
   if (guests > room.maxGuests) return { error: `This room accepts up to ${room.maxGuests} guests.` };
@@ -88,6 +91,13 @@ export async function createAccommodationRequestLink(input: AccommodationRequest
     "",
     "Thank you.",
   ].join("\n");
+
+  await saveBookingRequest({
+    kind: "accommodation",
+    name,
+    phone,
+    summary: `${room.name}, ${formatDate(input.checkIn)} to ${formatDate(input.checkOut)}, ${guests} guest${guests === 1 ? "" : "s"}`,
+  });
 
   return {
     url: `https://wa.me/${businessContact.whatsappNumber}?text=${encodeURIComponent(message)}`,

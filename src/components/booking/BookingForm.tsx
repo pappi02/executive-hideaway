@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useTransition, type FormEvent } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Clock3, X } from "lucide-react";
 import type { Service } from "@/data/services";
-import { isKenyanMobile } from "@/lib/phone";
-import { businessContact } from "@/lib/site-config";
+import { createAppointmentRequestLink } from "@/app/booking/actions";
+import { isValidPhone } from "@/lib/phone";
+import { nairobiDay } from "@/lib/poster-time";
 
 interface BookingFormProps {
   services: Service[];
@@ -33,6 +34,8 @@ export default function BookingForm({ services }: BookingFormProps) {
     Partial<Record<keyof FormData, string>>
   >({});
   const [isReviewOpen, setIsReviewOpen] = useState(false);
+  const [submissionError, setSubmissionError] = useState("");
+  const [isPending, startTransition] = useTransition();
 
   const updateField = (field: keyof FormData, value: string) => {
     setForm((current) => ({
@@ -56,21 +59,16 @@ export default function BookingForm({ services }: BookingFormProps) {
     if (!form.phone.trim()) {
       nextErrors.phone = "Please enter your phone number.";
     } else {
-      if (!isKenyanMobile(form.phone)) {
+      if (!isValidPhone(form.phone)) {
         nextErrors.phone =
-          "Enter a valid Kenyan mobile number, e.g. 07xx xxx xxx.";
+          "Enter a valid phone number, e.g. 07xx xxx xxx, or +44... from abroad.";
       }
     }
 
     if (!form.date) {
       nextErrors.date = "Please select your preferred date.";
     } else {
-      const selectedDate = new Date(`${form.date}T00:00:00`);
-      const today = new Date();
-
-      today.setHours(0, 0, 0, 0);
-
-      if (selectedDate < today) {
+      if (form.date < nairobiDay()) {
         nextErrors.date = "Please choose a date from today onwards.";
       }
     }
@@ -152,48 +150,22 @@ export default function BookingForm({ services }: BookingFormProps) {
   );
 
   const handleBookNow = () => {
-    const serviceLines = services
-      .map((service, index) => {
-        const price =
-          service.price === null
-            ? "Price on request"
-            : `Ksh ${service.price.toLocaleString()}`;
-
-        return `${index + 1}. ${service.name} — ${price} — ${service.duration} min`;
-      })
-      .join("\n");
-
-    const total = hasPriceOnRequest
-      ? "Price on request"
-      : `Ksh ${totalPrice.toLocaleString()}`;
-
-    const message = [
-      "BOOKING REQUEST",
-      "",
-      "Customer",
-      `Name: ${form.name.trim()}`,
-      `Phone: ${form.phone.trim()}`,
-      "",
-      "Appointment",
-      `Date: ${formatDate(form.date)}`,
-      `Time: ${formatTime(form.time)}`,
-      "",
-      "Services",
-      serviceLines,
-      "",
-      `Total duration: ${formatDuration(totalDuration)}`,
-      `Estimated total: ${total}`,
-      form.notes.trim() ? `Notes: ${form.notes.trim()}` : "Notes: None",
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    const whatsappUrl =
-      `https://wa.me/${businessContact.whatsappNumber}?text=` +
-      encodeURIComponent(message);
-
-    // eslint-disable-next-line react-hooks/immutability
-    window.location.href = whatsappUrl;
+    setSubmissionError("");
+    startTransition(async () => {
+      const result = await createAppointmentRequestLink({
+        serviceIds: services.map((service) => service.id),
+        date: form.date,
+        time: form.time,
+        name: form.name,
+        phone: form.phone,
+        notes: form.notes,
+      });
+      if ("error" in result) {
+        setSubmissionError(result.error ?? "We could not prepare your request. Please try again.");
+        return;
+      }
+      window.location.assign(result.url);
+    });
   };
 
   const inputClassName =
@@ -271,7 +243,7 @@ export default function BookingForm({ services }: BookingFormProps) {
                 onChange={(event) =>
                   updateField("phone", event.target.value)
                 }
-                placeholder="+254..."
+                placeholder="07xx xxx xxx or +44..."
                 aria-invalid={Boolean(errors.phone)}
                 aria-describedby={
                   errors.phone ? "booking-phone-error" : undefined
@@ -304,7 +276,7 @@ export default function BookingForm({ services }: BookingFormProps) {
                 onChange={(event) =>
                   updateField("date", event.target.value)
                 }
-                min={new Date().toISOString().split("T")[0]}
+                min={nairobiDay()}
                 aria-invalid={Boolean(errors.date)}
                 aria-describedby={
                   errors.date ? "booking-date-error" : undefined
@@ -570,6 +542,12 @@ export default function BookingForm({ services }: BookingFormProps) {
                 </div>
               )}
 
+              {submissionError && (
+                <p role="alert" className="mt-3.5 text-[12px] leading-5 text-red-700">
+                  {submissionError}
+                </p>
+              )}
+
               {/* ACTIONS */}
               <div className="mt-4 grid gap-2 sm:grid-cols-2">
                 <button
@@ -584,6 +562,7 @@ export default function BookingForm({ services }: BookingFormProps) {
                 <button
                   type="button"
                   onClick={handleBookNow}
+                  disabled={isPending}
                   className="group flex min-h-10 items-center justify-center gap-2 rounded-full bg-[#80683c] px-5 text-[8px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:bg-[#0b0b0a]"
                 >
                   Book Now
@@ -596,7 +575,7 @@ export default function BookingForm({ services }: BookingFormProps) {
               </div>
 
               <p className="mt-3 text-center text-[11px] leading-4 text-black/45">
-                This opens WhatsApp with your request; nothing is booked until we confirm. See our{" "}
+                This opens WhatsApp with your request; nothing is booked until we confirm. We keep your name, phone, date and services to follow up. See our{" "}
                 <Link href="/terms" className="underline underline-offset-2 hover:text-black">booking terms</Link> and{" "}
                 <Link href="/privacy" className="underline underline-offset-2 hover:text-black">privacy notice</Link>.
               </p>
