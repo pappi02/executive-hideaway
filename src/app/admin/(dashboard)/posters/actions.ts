@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import {
   AdminInputError,
   adminAction,
+  isSafeLink,
   oneOf,
   optionalText,
   requiredInteger,
@@ -19,11 +20,8 @@ import { fromNairobiInput } from "@/lib/poster-time";
 function linkUrl(formData: FormData) {
   const value = optionalText(formData, "linkUrl", { label: "Link", max: 500 });
   if (value === null) return null;
-  if (value.startsWith("/") && !value.startsWith("//")) return value;
   if (/^tel:\+?[\d\s-]{6,20}$/.test(value)) return value;
-  try {
-    if (new URL(value).protocol === "https:") return value;
-  } catch {}
+  if (isSafeLink(value)) return value;
   throw new AdminInputError("The link must start with / (a page on this site), https:// or tel:+254...");
 }
 
@@ -75,7 +73,7 @@ function revalidatePosters() {
 }
 
 export async function createPoster(formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("createPoster", async () => {
     const fields = readPosterFields(formData);
     const upload = await readPosterImage(formData);
     if (!upload) throw new AdminInputError("Choose the poster image.");
@@ -91,7 +89,7 @@ export async function createPoster(formData: FormData): Promise<ActionResult> {
 }
 
 export async function updatePoster(id: string, formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("updatePoster", async () => {
     const fields = readPosterFields(formData);
     const previous = await prisma.poster.findUnique({ where: { id }, select: { imageUrl: true } });
     if (!previous) throw new AdminInputError("This poster no longer exists. Refresh the page.");
@@ -110,7 +108,7 @@ export async function updatePoster(id: string, formData: FormData): Promise<Acti
 }
 
 export async function setPosterActive(formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("setPosterActive", async () => {
     const id = requiredText(formData, "id", { label: "Poster ID" });
     await prisma.poster.update({ where: { id }, data: { active: formData.get("active") === "true" } });
     revalidatePosters();
@@ -118,7 +116,7 @@ export async function setPosterActive(formData: FormData): Promise<ActionResult>
 }
 
 export async function deletePoster(formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("deletePoster", async () => {
     const id = requiredText(formData, "id", { label: "Poster ID" });
     const deleted = await prisma.poster.delete({ where: { id }, select: { imageUrl: true } });
     await deletePosterBlob(deleted.imageUrl);

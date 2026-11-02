@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import {
   AdminInputError,
   adminAction,
+  isSafeLink,
   optionalText,
   requiredText as readRequiredText,
   slugify,
@@ -28,10 +29,7 @@ function text(formData: FormData, name: string, label: string, max = 120) {
 function linkHref(formData: FormData) {
   const value = text(formData, "href", "Link", 300);
   if (value === null) return null;
-  if (value.startsWith("/") && !value.startsWith("//")) return value;
-  try {
-    if (new URL(value).protocol === "https:") return value;
-  } catch {}
+  if (isSafeLink(value)) return value;
   throw new AdminInputError("Link must start with / (a page on this site) or https://.");
 }
 
@@ -116,7 +114,7 @@ async function assertUniqueFacilitySlug(slug: string, currentId?: string) {
 }
 
 export async function createAccommodation(formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("createAccommodation", async () => {
     const fields = readAccommodationFields(formData);
     await assertUniqueRoomSlug(fields.slug);
     const order = ((await prisma.accommodation.findFirst({ orderBy: { order: "desc" }, select: { order: true } }))?.order ?? -1) + 1;
@@ -127,7 +125,7 @@ export async function createAccommodation(formData: FormData): Promise<ActionRes
 }
 
 export async function updateAccommodation(id: string, formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("updateAccommodation", async () => {
     const fields = readAccommodationFields(formData);
     await assertUniqueRoomSlug(fields.slug, id);
 
@@ -137,7 +135,7 @@ export async function updateAccommodation(id: string, formData: FormData): Promi
 }
 
 export async function deleteAccommodation(formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("deleteAccommodation", async () => {
     const id = requiredText(formData, "id", "Room ID");
 
     // Image rows cascade-delete with the room; collect their Blob URLs first.
@@ -152,7 +150,7 @@ export async function deleteAccommodation(formData: FormData): Promise<ActionRes
 }
 
 export async function setAccommodationActive(formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("setAccommodationActive", async () => {
     const id = requiredText(formData, "id", "Room ID");
     const active = formData.get("active") === "true";
 
@@ -165,14 +163,14 @@ export async function uploadAccommodationImages(
   accommodationId: string,
   formData: FormData,
 ): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("uploadAccommodationImages", async () => {
     const files = formData.getAll("images").filter((value): value is File => value instanceof File && value.size > 0);
     const altText = requiredText(formData, "altText", "Image description", 200);
 
     if (!files.length) throw new AdminInputError("Choose at least one image to upload.");
     if (files.length > 8) throw new AdminInputError("Upload up to eight images at a time.");
-    if (files.reduce((total, file) => total + file.size, 0) > 9 * 1024 * 1024) {
-      throw new AdminInputError("Keep the total upload size below 9 MB per request.");
+    if (files.reduce((total, file) => total + file.size, 0) > 4 * 1024 * 1024) {
+      throw new AdminInputError("Keep the total upload size to 4 MB per request.");
     }
 
     const room = await prisma.accommodation.findUnique({
@@ -190,7 +188,6 @@ export async function uploadAccommodationImages(
       if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
         throw new AdminInputError("Use a JPEG, PNG, or WebP image.");
       }
-      if (file.size > 8 * 1024 * 1024) throw new AdminInputError("Each image must be 8 MB or smaller.");
       const data = new Uint8Array(await file.arrayBuffer());
       const isJpeg = data[0] === 0xff && data[1] === 0xd8 && data[2] === 0xff;
       const isPng = data[0] === 0x89 && data[1] === 0x50 && data[2] === 0x4e && data[3] === 0x47;
@@ -243,7 +240,7 @@ export async function uploadAccommodationImages(
 }
 
 export async function updateAccommodationImageAlt(formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("updateAccommodationImageAlt", async () => {
     const id = requiredText(formData, "id", "Image ID");
     const altText = requiredText(formData, "altText", "Image description");
     await prisma.accommodationImage.update({ where: { id }, data: { altText } });
@@ -252,7 +249,7 @@ export async function updateAccommodationImageAlt(formData: FormData): Promise<A
 }
 
 export async function deleteAccommodationImage(formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("deleteAccommodationImage", async () => {
     const id = requiredText(formData, "id", "Image ID");
     const deletedUrl = await prisma.$transaction(async (transaction) => {
       const image = await transaction.accommodationImage.findUnique({
@@ -277,7 +274,7 @@ export async function deleteAccommodationImage(formData: FormData): Promise<Acti
 }
 
 export async function moveAccommodationImage(formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("moveAccommodationImage", async () => {
     const id = requiredText(formData, "id", "Image ID");
     const direction = String(formData.get("direction") ?? "");
     if (direction !== "up" && direction !== "down") return;
@@ -308,7 +305,7 @@ export async function moveAccommodationImage(formData: FormData): Promise<Action
 }
 
 export async function updateAccommodationSettings(formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("updateAccommodationSettings", async () => {
     const checkIn = String(formData.get("checkIn") ?? "").trim() || null;
     const checkOut = String(formData.get("checkOut") ?? "").trim() || null;
     if ((checkIn?.length ?? 0) > 120 || (checkOut?.length ?? 0) > 120) {
@@ -340,7 +337,7 @@ function readFacilityFields(formData: FormData) {
 }
 
 export async function createResortFacility(formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("createResortFacility", async () => {
     const fields = readFacilityFields(formData);
     await assertUniqueFacilitySlug(fields.slug);
     const order = ((await prisma.resortFacility.findFirst({ orderBy: { order: "desc" }, select: { order: true } }))?.order ?? -1) + 1;
@@ -350,7 +347,7 @@ export async function createResortFacility(formData: FormData): Promise<ActionRe
 }
 
 export async function updateResortFacility(id: string, formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("updateResortFacility", async () => {
     const fields = readFacilityFields(formData);
     await assertUniqueFacilitySlug(fields.slug, id);
     await prisma.resortFacility.update({
@@ -362,7 +359,7 @@ export async function updateResortFacility(id: string, formData: FormData): Prom
 }
 
 export async function deleteResortFacility(formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("deleteResortFacility", async () => {
     const id = requiredText(formData, "id", "Facility ID");
     await prisma.resortFacility.delete({ where: { id } });
     revalidateAccommodation();

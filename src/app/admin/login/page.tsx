@@ -15,12 +15,14 @@ async function login(formData: FormData) {
 
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
+  const code = String(formData.get("code") ?? "");
   const callbackUrl = safeCallbackUrl(formData.get("callbackUrl"));
 
   try {
     await signIn("credentials", {
       email,
       password,
+      code,
       redirectTo: callbackUrl,
     });
   } catch (error) {
@@ -86,13 +88,27 @@ export default async function AdminLoginPage({
               autoComplete="current-password"
               className="mt-2 w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-colors focus:border-(--accent)"
             />
+                      </div>
+
+          <div>
+            <label htmlFor="code" className="block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/50">
+              Authenticator code <span className="font-normal normal-case tracking-normal text-white/35">if two-factor is on</span>
+            </label>
+            <input
+              id="code"
+              name="code"
+              inputMode="numeric"
+              maxLength={6}
+              autoComplete="one-time-code"
+              className="mt-2 w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-colors focus:border-(--accent)"
+            />
           </div>
 
           {error && (
             <p role="alert" className="text-sm text-red-400">
               {error === "locked"
                 ? "Too many failed attempts. Wait 15 minutes, then try again."
-                : "Incorrect email or password."}
+                : "Incorrect email, password or code."}
             </p>
           )}
 

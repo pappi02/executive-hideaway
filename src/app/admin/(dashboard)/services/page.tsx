@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { MoveButtons } from "@/components/admin/MoveButtons";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/require-admin";
 import { ServiceRow } from "./ServiceRow";
 import { DeleteServiceButton } from "./DeleteServiceButton";
+import { moveService } from "./actions";
 
 export default async function AdminServicesPage() {
   await requireAdmin();
@@ -36,7 +38,7 @@ export default async function AdminServicesPage() {
             </tr>
           </thead>
           <tbody>
-            {services.map((service) => (
+            {services.map((service, index) => (
               <ServiceRow key={service.id} id={service.id}>
                 <td className="px-4 py-3 font-medium">{service.name}</td>
                 <td className="px-4 py-3 text-black/60">{service.category.label}</td>
@@ -45,7 +47,16 @@ export default async function AdminServicesPage() {
                 </td>
                 <td className="px-4 py-3 text-black/60">{service.duration} min</td>
                 <td className="px-4 py-3 text-right">
-                  <DeleteServiceButton id={service.id} name={service.name} />
+                  <div className="flex items-center justify-end gap-3">
+                    <MoveButtons
+                      id={service.id}
+                      action={moveService}
+                      isFirst={services[index - 1]?.categoryId !== service.categoryId}
+                      isLast={services[index + 1]?.categoryId !== service.categoryId}
+                      label={service.name}
+                    />
+                    <DeleteServiceButton id={service.id} name={service.name} />
+                  </div>
                 </td>
               </ServiceRow>
             ))}

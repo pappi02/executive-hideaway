@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { MoveButtons } from "@/components/admin/MoveButtons";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/require-admin";
+import { moveChapter } from "./actions";
 
 export default async function AdminMenuPage() {
   await requireAdmin();
@@ -32,18 +34,19 @@ export default async function AdminMenuPage() {
       </p>
 
       <div className="mt-6 grid gap-3">
-        {chapters.map((chapter) => {
+        {chapters.map((chapter, index) => {
           const dishCount = chapter.sections.reduce(
             (sum, section) => sum + section._count.dishes,
             0,
           );
 
           return (
-            <Link
-              key={chapter.id}
-              href={`/admin/menu/${chapter.id}`}
-              className="flex items-center justify-between rounded-2xl border border-black/10 bg-white px-5 py-4 transition-colors hover:border-(--accent)"
-            >
+            <div key={chapter.id} className="flex items-center gap-2">
+              <MoveButtons id={chapter.id} action={moveChapter} isFirst={index === 0} isLast={index === chapters.length - 1} label={chapter.title} />
+              <Link
+                href={`/admin/menu/${chapter.id}`}
+                className="flex min-w-0 flex-1 items-center justify-between rounded-2xl border border-black/10 bg-white px-5 py-4 transition-colors hover:border-(--accent)"
+              >
               <div>
                 <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-black/40">
                   {chapter.eyebrow}
@@ -61,7 +64,8 @@ export default async function AdminMenuPage() {
               <p className="text-xs text-black/45">
                 {chapter.sections.length} sections · {dishCount} dishes
               </p>
-            </Link>
+              </Link>
+            </div>
           );
         })}
       </div>

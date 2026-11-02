@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { signOut } from "@/auth";
 import { ToastProvider } from "@/components/admin/Toast";
-import { requireAdmin } from "@/lib/require-admin";
+import { prisma } from "@/lib/prisma";
+import { getAdminSession, requireAdmin } from "@/lib/require-admin";
 
 // Auth-gated and always reflects live DB state — never statically prerendered.
 export const dynamic = "force-dynamic";
@@ -13,6 +14,8 @@ const navItems = [
   { href: "/admin/accommodation", label: "Accommodation" },
   { href: "/admin/menu", label: "Menu" },
   { href: "/admin/posters", label: "Posters" },
+  { href: "/admin/bookings", label: "Bookings" },
+  { href: "/admin/account", label: "Account" },
 ];
 
 export default async function AdminDashboardLayout({
@@ -58,6 +61,10 @@ export default async function AdminDashboardLayout({
         <form
           action={async () => {
             "use server";
+            const session = await getAdminSession();
+            if (session) {
+              await prisma.admin.update({ where: { id: session.id }, data: { sessionVersion: { increment: 1 } } });
+            }
             await signOut({ redirectTo: "/admin/login" });
           }}
         >

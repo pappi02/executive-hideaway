@@ -1,4 +1,5 @@
 import { Prisma } from "@/generated/prisma/client";
+import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/require-admin";
 
 /**
@@ -8,7 +9,8 @@ import { requireAdmin } from "@/lib/require-admin";
  * action that throws "Price must be a number" shows the admin nothing useful.
  * Actions run their body through adminAction() instead: it checks the session,
  * and turns validation failures and the common Prisma errors into
- * `{ error }` results that AdminForm shows as a toast.
+ * `{ error }` results that AdminForm shows as a toast. Successful actions are
+ * written to the activity log shown on /admin/account.
  */
 
 export type ActionResult = { error: string } | undefined;
@@ -16,12 +18,15 @@ export type ActionResult = { error: string } | undefined;
 /** A problem with what the admin entered — its message is safe to show them. */
 export class AdminInputError extends Error {}
 
-export async function adminAction(body: () => Promise<void>): Promise<ActionResult> {
+export async function adminAction(name: string, body: () => Promise<void>): Promise<ActionResult> {
   // Outside the try: an expired session redirects to the login page.
-  await requireAdmin();
+  const session = await requireAdmin();
 
   try {
     await body();
+    await prisma.adminActivity
+      .create({ data: { adminEmail: session.email, action: name } })
+      .catch((error) => console.error("Admin activity could not be logged", error));
     return undefined;
   } catch (error) {
     if (error instanceof AdminInputError) return { error: error.message };
@@ -89,6 +94,27 @@ export function oneOf<T extends string>(formData: FormData, name: string, allowe
   const value = String(formData.get(name) ?? "").trim() || allowed[0];
   if (!(allowed as readonly string[]).includes(value)) throw new AdminInputError(`Choose a valid ${label}.`);
   return value as T;
+}
+
+/** The ids with one moved a place up or down; null when it can't move that way. */
+export function reorderedIds(ids: string[], id: string, direction: string) {
+  const index = ids.indexOf(id);
+  const target = direction === "up" ? index - 1 : direction === "down" ? index + 1 : -1;
+  if (index < 0 || target < 0 || target >= ids.length) return null;
+  const next = [...ids];
+  [next[index], next[target]] = [next[target], next[index]];
+  return next;
+}
+
+/** A page on this site (starting with one /) or an https address; never javascript: or other schemes. */
+export function isSafeLink(value: string) {
+  if (value.includes("\\")) return false;
+  if (value.startsWith("/")) return !value.startsWith("//");
+  try {
+    return new URL(value).protocol === "https:";
+  } catch {
+    return false;
+  }
 }
 
 /**

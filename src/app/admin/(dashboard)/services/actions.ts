@@ -6,6 +6,7 @@ import {
   AdminInputError,
   adminAction,
   optionalInteger,
+  reorderedIds,
   requiredImagePath,
   requiredInteger,
   requiredText,
@@ -36,7 +37,7 @@ function revalidateServices() {
 }
 
 export async function createService(formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("createService", async () => {
     const fields = await readServiceFields(formData);
     const id = slugify(fields.name);
     if (!id) throw new AdminInputError("The service name needs at least one letter or number.");
@@ -57,15 +58,29 @@ export async function createService(formData: FormData): Promise<ActionResult> {
 }
 
 export async function updateService(id: string, formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("updateService", async () => {
     const fields = await readServiceFields(formData);
     await prisma.service.update({ where: { id }, data: fields });
     revalidateServices();
   });
 }
 
+/** Moves a service within its own category, which is how the public page groups them. */
+export async function moveService(formData: FormData): Promise<ActionResult> {
+  return adminAction("moveService", async () => {
+    const id = requiredText(formData, "id", { label: "Service ID" });
+    const service = await prisma.service.findUnique({ where: { id }, select: { categoryId: true } });
+    if (!service) return;
+    const siblings = await prisma.service.findMany({ where: { categoryId: service.categoryId }, orderBy: { order: "asc" }, select: { id: true } });
+    const ids = reorderedIds(siblings.map((sibling) => sibling.id), id, String(formData.get("direction")));
+    if (!ids) return;
+    await prisma.$transaction(ids.map((serviceId, order) => prisma.service.update({ where: { id: serviceId }, data: { order } })));
+    revalidateServices();
+  });
+}
+
 export async function deleteService(formData: FormData): Promise<ActionResult> {
-  return adminAction(async () => {
+  return adminAction("deleteService", async () => {
     const id = requiredText(formData, "id", { label: "Service ID" });
     await prisma.service.delete({ where: { id } });
     revalidateServices();

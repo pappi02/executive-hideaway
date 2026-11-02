@@ -21,7 +21,7 @@ export default async function EditDishPage({
 
   if (!dish) notFound();
 
-  const updateWithId = updateDish.bind(null, dish.id, chapterId);
+  const updateWithId = updateDish.bind(null, dish.id);
 
   return (
     <div>

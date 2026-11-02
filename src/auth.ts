@@ -3,7 +3,8 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { passwordFingerprint } from "@/lib/admin-session";
-import { clearLoginFailures, clientIp, isLoginThrottled, recordLoginFailure } from "@/lib/login-throttle";
+import { clearLoginAttempts, clientIp, logLoginFailure, registerLoginAttempt } from "@/lib/login-throttle";
+import { decryptTotpSecret, matchTotpStep } from "@/lib/totp";
 import { authConfig } from "@/auth.config";
 
 /** Surfaces as error.code in the login action, so the page can explain the wait. */
@@ -23,6 +24,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
+        code: { label: "Authenticator code", type: "text" },
       },
       authorize: async (credentials, request) => {
         const email = credentials?.email;
@@ -35,26 +37,49 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         const normalizedEmail = email.trim().toLowerCase();
         const ip = clientIp(request);
-        if (await isLoginThrottled(normalizedEmail, ip)) throw new TooManyAttempts();
+        if (await registerLoginAttempt(normalizedEmail, ip)) throw new TooManyAttempts();
 
         const admin = await prisma.admin.findUnique({
           where: { email: normalizedEmail },
         });
         const valid = await bcrypt.compare(password, admin?.passwordHash ?? DUMMY_HASH);
         if (!admin || !valid) {
-          await recordLoginFailure(normalizedEmail, ip);
+          logLoginFailure(normalizedEmail, ip);
           return null;
         }
 
-        await clearLoginFailures(normalizedEmail);
-        return { id: admin.id, email: admin.email, pwd: passwordFingerprint(admin.passwordHash) };
+        if (admin.totpEnabledAt && admin.totpSecret) {
+          const code = typeof credentials?.code === "string" ? credentials.code.trim() : "";
+          const step = matchTotpStep(decryptTotpSecret(admin.totpSecret), code);
+          // The conditional update means a code can only be used once, even by requests racing each other.
+          const accepted = step !== null && (await prisma.admin.updateMany({
+            where: { id: admin.id, OR: [{ totpLastStep: null }, { totpLastStep: { lt: step } }] },
+            data: { totpLastStep: step },
+          })).count === 1;
+          if (!accepted) {
+            logLoginFailure(normalizedEmail, ip);
+            return null;
+          }
+        }
+
+        await clearLoginAttempts(normalizedEmail, ip);
+        return {
+          id: admin.id,
+          email: admin.email,
+          pwd: passwordFingerprint(admin.passwordHash),
+          ver: admin.sessionVersion,
+        };
       },
     }),
   ],
   callbacks: {
     jwt({ token, user }) {
-      // `user` is only present on sign-in; carry the fingerprint into the token.
-      if (user && "pwd" in user) token.pwd = user.pwd;
+      // `user` is only present on sign-in; carry the session checks into the token.
+      if (user && "pwd" in user) {
+        token.pwd = user.pwd;
+        token.ver = user.ver;
+        token.loginAt = Date.now();
+      }
       return token;
     },
   },

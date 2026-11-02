@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { decode } from "next-auth/jwt";
 import { prisma } from "@/lib/prisma";
-import { passwordFingerprint } from "@/lib/admin-session";
+import { MAX_SESSION_AGE_MS, passwordFingerprint } from "@/lib/admin-session";
 
 /**
  * Server Action POSTs to an /admin/* route don't reliably go through
@@ -17,11 +17,12 @@ import { passwordFingerprint } from "@/lib/admin-session";
  * from NODE_ENV) keeps this correct in every environment: local dev,
  * `next start` over plain HTTP, and HTTPS production.
  *
- * Beyond the token's signature and expiry, the admin must still exist and
- * their password must not have changed since the token was issued — so a
- * deleted admin or a password reset ends existing sessions immediately.
+ * Beyond the token's signature and expiry, the admin must still exist, their
+ * password must not have changed, they must not have signed out since, and the
+ * sign-in must be under a day old however actively the session has been used —
+ * so a deleted admin, a password reset or a sign-out ends sessions immediately.
  */
-export async function requireAdmin() {
+export async function getAdminSession() {
   const cookieStore = await cookies();
   const raw =
     cookieStore.get("__Secure-authjs.session-token")?.value ??
@@ -36,10 +37,26 @@ export async function requireAdmin() {
       : null;
 
   const admin = token?.sub
-    ? await prisma.admin.findUnique({ where: { id: token.sub }, select: { passwordHash: true } })
+    ? await prisma.admin.findUnique({
+        where: { id: token.sub },
+        select: { email: true, passwordHash: true, sessionVersion: true },
+      })
     : null;
-  if (!token || !admin || token.pwd !== passwordFingerprint(admin.passwordHash)) {
-    redirect("/admin/login");
+  if (
+    !token ||
+    !admin ||
+    token.pwd !== passwordFingerprint(admin.passwordHash) ||
+    token.ver !== admin.sessionVersion ||
+    typeof token.loginAt !== "number" ||
+    Date.now() - token.loginAt > MAX_SESSION_AGE_MS
+  ) {
+    return null;
   }
-  return token;
+  return { id: token.sub as string, email: admin.email };
+}
+
+export async function requireAdmin() {
+  const session = await getAdminSession();
+  if (!session) redirect("/admin/login");
+  return session;
 }

@@ -47,7 +47,7 @@ export function AccommodationImageManager({
         <button type="submit" className="min-h-11 rounded-full bg-(--accent) px-5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#0b0b0a] hover:bg-(--accent-light) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
           Upload
         </button>
-        <p className="text-xs leading-5 text-black/45 sm:col-span-3">JPEG, PNG, or WebP. Up to 8 MB each, 9 MB per upload, and 12 images per room. Edit descriptions individually after upload.</p>
+        <p className="text-xs leading-5 text-black/45 sm:col-span-3">JPEG, PNG, or WebP. Up to 4 MB per upload (send large sets in batches), and 12 images per room. Edit descriptions individually after upload.</p>
       </AdminForm>
 
       {images.length ? (

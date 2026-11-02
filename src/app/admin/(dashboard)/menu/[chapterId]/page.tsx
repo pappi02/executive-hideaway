@@ -3,13 +3,17 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/require-admin";
 import { AdminForm } from "@/components/admin/AdminForm";
+import { MoveButtons } from "@/components/admin/MoveButtons";
 import {
   createChapter,
   createDish,
   createSection,
   deleteDish,
   deleteSection,
+  moveDish,
+  moveSection,
   updateChapter,
+  updateSection,
 } from "../actions";
 import { ChapterForm } from "../ChapterForm";
 import { DeleteChapterButton } from "../DeleteChapterButton";
@@ -78,10 +82,24 @@ export default async function ChapterDetailPage({
       <h2 className="text-lg font-medium">Sections & dishes</h2>
 
       <div className="mt-4 space-y-8">
-        {chapter.sections.map((section) => (
+        {chapter.sections.map((section, sectionIndex) => (
           <div key={section.id} className="rounded-2xl border border-black/10 bg-white p-5">
             <div className="flex items-center justify-between">
-              <p className="font-medium">{section.title}</p>
+              <div className="flex min-w-0 flex-1 items-center gap-2">
+                <MoveButtons
+                  id={section.id}
+                  action={moveSection}
+                  isFirst={sectionIndex === 0}
+                  isLast={sectionIndex === chapter.sections.length - 1}
+                  label={section.title}
+                />
+                <AdminForm action={updateSection} successMessage="Section saved." className="flex min-w-0 flex-1 flex-wrap items-center gap-2 pr-3">
+                  <input type="hidden" name="id" value={section.id} />
+                  <input name="title" required maxLength={120} defaultValue={section.title} aria-label="Section title" className={`${inputClass} min-w-40 flex-1 font-medium`} />
+                  <input name="note" maxLength={300} defaultValue={section.note ?? ""} placeholder="Note (optional)" aria-label="Section note" className={`${inputClass} min-w-40 flex-1`} />
+                  <button type="submit" className="text-[10px] font-semibold uppercase tracking-[0.12em] text-black/60 hover:text-black">Save</button>
+                </AdminForm>
+              </div>
 
               <AdminForm action={deleteSection} successMessage="Section removed successfully">
                 <input type="hidden" name="id" value={section.id} />
@@ -97,7 +115,7 @@ export default async function ChapterDetailPage({
 
             <table className="mt-4 w-full text-left text-sm">
               <tbody>
-                {section.dishes.map((dish) => (
+                {section.dishes.map((dish, dishIndex) => (
                   <tr key={dish.id} className="border-t border-black/5">
                     <td className="py-2 pr-3">
                       {dish.name}
@@ -111,7 +129,14 @@ export default async function ChapterDetailPage({
                       {dish.price !== null ? `KSh ${dish.price.toLocaleString()}` : dish.priceNote ?? "—"}
                     </td>
                     <td className="py-2 pr-3 text-right">
-                      <div className="flex justify-end gap-3">
+                      <div className="flex items-center justify-end gap-3">
+                        <MoveButtons
+                          id={dish.id}
+                          action={moveDish}
+                          isFirst={dishIndex === 0}
+                          isLast={dishIndex === section.dishes.length - 1}
+                          label={dish.name}
+                        />
                         <Link
                           href={`/admin/menu/${chapter.id}/dishes/${dish.id}`}
                           className="text-[10px] font-semibold uppercase tracking-[0.1em] text-black/55 hover:text-black"

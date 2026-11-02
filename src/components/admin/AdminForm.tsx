@@ -4,6 +4,8 @@ import { useTransition, type ReactNode, type SubmitEvent } from "react";
 import type { ActionResult } from "@/lib/admin-action";
 import { useToast } from "./Toast";
 
+const MAX_UPLOAD_BYTES = 4 * 1024 * 1024;
+
 /**
  * Runs a Server Action from a form and reports the outcome as a toast
  * (optionally redirecting on success).
@@ -41,6 +43,13 @@ export function AdminForm({
     const form = event.currentTarget;
     const submitter = event.nativeEvent.submitter;
     const formData = new FormData(form, submitter);
+
+    // The platform refuses larger requests before the Server Action can explain why.
+    const uploadBytes = [...formData.values()].reduce((total, value) => total + (value instanceof File ? value.size : 0), 0);
+    if (uploadBytes > MAX_UPLOAD_BYTES) {
+      showToast("Keep uploads to 4 MB per request. Send large sets in batches.", "error");
+      return;
+    }
 
     startTransition(async () => {
       let result: ActionResult;

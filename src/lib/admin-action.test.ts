@@ -2,7 +2,9 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
   AdminInputError,
+  isSafeLink,
   oneOf,
+  reorderedIds,
   optionalImagePath,
   optionalInteger,
   optionalText,
@@ -16,6 +18,24 @@ function form(fields: Record<string, string>) {
   for (const [key, value] of Object.entries(fields)) data.set(key, value);
   return data;
 }
+
+test("links stay on this site or use https", () => {
+  for (const link of ["/booking", "/services#offers", "https://example.com/a"]) {
+    assert.equal(isSafeLink(link), true, link);
+  }
+  for (const link of ["//example.com", "/\\example.com", "\\\\example.com", "http://example.com", "javascript:alert(1)", "data:text/html,x", "plain"]) {
+    assert.equal(isSafeLink(link), false, link);
+  }
+});
+
+test("moving a row swaps it with its neighbour, and stops at the ends", () => {
+  assert.deepEqual(reorderedIds(["a", "b", "c"], "b", "up"), ["b", "a", "c"]);
+  assert.deepEqual(reorderedIds(["a", "b", "c"], "b", "down"), ["a", "c", "b"]);
+  assert.equal(reorderedIds(["a", "b"], "a", "up"), null);
+  assert.equal(reorderedIds(["a", "b"], "b", "down"), null);
+  assert.equal(reorderedIds(["a", "b"], "x", "up"), null);
+  assert.equal(reorderedIds(["a", "b"], "a", "sideways"), null);
+});
 
 test("slugify keeps letters and digits, collapsing everything else", () => {
   assert.equal(slugify("  Hot Stone Massage! "), "hot-stone-massage");
