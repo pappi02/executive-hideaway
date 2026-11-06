@@ -7,6 +7,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
+import { SignOff } from "./SignOff";
+
 import { businessContact } from "@/lib/site-config";
 
 const phoneNumbers = [
@@ -250,6 +252,8 @@ export default function Footer() {
               Nairobi, Kenya
             </p>
           </div>
+
+          <SignOff />
         </div>
       </div>
     </footer>
