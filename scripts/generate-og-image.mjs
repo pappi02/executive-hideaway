@@ -4,9 +4,13 @@ import sharp from 'sharp';
 const out = process.argv[2] ?? 'public/images/og-share.jpg';
 (async () => {
   const W = 1200, H = 630, PW = 480;
-  // Photo: hot stones, scaled to fill the right side.
-  const photo = await sharp('public/images/services/hot-stone-massage.webp')
-    .resize(720, 630, { fit: 'cover', position: 'right' }).toBuffer();
+  // Photo: the homepage hero (portrait). Scaled to 720 wide, then a 630-tall band
+  // from the therapist's face down to the guest is cut out for the right side.
+  const PHOTO_TOP = 150;
+  const photo = await sharp('public/images/hero-spa-massage.jpg')
+    .resize({ width: 720 })
+    .extract({ left: 0, top: PHOTO_TOP, width: 720, height: 630 })
+    .toBuffer();
   const logo = await sharp('public/images/hideaway-lockup-light.svg', { density: 600 })
     .resize({ width: 400 }).png().toBuffer();
   const logoMeta = await sharp(logo).metadata();
