@@ -7,7 +7,7 @@ type BuildMetadataOptions = {
   description: string;
   /** Route path starting with "/", e.g. "/services". */
   path: string;
-  /** Absolute or root-relative path to a page-specific OG image. Defaults to the hero shot. */
+  /** Absolute or root-relative path to a page-specific OG image. Defaults to the branded spa share card. */
   image?: string;
 };
 
@@ -22,7 +22,7 @@ export function buildMetadata({
   title,
   description,
   path,
-  image = "/images/hero.png",
+  image = "/images/og-share.jpg",
 }: BuildMetadataOptions): Metadata {
   const resolvedTitle = title
     ? `${title} | ${siteConfig.shortName}`
