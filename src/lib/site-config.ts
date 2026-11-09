@@ -105,10 +105,13 @@ function summarizeOpeningHours(
   }));
 }
 
-/** Whether an "HH:mm" time is one an appointment can start at: from opening, and before closing. */
+/**
+ * Whether an "HH:mm" time is one an appointment can start at: from opening up to and
+ * including closing. A treatment may run past closing, whatever its length.
+ */
 export function isWithinSpaHours(time: string) {
   const { opens, closes } = businessContact.spaHours;
-  return time >= opens && time < closes;
+  return time >= opens && time <= closes;
 }
 
 export const SPA_HOURS_MESSAGE = "We’re open 9:00 am to 10:00 pm. Please choose a time within those hours.";
