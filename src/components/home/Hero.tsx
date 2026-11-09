@@ -3,10 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDownRight } from "lucide-react";
 
-const HERO_SRC = "/images/hero-spa-massage.jpg";
-const HERO_ALT = "A therapist giving a relaxing back massage at The Hideaway Spa and Resort";
-// Same sizes on both sharp copies, so the browser downloads the photo only once.
-const HERO_SIZES = "(min-width: 1024px) 480px, 100vw";
+const HERO_SRC = "/images/hero-hideaway-experience.jpg";
+const HERO_ALT = "A guest enjoying a massage in a candlelit suite, with dinner and drinks, a bed, and chess and table tennis nearby";
 
 export default function Hero() {
   return (
@@ -15,38 +13,28 @@ export default function Hero() {
       className="bg-[#0b0b0a] pt-17 sm:pt-20 lg:pt-22"
     >
       {/* The image starts below the fixed navbar so the logo never sits on it.
-          The photo is portrait (2:3). Phones and tablets show it full-bleed; wide
-          screens show it at its own shape on the right, over a soft blurred copy,
-          so it is never stretched or blown up past its real size. */}
-      <div className="relative flex min-h-[72svh] flex-col overflow-hidden sm:min-h-[64svh] lg:min-h-0">
-        {/* Phones and tablets: full-bleed, faces kept in frame */}
+          The photo is landscape (16:9) and fills the section at every width. Narrow
+          screens crop in on the massage, on the left of the photo. */}
+      <div className="relative flex min-h-[72svh] flex-col overflow-hidden sm:min-h-[64svh] lg:min-h-[80svh]">
         <Image
           src={HERO_SRC}
           alt={HERO_ALT}
           fill
           priority
-          sizes={HERO_SIZES}
-          className="object-cover object-[50%_28%] lg:hidden"
-        />
-
-        {/* Wide screens: blurred ambient fill behind the content */}
-        <Image
-          src={HERO_SRC}
-          alt=""
-          aria-hidden
-          fill
-          sizes="96px"
-          className="hidden scale-110 object-cover opacity-45 blur-2xl lg:block"
+          sizes="100vw"
+          className="object-cover object-[24%_50%] lg:object-center"
         />
 
         {/* Image treatment */}
-        <div className="absolute inset-0 bg-black/10 lg:bg-[#0b0b0a]/55" />
+        <div className="absolute inset-0 bg-black/10" />
 
-        <div className="absolute inset-0 bg-linear-to-b from-black/35 via-transparent via-40% to-[#0b0b0a]/90 lg:bg-linear-to-r lg:from-[#0b0b0a]/80 lg:via-[#0b0b0a]/30 lg:to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/35 via-transparent via-40% to-[#0b0b0a]/90 lg:from-transparent lg:via-transparent lg:via-45% lg:to-[#0b0b0a]/85" />
+
+        <div className="absolute inset-0 hidden bg-linear-to-r from-[#0b0b0a]/70 via-[#0b0b0a]/15 via-50% to-transparent lg:block" />
 
         {/* Hero Content */}
         <div className="relative z-10 flex flex-1 flex-col justify-end px-5 pb-8 pt-12 sm:px-8 sm:pb-12 sm:pt-16 lg:px-10 lg:py-12">
-          <div className="mx-auto w-full max-w-7xl lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-12">
+          <div className="mx-auto w-full max-w-7xl">
             <div>
               {/* Eyebrow */}
               <div className="mb-4 flex items-center gap-3 sm:mb-6">
@@ -99,18 +87,6 @@ export default function Hero() {
                   Explore
                 </Link>
               </div>
-            </div>
-
-            {/* Wide screens: the photo at its own 2:3 shape */}
-            <div className="relative hidden aspect-2/3 h-[min(78svh,44rem)] overflow-hidden rounded-2xl ring-1 ring-white/10 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.8)] lg:block">
-              <Image
-                src={HERO_SRC}
-                alt={HERO_ALT}
-                fill
-                priority
-                sizes={HERO_SIZES}
-                className="object-cover"
-              />
             </div>
           </div>
         </div>

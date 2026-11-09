@@ -13,7 +13,7 @@ export const metadata: Metadata = buildMetadata({
   title: "Accommodation",
   description: "Explore room types and accommodation requests at Executive Hideaway Resort & Spa in Nairobi. Ask our team to confirm rates and availability.",
   path: "/accommodation",
-  image: "/images/accommodation/premium-room.webp",
+  image: "/images/accommodation/executive-room-photo-1.webp",
 });
 
 // Cached and served from the CDN; refreshed hourly, and immediately when the

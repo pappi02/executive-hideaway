@@ -10,7 +10,6 @@
  * production by accident.
  */
 import { loadEnvFile } from "node:process";
-import { readFile } from "node:fs/promises";
 import path from "node:path";
 import bcrypt from "bcryptjs";
 import { createPrismaClient } from "../src/lib/prisma";
@@ -144,8 +143,9 @@ const accommodations = [
     featured: true,
     active: true,
     order: 0,
-    imagePath: "images/accommodation/premium-room.webp",
-    imageAlt: "Temporary illustrative room preview; replace with a photo of this room",
+    photos: [
+      { url: "/images/accommodation/premium-room-photo.webp", altText: "Massage table by curtained windows with, through an arched opening, a rose-petal bed with yellow cushions" },
+    ],
   },
   {
     name: "Deluxe Room",
@@ -165,8 +165,9 @@ const accommodations = [
     featured: false,
     active: true,
     order: 1,
-    imagePath: "images/accommodation/deluxe-room.webp",
-    imageAlt: "Temporary illustrative room preview; replace with a photo of this room",
+    photos: [
+      { url: "/images/accommodation/deluxe-room-photo.webp", altText: "Massage table and rose-petal bed with a navy headboard, a white wingback chair and a magenta sofa under lit greenery" },
+    ],
   },
   {
     name: "Executive Room",
@@ -186,8 +187,10 @@ const accommodations = [
     featured: false,
     active: true,
     order: 2,
-    imagePath: "images/accommodation/executive-room.webp",
-    imageAlt: "Temporary illustrative room preview; replace with a photo of this room",
+    photos: [
+      { url: "/images/accommodation/executive-room-photo-1.webp", altText: "Rose-petal bed with a tall tufted headboard under purple-lit greenery, with grey armchairs and a massage table" },
+      { url: "/images/accommodation/executive-room-photo-2.webp", altText: "The same room from the window end, with a massage table, the bed, and armchairs around a glass coffee table" },
+    ],
   },
 ];
 
@@ -203,10 +206,7 @@ const resortFacilities = [
 
 async function seedAccommodation() {
   for (const room of accommodations) {
-    const { imagePath, imageAlt, ...fields } = room;
-    const imageData = new Uint8Array(
-      await readFile(path.resolve(import.meta.dirname, "../public", imagePath)),
-    );
+    const { photos, ...fields } = room;
 
     await prisma.accommodation.upsert({
       where: { slug: room.slug },
@@ -214,12 +214,7 @@ async function seedAccommodation() {
         ...fields,
         priceIsIndicative: true,
         images: {
-          create: {
-            data: imageData,
-            contentType: "image/webp",
-            altText: imageAlt,
-            order: 0,
-          },
+          create: photos.map((photo, order) => ({ ...photo, contentType: "image/webp", order })),
         },
       },
       update: {},

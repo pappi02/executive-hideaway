@@ -37,7 +37,8 @@ export async function storeAccommodationImage(
 
 /** Tried twice. A failed delete leaves an orphaned blob, never a broken page, so it is logged by URL for removal by hand. */
 export async function deleteBlobs(urls: (string | null | undefined)[]) {
-  const targets = urls.filter((url): url is string => Boolean(url));
+  // Photos shipped under /public have a site path rather than a Blob URL, and are left alone.
+  const targets = urls.filter((url): url is string => Boolean(url?.startsWith("https://")));
   if (!targets.length || !isBlobStorageConfigured()) return;
   try {
     await del(targets).catch(() => del(targets));

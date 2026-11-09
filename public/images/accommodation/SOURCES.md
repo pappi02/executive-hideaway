@@ -1,11 +1,10 @@
-# Temporary accommodation preview images
+# Accommodation photos
 
-These locally stored WebP files are illustrative placeholders, not verified photographs of the resort's rooms. Replace them from the accommodation admin editor when confirmed room photography is available.
+Photographs of the resort's own rooms, supplied by the owner on 2026-11-09. Room photos added later through the accommodation admin editor are stored in Vercel Blob instead of here.
 
-| File | Unsplash CDN source |
+| File | Room |
 |---|---|
-| premium-room.webp | https://images.unsplash.com/photo-1611892440504-42a792e24d32 |
-| deluxe-room.webp | https://images.unsplash.com/photo-1616486338812-3dadae4b4ace |
-| executive-room.webp | https://images.unsplash.com/photo-1616594039964-ae9021a400a0 |
-
-Unsplash License: https://unsplash.com/license
+| premium-room-photo.webp | Arched room with massage table and double bed |
+| deluxe-room-photo.webp | Yellow-lit room with navy headboard, white wingback chair and magenta sofa |
+| executive-room-photo-1.webp | Purple-lit room, seen towards the bed and armchairs |
+| executive-room-photo-2.webp | Purple-lit room, seen from the window end |

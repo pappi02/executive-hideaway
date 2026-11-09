@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: RoomPageProps): Promise<Metad
     title: room.name,
     description: room.description,
     path: `/accommodation/${room.slug}`,
-    image: room.images[0] ? accommodationImageSrc(room.images[0]) : "/images/og-share.jpg",
+    image: room.images[0] ? accommodationImageSrc(room.images[0]) : "/images/og-hideaway-experience.jpg",
   });
 }
 
@@ -68,7 +68,7 @@ export default async function AccommodationRoomPage({ params }: RoomPageProps) {
             {room.images.length ? (
               <div className={`mt-8 grid gap-3 ${room.images.length > 1 ? "sm:grid-cols-2" : ""}`}>
                 {room.images.map((image, index) => (
-                  <figure key={image.id} className={`relative overflow-hidden bg-[#ddd6ca] ${index === 0 ? "aspect-[1.28] sm:row-span-2 sm:aspect-auto sm:min-h-110" : "aspect-[1.28]"}`}>
+                  <figure key={image.id} className={`relative overflow-hidden bg-[#ddd6ca] ${index === 0 && room.images.length !== 2 ? "aspect-[1.28] sm:row-span-2 sm:aspect-auto sm:min-h-110" : "aspect-[1.28]"}`}>
                     <Image src={accommodationImageSrc(image)} alt={image.altText} fill priority={index === 0} sizes={index === 0 ? "(max-width: 640px) 100vw, 65vw" : "(max-width: 640px) 100vw, 35vw"} className="object-cover" />
                   </figure>
                 ))}
