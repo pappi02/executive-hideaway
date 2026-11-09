@@ -15,7 +15,10 @@ type PromptKind = "native" | "ios";
 
 const DISMISS_KEY = "hideaway-install-dismissed-at";
 const DISMISS_DAYS = 14;
-const SHOW_DELAY_MS = 3500;
+// Long enough that it never covers the first thing a visitor came to do.
+const SHOW_DELAY_MS = 45000;
+// Pages with a form to finish: a pop-up here hides fields and buttons.
+const HIDDEN_ON = ["/admin", "/booking", "/accommodation/request"];
 
 function recentlyDismissed() {
   try {
@@ -95,7 +98,7 @@ export default function InstallPrompt() {
     };
   }, []);
 
-  if (!kind || pathname.startsWith("/admin")) return null;
+  if (!kind || HIDDEN_ON.some((path) => pathname.startsWith(path))) return null;
 
   const dismiss = () => {
     rememberDismissal();
@@ -122,7 +125,7 @@ export default function InstallPrompt() {
         type="button"
         onClick={dismiss}
         aria-label="Close"
-        className="absolute right-2.5 top-2.5 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-white/45 transition-colors hover:bg-white/10 hover:text-white"
+        className="absolute right-1.5 top-1.5 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-white/45 transition-colors hover:bg-white/10 hover:text-white"
       >
         <X size={16} strokeWidth={1.8} />
       </button>

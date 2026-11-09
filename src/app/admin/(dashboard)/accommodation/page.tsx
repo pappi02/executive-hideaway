@@ -24,7 +24,6 @@ export default async function AdminAccommodationPage() {
         name: true,
         slug: true,
         pricePerNight: true,
-        priceIsIndicative: true,
         numberOfRooms: true,
         maxGuests: true,
         active: true,
@@ -55,11 +54,11 @@ export default async function AdminAccommodationPage() {
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <Link href={`/admin/accommodation/${room.id}`} className="wrap-break-word text-base font-medium hover:underline">{room.name}</Link>
-                      <p className="mt-1 text-xs text-black/50">{room.pricePerNight === null ? "Rate not set" : `KSh ${room.pricePerNight.toLocaleString()} / night${room.priceIsIndicative ? " · indicative" : ""}`}</p>
+                      <p className="mt-1 text-xs text-black/50">{room.pricePerNight === null ? "Rate not set" : `KSh ${room.pricePerNight.toLocaleString()} / night`}</p>
                     </div>
                     <span className={`shrink-0 text-[9px] font-semibold uppercase tracking-[0.12em] ${room.active ? "text-emerald-800" : "text-black/40"}`}>{room.active ? "Public" : "Hidden"}</span>
                   </div>
-                  <p className="text-xs text-black/55">{room.numberOfRooms} configured rooms · up to {room.maxGuests} guests</p>
+                  <p className="text-xs text-black/55">{room.numberOfRooms} rooms · up to {room.maxGuests} guests</p>
                   <div className="flex flex-wrap items-center justify-between gap-2 border-t border-black/8 pt-2">
                     <AdminForm action={setAccommodationActive} successMessage={room.active ? "Room hidden from the public." : "Room made public."}>
                       <input type="hidden" name="id" value={room.id} />
@@ -77,13 +76,13 @@ export default async function AdminAccommodationPage() {
 
             <table className="hidden w-full text-left text-sm sm:table">
               <thead className="border-b border-black/10 bg-black/2 text-[10px] font-semibold uppercase tracking-[0.12em] text-black/45">
-                <tr><th className="px-4 py-3">Room type</th><th className="px-4 py-3">Indicative rate</th><th className="px-4 py-3">Inventory</th><th className="px-4 py-3">Visibility</th><th className="px-4 py-3" /></tr>
+                <tr><th className="px-4 py-3">Room type</th><th className="px-4 py-3">Rate</th><th className="px-4 py-3">Inventory</th><th className="px-4 py-3">Visibility</th><th className="px-4 py-3" /></tr>
               </thead>
               <tbody className="divide-y divide-black/8">
                 {rooms.map((room) => (
                   <tr key={room.id}>
                     <td className="px-4 py-3 font-medium"><Link href={`/admin/accommodation/${room.id}`} className="hover:underline">{room.name}</Link></td>
-                    <td className="px-4 py-3 text-black/60">{room.pricePerNight === null ? "Not set" : `KSh ${room.pricePerNight.toLocaleString()}${room.priceIsIndicative ? " · indicative" : ""}`}</td>
+                    <td className="px-4 py-3 text-black/60">{room.pricePerNight === null ? "Not set" : `KSh ${room.pricePerNight.toLocaleString()}`}</td>
                     <td className="px-4 py-3 text-black/60">{room.numberOfRooms} rooms · {room.maxGuests} guests</td>
                     <td className="px-4 py-3">
                       <AdminForm action={setAccommodationActive} successMessage={room.active ? "Room hidden from the public." : "Room made public."}>
@@ -99,7 +98,7 @@ export default async function AdminAccommodationPage() {
             </table>
           </div>
         ) : (
-          <p className="mt-5 border border-dashed border-black/20 px-5 py-8 text-sm text-black/55">No room types configured yet. Add a room type to publish accommodation.</p>
+          <p className="mt-5 border border-dashed border-black/20 px-5 py-8 text-sm text-black/55">No room types yet. Add a room type to publish accommodation.</p>
         )}
       </section>
 

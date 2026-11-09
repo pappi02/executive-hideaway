@@ -82,8 +82,6 @@ model Accommodation {
   slug              String               @unique
   description       String
   pricePerNight     Int?
-  priceIsIndicative Boolean              @default(true)
-  isTemporary       Boolean              @default(false)
   numberOfRooms     Int                  @default(1)
   maxGuests         Int                  @default(1)
   bedType           String?

@@ -12,7 +12,6 @@ interface RequestRoom {
   name: string;
   slug: string;
   pricePerNight: number | null;
-  priceIsIndicative: boolean;
   maxGuests: number;
 }
 
@@ -33,6 +32,12 @@ function validDate(value: string) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
   const parsed = new Date(`${value}T00:00:00.000Z`);
   return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
+}
+
+/** Whole nights between two valid YYYY-MM-DD dates; 0 if they aren't a valid stay. */
+function nightsBetween(checkIn: string, checkOut: string) {
+  if (!validDate(checkIn) || !validDate(checkOut)) return 0;
+  return Math.max(0, Math.round((Date.parse(checkOut) - Date.parse(checkIn)) / 86_400_000));
 }
 
 function dateLabel(value: string) {
@@ -61,6 +66,7 @@ export function AccommodationRequestForm({ rooms, initialSlug }: { rooms: Reques
   const [submissionError, setSubmissionError] = useState("");
   const [isPending, startTransition] = useTransition();
   const room = rooms.find((item) => item.slug === form.room);
+  const nights = nightsBetween(form.checkIn, form.checkOut);
 
   const update = (field: keyof FormValues, value: string) => {
     setForm((current) => ({ ...current, [field]: value }));
@@ -70,7 +76,7 @@ export function AccommodationRequestForm({ rooms, initialSlug }: { rooms: Reques
 
   const validate = () => {
     const nextErrors: Partial<Record<keyof FormValues, string>> = {};
-    if (!room) nextErrors.room = "Choose an active room type.";
+    if (!room) nextErrors.room = "Choose a room.";
     if (!validDate(form.checkIn)) nextErrors.checkIn = "Enter a valid check-in date.";
     else if (form.checkIn < todayValue) nextErrors.checkIn = "Choose today or a future date.";
     if (!validDate(form.checkOut)) nextErrors.checkOut = "Enter a valid check-out date.";
@@ -115,8 +121,8 @@ export function AccommodationRequestForm({ rooms, initialSlug }: { rooms: Reques
   if (!rooms.length) {
     return (
       <div className="border border-black/10 bg-white/50 px-5 py-8">
-        <h2 className="text-xl font-light">Room details are being updated.</h2>
-        <p className="mt-2 text-sm leading-6 text-black/55">Please contact us for accommodation information.</p>
+        <h2 className="text-xl font-light">No rooms are listed right now.</h2>
+        <p className="mt-2 text-sm leading-6 text-black/55">Contact us and we’ll help you find a room.</p>
         <Link href="/contact" className="mt-4 inline-flex min-h-11 items-center border-b border-black/25 text-[10px] font-semibold uppercase tracking-[0.13em]">Contact the resort</Link>
       </div>
     );
@@ -195,7 +201,7 @@ export function AccommodationRequestForm({ rooms, initialSlug }: { rooms: Reques
               <div className="border-t border-black/8 py-3"><dt className="text-xs text-black/45">Name</dt><dd className="mt-1 wrap-break-word text-sm">{form.name}</dd></div>
               <div className="border-t border-black/8 py-3"><dt className="text-xs text-black/45">Phone</dt><dd className="mt-1 text-sm">{form.phone}</dd></div>
               <div className="border-t border-black/8 py-3 sm:col-span-2"><dt className="text-xs text-black/45">Special request</dt><dd className="mt-1 wrap-break-word text-sm">{form.request.trim() || "None"}</dd></div>
-              {room?.pricePerNight !== null && room?.pricePerNight !== undefined && <div className="border-t border-black/8 py-3 sm:col-span-2"><dt className="text-xs text-black/45">Rate shown</dt><dd className="mt-1 text-sm">KSh {room.pricePerNight.toLocaleString()} per night{room.priceIsIndicative ? " · indicative, please confirm" : ""}</dd></div>}
+              {room?.pricePerNight !== null && room?.pricePerNight !== undefined && <div className="border-t border-black/8 py-3 sm:col-span-2"><dt className="text-xs text-black/45">Rate</dt><dd className="mt-1 text-sm">KSh {room.pricePerNight.toLocaleString()} per night{nights > 0 && <> · {nights} {nights === 1 ? "night" : "nights"}, about KSh {(room.pricePerNight * nights).toLocaleString()} in total</>}</dd></div>}
             </dl>
             <p className="mt-3 text-xs leading-5 text-black/50">No payment is taken here. We keep your name, phone, room and dates to follow up. Our team will confirm availability and arrangements on WhatsApp. See our <Link href="/terms" className="underline underline-offset-2 hover:text-black">booking terms</Link> and <Link href="/privacy" className="underline underline-offset-2 hover:text-black">privacy notice</Link>.</p>
             <button type="button" disabled={isPending} onClick={continueToWhatsApp} className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#0b0b0a] px-6 text-[10px] font-semibold uppercase tracking-[0.14em] text-white hover:bg-[#80683c] disabled:cursor-wait disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c] sm:w-auto">{isPending ? "Preparing request…" : "Continue on WhatsApp"}<ArrowUpRight size={14} aria-hidden="true" /></button>

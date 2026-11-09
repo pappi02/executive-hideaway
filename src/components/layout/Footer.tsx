@@ -20,7 +20,7 @@ const locationUrl = businessContact.location.googleMapsUrl;
 const socialLinks = businessContact.socialLinks;
 
 const contactLinkClass =
-  "group flex min-w-0 items-center gap-3 text-[10px] uppercase tracking-[0.14em] text-white/55 transition-colors duration-300 hover:text-white";
+  "group flex min-h-10 min-w-0 items-center gap-3 text-[10px] uppercase tracking-[0.14em] text-white/55 transition-colors duration-300 hover:text-white";
 const contactIconClass =
   "flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/10 transition-colors duration-300 group-hover:border-(--accent)";
 
@@ -125,7 +125,7 @@ export default function Footer() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="group flex items-center gap-2 whitespace-nowrap text-xs text-white/55 transition-colors duration-300 hover:text-white sm:text-sm"
+                  className="group flex min-h-10 items-center gap-2 whitespace-nowrap text-xs text-white/55 transition-colors duration-300 hover:text-white sm:text-sm"
                 >
                   {item.label}
 
@@ -242,10 +242,10 @@ export default function Footer() {
           </p>
 
           <div className="flex items-center gap-5">
-            <Link href="/privacy" className="text-[9px] uppercase tracking-[0.18em] text-white/40 transition-colors hover:text-white">
+            <Link href="/privacy" className="inline-flex min-h-10 items-center text-[11px] uppercase tracking-[0.14em] text-white/60 transition-colors hover:text-white">
               Privacy
             </Link>
-            <Link href="/terms" className="text-[9px] uppercase tracking-[0.18em] text-white/40 transition-colors hover:text-white">
+            <Link href="/terms" className="inline-flex min-h-10 items-center text-[11px] uppercase tracking-[0.14em] text-white/60 transition-colors hover:text-white">
               Booking terms
             </Link>
             <p className="text-[8px] uppercase tracking-[0.18em] text-white/15">

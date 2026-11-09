@@ -51,7 +51,7 @@ export async function createAccommodationRequestLink(input: AccommodationRequest
 
   const room = await prisma.accommodation.findFirst({
     where: { slug: input.slug, active: true },
-    select: { name: true, maxGuests: true, pricePerNight: true, priceIsIndicative: true },
+    select: { name: true, maxGuests: true, pricePerNight: true },
   });
   if (!room) return { error: "This room is no longer accepting requests. Please choose another room." };
 
@@ -69,7 +69,7 @@ export async function createAccommodationRequestLink(input: AccommodationRequest
 
   const rate = room.pricePerNight === null
     ? "Rate: To be confirmed"
-    : `Room rate: KSh ${room.pricePerNight.toLocaleString()} per night${room.priceIsIndicative ? " (indicative; please confirm)" : ""}`;
+    : `Room rate: KSh ${room.pricePerNight.toLocaleString()} per night`;
 
   const message = [
     "Hello Executive Hideaway Resort & Spa,",

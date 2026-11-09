@@ -23,7 +23,6 @@ export default async function AccommodationRequestPage() {
     name: item.name,
     slug: item.slug,
     pricePerNight: item.pricePerNight,
-    priceIsIndicative: item.priceIsIndicative,
     maxGuests: item.maxGuests,
   }));
 

@@ -34,15 +34,15 @@ export default async function AccommodationPage() {
       <main className="bg-[#f3efe6] text-[#0b0b0a]">
         <section className="relative min-h-[78svh] overflow-hidden bg-[#151513] text-white sm:min-h-[82svh]">
           {heroImage ? (
-            <Image src={accommodationImageSrc(heroImage)} alt={heroImage.altText} fill priority sizes="100vw" className="object-cover object-center" />
+            <Image src={accommodationImageSrc(heroImage)} alt={heroImage.altText} fill priority sizes="100vw" className="object-cover object-[28%_center] lg:object-center" />
           ) : (
             <Image src="/images/hero.png" alt="Executive Hideaway Resort & Spa" fill priority sizes="100vw" className="object-cover object-center" />
           )}
-          <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/25 to-black/25" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/30 to-black/50" />
           <div className="relative mx-auto flex min-h-[78svh] max-w-7xl flex-col justify-end px-5 pb-9 pt-32 sm:min-h-[82svh] sm:px-8 sm:pb-14 lg:px-10 lg:pb-16">
             <p className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.26em] text-(--accent-light)"><span className="h-px w-8 bg-(--accent)" />Stay at the Hideaway</p>
             <h1 className="mt-5 max-w-4xl text-[clamp(3.2rem,12vw,7.5rem)] font-light leading-[0.9] text-white">A quieter way<br />to stay awhile.</h1>
-            <p className="mt-5 max-w-md text-sm leading-6 text-white/75 sm:text-base sm:leading-7">Room details and rates are being updated by our team. Send a request and we’ll confirm your stay directly.</p>
+            <p className="mt-5 max-w-md text-sm leading-6 text-white/75 sm:text-base sm:leading-7">Private rooms, each with its own massage table. Send us your dates and we’ll confirm your stay on WhatsApp.</p>
             <Link href="#rooms" className="mt-7 inline-flex min-h-12 w-fit items-center gap-3 border-b border-white/40 text-[10px] font-semibold uppercase tracking-[0.17em] text-white hover:border-(--accent) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">Explore rooms <ArrowDown size={14} aria-hidden="true" /></Link>
           </div>
         </section>
@@ -54,7 +54,7 @@ export default async function AccommodationPage() {
                 <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#80683c]">Room collection</p>
                 <h2 className="mt-2 text-3xl font-light leading-tight sm:text-5xl">Find your room.</h2>
               </div>
-              <p className="max-w-md text-xs leading-5 text-black/55">Rates shown as indicative are temporary examples, not confirmed offers. All requests go to our team to confirm room availability and booking details.</p>
+              <p className="max-w-md text-xs leading-5 text-black/55">Rates are per night. Send a request and our team will confirm availability and your booking on WhatsApp.</p>
             </div>
 
             {rooms.length ? (
@@ -63,8 +63,8 @@ export default async function AccommodationPage() {
               </div>
             ) : (
               <div className="border-b border-black/15 py-12 sm:py-16">
-                <h3 className="text-xl font-light">Accommodation details are currently being updated.</h3>
-                <p className="mt-2 max-w-lg text-sm leading-6 text-black/55">Please contact us for accommodation information while our room collection is being prepared.</p>
+                <h3 className="text-xl font-light">No rooms are listed right now.</h3>
+                <p className="mt-2 max-w-lg text-sm leading-6 text-black/55">Contact us and we’ll help you find a room.</p>
                 <Link href="/contact" className="mt-5 inline-flex min-h-11 items-center gap-2 border-b border-black/25 text-[10px] font-semibold uppercase tracking-[0.13em] hover:border-black">Contact the resort <ArrowUpRight size={13} aria-hidden="true" /></Link>
               </div>
             )}
@@ -78,8 +78,14 @@ export default async function AccommodationPage() {
               <h2 className="mt-2 text-2xl font-light">A few useful details.</h2>
             </div>
             <dl className="grid gap-4 text-sm sm:grid-cols-2">
-              <div><dt className="text-xs text-black/45">Check-in</dt><dd className="mt-1 leading-5">{settings?.checkIn || "Check-in and check-out arrangements confirmed during booking."}</dd></div>
-              <div><dt className="text-xs text-black/45">Check-out</dt><dd className="mt-1 leading-5">{settings?.checkOut || "Check-in and check-out arrangements confirmed during booking."}</dd></div>
+              {settings?.checkIn || settings?.checkOut ? (
+                <>
+                  {settings.checkIn && <div><dt className="text-xs text-black/55">Check-in</dt><dd className="mt-1 leading-5">{settings.checkIn}</dd></div>}
+                  {settings.checkOut && <div><dt className="text-xs text-black/55">Check-out</dt><dd className="mt-1 leading-5">{settings.checkOut}</dd></div>}
+                </>
+              ) : (
+                <div className="sm:col-span-2"><dt className="text-xs text-black/55">Check-in and check-out</dt><dd className="mt-1 leading-5">We’ll agree your arrival and departure times when we confirm your booking.</dd></div>
+              )}
             </dl>
           </div>
         </section>

@@ -192,13 +192,13 @@ export default function Navbar({ tone = "light" }: NavbarProps) {
         inert={!menuOpen}
       >
         <div className="flex flex-col px-5 pb-8 pt-23 sm:px-8 sm:pt-28">
-          <nav className="flex flex-col gap-4.5 sm:gap-5" aria-label="Mobile navigation">
+          <nav className="flex flex-col gap-1 sm:gap-1.5" aria-label="Mobile navigation">
             {visibleNavItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
                 onClick={closeMenu}
-                className="text-[1.375rem] font-light leading-none tracking-[-0.02em] text-white sm:text-2xl transition-colors hover:text-(--accent)"
+                className="flex min-h-11 items-center text-[1.375rem] font-light leading-none tracking-[-0.02em] text-white sm:text-2xl transition-colors hover:text-(--accent)"
               >
                 {item.label}
               </Link>

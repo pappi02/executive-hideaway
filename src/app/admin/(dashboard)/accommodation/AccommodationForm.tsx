@@ -13,8 +13,6 @@ export interface AccommodationFormValues {
   slug: string;
   description: string;
   pricePerNight: number | null;
-  priceIsIndicative: boolean;
-  isTemporary: boolean;
   numberOfRooms: number;
   maxGuests: number;
   bedType: string | null;
@@ -111,7 +109,7 @@ export function AccommodationForm({
             <input id="pricePerNight" name="pricePerNight" type="number" min={0} step={1} defaultValue={defaultValues?.pricePerNight ?? ""} className={inputClass} />
           </div>
           <div>
-            <label className={labelClass} htmlFor="numberOfRooms">Configured room count</label>
+            <label className={labelClass} htmlFor="numberOfRooms">Number of rooms</label>
             <input id="numberOfRooms" name="numberOfRooms" type="number" min={0} step={1} required defaultValue={defaultValues?.numberOfRooms ?? 1} className={inputClass} />
           </div>
           <div>
@@ -119,16 +117,6 @@ export function AccommodationForm({
             <input id="maxGuests" name="maxGuests" type="number" min={1} step={1} required defaultValue={defaultValues?.maxGuests ?? 1} className={inputClass} />
           </div>
         </div>
-        <Checkbox
-          name="priceIsIndicative"
-          label="Rate is temporary / indicative"
-          checked={defaultValues?.priceIsIndicative ?? true}
-        />
-        <Checkbox
-          name="isTemporary"
-          label="Room name and details are temporary examples"
-          checked={defaultValues?.isTemporary ?? false}
-        />
       </section>
 
       <section className="space-y-5 border-b border-black/10 pb-6">

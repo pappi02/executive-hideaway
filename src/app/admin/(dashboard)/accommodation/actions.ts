@@ -76,8 +76,6 @@ function readAccommodationFields(formData: FormData) {
     slug,
     description,
     pricePerNight,
-    priceIsIndicative: formData.get("priceIsIndicative") === "on",
-    isTemporary: formData.get("isTemporary") === "on",
     numberOfRooms,
     maxGuests,
     bedType: text(formData, "bedType", "Bed type"),

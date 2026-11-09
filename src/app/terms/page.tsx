@@ -38,8 +38,7 @@ export default function TermsPage() {
         <ul>
           <li>Prices are in Kenya Shillings (KSh).</li>
           <li>
-            Room rates marked &ldquo;indicative&rdquo; are a guide only. The rate that applies is the one we confirm with
-            you before your stay.
+            Room rates are shown per night. The rate that applies is the one we confirm with you before your stay.
           </li>
           <li>
             Services shown as &ldquo;price on request&rdquo; are quoted when we confirm your appointment. Totals shown in the

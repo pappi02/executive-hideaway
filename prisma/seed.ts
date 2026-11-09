@@ -128,19 +128,18 @@ const accommodations = [
   {
     name: "Premium Room",
     slug: "premium-room",
-    description: "A temporary room listing. Replace this copy with confirmed accommodation details.",
+    description: "An intimate room in two parts: a treatment area with a massage table beside the windows and, through an arched opening, a double bed on a rustic wooden frame with bright yellow cushions.",
     pricePerNight: 8500,
-    isTemporary: true,
     numberOfRooms: 3,
     maxGuests: 2,
-    bedType: "Queen Bed",
+    bedType: "Double bed",
     bathroom: "Ensuite bathroom",
-    amenities: ["Wi-Fi", "Hot shower", "Comfortable bedding"],
-    breakfastIncluded: false,
+    amenities: ["Wi-Fi", "In-room massage table", "Bathrobe", "Slippers", "Separate sleeping alcove", "Original artwork"],
+    breakfastIncluded: null,
     wifiAvailable: true,
     parkingAvailable: true,
     childrenAllowed: false,
-    featured: true,
+    featured: false,
     active: true,
     order: 0,
     photos: [
@@ -150,15 +149,14 @@ const accommodations = [
   {
     name: "Deluxe Room",
     slug: "deluxe-room",
-    description: "A temporary room listing. Replace this copy with confirmed accommodation details.",
+    description: "A bright, generous room with a queen bed, a tufted navy headboard and a wall of softly lit trailing greenery. A white wingback chair and a magenta sofa give you somewhere to unwind, with a massage table set up in the room.",
     pricePerNight: 11000,
-    isTemporary: true,
     numberOfRooms: 2,
     maxGuests: 2,
-    bedType: "Double Bed",
+    bedType: "Queen bed",
     bathroom: "Ensuite bathroom",
-    amenities: ["Wi-Fi", "Parking", "Air conditioning", "TV"],
-    breakfastIncluded: true,
+    amenities: ["Wi-Fi", "In-room massage table", "Bathrobe", "Slippers", "Sofa and wingback chair", "Coat stand", "Storage shelves"],
+    breakfastIncluded: null,
     wifiAvailable: true,
     parkingAvailable: true,
     childrenAllowed: false,
@@ -172,19 +170,18 @@ const accommodations = [
   {
     name: "Executive Room",
     slug: "executive-room",
-    description: "A temporary room listing. Replace this copy with confirmed accommodation details.",
+    description: "Our largest room, with a king bed against a tall tufted headboard and soft purple light through hanging greenery. Two armchairs and a coffee table make a sitting area by the windows, and a massage table is set up in the room.",
     pricePerNight: 14500,
-    isTemporary: true,
     numberOfRooms: 2,
     maxGuests: 2,
-    bedType: "King Bed",
+    bedType: "King bed",
     bathroom: "Ensuite bathroom",
-    amenities: ["Wi-Fi", "Hot shower", "Air conditioning", "Comfortable bedding"],
-    breakfastIncluded: false,
+    amenities: ["Wi-Fi", "In-room massage table", "Slippers", "Two armchairs and coffee table", "Built-in wardrobes", "Bedside tables", "Coat stand", "Ambient lighting"],
+    breakfastIncluded: null,
     wifiAvailable: true,
     parkingAvailable: true,
     childrenAllowed: false,
-    featured: false,
+    featured: true,
     active: true,
     order: 2,
     photos: [
@@ -212,7 +209,6 @@ async function seedAccommodation() {
       where: { slug: room.slug },
       create: {
         ...fields,
-        priceIsIndicative: true,
         images: {
           create: photos.map((photo, order) => ({ ...photo, contentType: "image/webp", order })),
         },
@@ -235,7 +231,7 @@ async function seedAccommodation() {
     update: {},
   });
 
-  console.log(`Seeded ${accommodations.length} temporary room types and ${resortFacilities.length} resort experiences.`);
+  console.log(`Seeded ${accommodations.length} room types and ${resortFacilities.length} resort experiences.`);
 }
 
 async function seedServices() {

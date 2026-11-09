@@ -37,8 +37,6 @@ export default async function AccommodationEditorPage({
     slug: room.slug,
     description: room.description,
     pricePerNight: room.pricePerNight,
-    priceIsIndicative: room.priceIsIndicative,
-    isTemporary: room.isTemporary,
     numberOfRooms: room.numberOfRooms,
     maxGuests: room.maxGuests,
     bedType: room.bedType,
