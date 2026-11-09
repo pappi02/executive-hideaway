@@ -76,7 +76,7 @@ export function PosterView({
         {poster.detailsUrl ? (
           <Link href={poster.detailsUrl} onClick={onClose} aria-label={`${poster.title} - see details`} className="block">
             {image}
-            <span className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/70 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#f5f1e8]">
+            <span className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/70 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#f5f1e8]">
               Tap for details
             </span>
           </Link>

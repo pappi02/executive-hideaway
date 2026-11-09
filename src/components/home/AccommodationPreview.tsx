@@ -20,10 +20,10 @@ export default async function AccommodationPreview() {
           {image ? <Image src={accommodationImageSrc(image)} alt={image.altText} fill sizes="(max-width: 640px) 100vw, 50vw" className="object-cover" /> : <span className="absolute inset-0 grid place-items-center text-sm text-black/45">Photos available on request.</span>}
         </Link>
         <div className="max-w-xl">
-          <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#80683c]">A place to stay</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#80683c]">A place to stay</p>
           <h2 className="mt-2 text-3xl font-light leading-[0.98] sm:text-4xl">Stay at the Hideaway.</h2>
           <p className="mt-3 max-w-md text-sm leading-6 text-black/60">Find a room for your time in Nairobi, with resort dining, wellness, and grooming experiences close by.</p>
-          <Link href="/accommodation" className="mt-5 inline-flex min-h-11 items-center gap-2 border-b border-black/25 text-[10px] font-semibold uppercase tracking-[0.14em] hover:border-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c]">Explore accommodation <ArrowUpRight size={13} aria-hidden="true" /></Link>
+          <Link href="/accommodation" className="mt-5 inline-flex min-h-11 items-center gap-2 border-b border-black/25 text-[11px] font-semibold uppercase tracking-[0.14em] hover:border-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c]">Explore accommodation <ArrowUpRight size={13} aria-hidden="true" /></Link>
         </div>
       </div>
     </section>

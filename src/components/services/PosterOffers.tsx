@@ -12,7 +12,7 @@ const nairobi = new Intl.DateTimeFormat("en-GB", {
 });
 
 const primaryClass =
-  "inline-flex items-center justify-center rounded-full bg-[#80683c] px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-[#0b0b0a]";
+  "inline-flex items-center justify-center rounded-full bg-[#80683c] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-[#0b0b0a]";
 
 function CtaButton({ url, label }: { url: string; label: string }) {
   if (url.startsWith("/")) return <Link href={url} className={primaryClass}>{label}</Link>;
@@ -35,7 +35,7 @@ export default function PosterOffers({ posters }: { posters: PosterDetails[] }) 
   return (
     <section id="offers" aria-label="Special offers" className="bg-[#f3efe6] px-5 pt-10 text-[#0b0b0a] sm:px-8 sm:pt-14 lg:px-10">
       <div className="mx-auto max-w-7xl">
-        <p className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
+        <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
           <span className="h-px w-8 bg-[#80683c]" />
           Running now
         </p>
@@ -59,10 +59,10 @@ export default function PosterOffers({ posters }: { posters: PosterDetails[] }) 
 
                 <div className="grid min-w-0 content-start gap-5">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full bg-[#80683c] px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-white">
+                    <span className="rounded-full bg-[#80683c] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-white">
                       {POSTER_KIND_LABELS[poster.kind]}
                     </span>
-                    <span className="rounded-full border border-black/10 px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-black/55">
+                    <span className="rounded-full border border-black/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-black/55">
                       Until {nairobi.format(new Date(poster.endsAt))}
                     </span>
                   </div>
@@ -76,13 +76,13 @@ export default function PosterOffers({ posters }: { posters: PosterDetails[] }) 
                     <dl className="grid gap-3 sm:grid-cols-2">
                       {poster.priceText && (
                         <div className="rounded-2xl bg-[#f3efe6] px-4 py-3">
-                          <dt className="text-[9px] font-semibold uppercase tracking-[0.18em] text-black/45">Price</dt>
+                          <dt className="text-[11px] font-semibold uppercase tracking-[0.18em] text-black/45">Price</dt>
                           <dd className="mt-1 text-sm font-medium">{poster.priceText}</dd>
                         </div>
                       )}
                       {poster.location && (
                         <div className="rounded-2xl bg-[#f3efe6] px-4 py-3">
-                          <dt className="text-[9px] font-semibold uppercase tracking-[0.18em] text-black/45">Where</dt>
+                          <dt className="text-[11px] font-semibold uppercase tracking-[0.18em] text-black/45">Where</dt>
                           <dd className="mt-1 text-sm font-medium">{poster.location}</dd>
                         </div>
                       )}
@@ -91,7 +91,7 @@ export default function PosterOffers({ posters }: { posters: PosterDetails[] }) 
 
                   {poster.highlights.length > 0 && (
                     <div>
-                      <h4 className="text-[10px] font-semibold uppercase tracking-[0.2em] text-black/50">What&apos;s included</h4>
+                      <h4 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-black/50">What&apos;s included</h4>
                       <ul className="mt-3 grid gap-2 sm:grid-cols-2">
                         {poster.highlights.map((item) => (
                           <li key={item} className="flex items-start gap-3 text-sm leading-6">
@@ -117,7 +117,7 @@ export default function PosterOffers({ posters }: { posters: PosterDetails[] }) 
                     )}
                     <a
                       href="#services"
-                      className="text-[10px] font-semibold uppercase tracking-[0.2em] text-black/50 transition-colors hover:text-black"
+                      className="text-[11px] font-semibold uppercase tracking-[0.2em] text-black/50 transition-colors hover:text-black"
                     >
                       See all services
                     </a>

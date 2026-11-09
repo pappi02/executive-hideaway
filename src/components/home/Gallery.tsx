@@ -63,7 +63,7 @@ export default function Gallery() {
         {/* Header */}
         <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
           <div>
-            <p className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
+            <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
               <span className="h-px w-8 bg-[#80683c]" />
               The gallery
             </p>
@@ -98,7 +98,7 @@ export default function Gallery() {
               <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-black/5" />
 
               <div className="absolute right-5 top-5 flex items-start justify-end sm:right-7 sm:top-7">
-                <span className="text-[9px] font-medium tracking-[0.2em] text-white/60">
+                <span className="text-[11px] font-medium tracking-[0.2em] text-white/60">
                   {String(selectedIndex + 1).padStart(2, "0")} / {String(galleryImages.length).padStart(2, "0")}
                 </span>
               </div>
@@ -171,7 +171,7 @@ export default function Gallery() {
                           isSelected ? "bg-transparent" : "bg-black/20"
                         }`}
                       />
-                      <span className="absolute bottom-2 left-2 text-[8px] font-medium tracking-[0.15em] text-white">
+                      <span className="absolute bottom-2 left-2 text-[11px] font-medium tracking-[0.15em] text-white">
                         {String(index + 1).padStart(2, "0")}
                       </span>
                     </div>
@@ -189,7 +189,7 @@ export default function Gallery() {
 
           <a
             href="/gallery"
-            className="group inline-flex items-center gap-4 self-start text-[10px] font-semibold uppercase tracking-[0.2em] text-[#80683c]"
+            className="group inline-flex items-center gap-4 self-start text-[11px] font-semibold uppercase tracking-[0.2em] text-[#80683c]"
           >
             View full gallery
             <span className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:bg-[#0b0b0a] group-hover:text-white">

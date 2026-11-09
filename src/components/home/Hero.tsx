@@ -40,7 +40,7 @@ export default function Hero() {
               <div className="mb-4 flex items-center gap-3 sm:mb-6">
                 <span className="h-px w-8 bg-(--accent)" />
 
-                <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-(--accent-light)">
+                <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-(--accent-light)">
                   Resort &middot; Spa &middot; Wellness &middot; Stays
                 </p>
               </div>
@@ -95,7 +95,7 @@ export default function Hero() {
         <div className="absolute bottom-6 left-5 right-5 z-10 hidden items-end justify-end sm:flex lg:hidden">
 
           <div className="flex items-center gap-3">
-            <span className="text-[9px] uppercase tracking-[0.3em] text-white/40">
+            <span className="text-[11px] uppercase tracking-[0.3em] text-white/40">
               Scroll to explore
             </span>
 

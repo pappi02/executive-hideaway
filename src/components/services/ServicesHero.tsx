@@ -36,7 +36,7 @@ export default function ServicesHero() {
 
             <Link
               href="#services"
-              className="group inline-flex w-fit items-center gap-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-white"
+              className="group inline-flex w-fit items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-white"
             >
               Explore services
 

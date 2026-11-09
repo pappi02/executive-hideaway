@@ -228,7 +228,7 @@ export default function Experience() {
 
         {/* Heading */}
         <div className="max-w-2xl">
-          <p className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
+          <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
             <span className="h-px w-7 bg-[#80683c]" />
             The experience
           </p>
@@ -297,7 +297,7 @@ export default function Experience() {
                     {/* Content */}
                     <div className="lg:px-4">
                       <div className="flex items-center gap-4">
-                        <span className="text-[10px] font-medium tracking-[0.2em] text-black/35">
+                        <span className="text-[11px] font-medium tracking-[0.2em] text-black/35">
                           {experience.number}
                         </span>
 
@@ -314,7 +314,7 @@ export default function Experience() {
 
                       <a
                         href="/services"
-                        className="group mt-4 inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#80683c]"
+                        className="group mt-4 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#80683c]"
                       >
                         Explore services
 
@@ -398,7 +398,7 @@ export default function Experience() {
         <div className="mt-4 border-t border-black/10 pt-7">
           <a
             href="/services"
-            className="group inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#80683c]"
+            className="group inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#80683c]"
           >
             View all services
 

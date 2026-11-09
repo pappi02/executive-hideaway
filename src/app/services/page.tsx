@@ -50,7 +50,7 @@ export default async function ServicesPage() {
             {/* Introduction */}
             <div className="py-8 sm:py-14 lg:py-18">
               <div className="max-w-3xl">
-                <p className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
+                <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
                   <span className="h-px w-8 bg-[#80683c]" />
                   The menu
                 </p>
@@ -68,7 +68,7 @@ export default async function ServicesPage() {
                     <a
                       key={category.id}
                       href={`#${category.id}`}
-                      className="flex min-w-0 items-center justify-center rounded-full border border-black/10 px-2 py-2 text-center text-[9px] font-semibold uppercase tracking-[0.12em] text-black/55 transition-all duration-300 hover:border-[#80683c]/40 hover:bg-[#80683c] hover:text-white sm:px-3 sm:tracking-[0.18em]"
+                      className="flex min-w-0 items-center justify-center rounded-full border border-black/10 px-2 py-2 text-center text-[11px] font-semibold uppercase tracking-[0.12em] text-black/55 transition-all duration-300 hover:border-[#80683c]/40 hover:bg-[#80683c] hover:text-white sm:px-3 sm:tracking-[0.18em]"
                     >
                       {category.label}
                     </a>

@@ -25,8 +25,8 @@ interface FormValues {
   request: string;
 }
 
-const fieldClass = "mt-1.5 min-h-12 w-full min-w-0 rounded-lg border border-black/15 bg-white px-3.5 py-2.5 text-sm text-[#0b0b0a] outline-none focus:border-[#80683c] focus-visible:ring-2 focus-visible:ring-[#80683c]/25";
-const labelClass = "block text-[10px] font-semibold uppercase tracking-[0.13em] text-black/55";
+const fieldClass = "mt-1.5 min-h-12 w-full min-w-0 rounded-lg border border-black/15 bg-white px-3.5 py-2.5 text-base text-[#0b0b0a] outline-none focus:border-[#80683c] sm:text-sm focus-visible:ring-2 focus-visible:ring-[#80683c]/25";
+const labelClass = "block text-[11px] font-semibold uppercase tracking-[0.13em] text-black/55";
 
 function validDate(value: string) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
@@ -123,7 +123,7 @@ export function AccommodationRequestForm({ rooms, initialSlug }: { rooms: Reques
       <div className="border border-black/10 bg-white/50 px-5 py-8">
         <h2 className="text-xl font-light">No rooms are listed right now.</h2>
         <p className="mt-2 text-sm leading-6 text-black/55">Contact us and we’ll help you find a room.</p>
-        <Link href="/contact" className="mt-4 inline-flex min-h-11 items-center border-b border-black/25 text-[10px] font-semibold uppercase tracking-[0.13em]">Contact the resort</Link>
+        <Link href="/contact" className="mt-4 inline-flex min-h-11 items-center border-b border-black/25 text-[11px] font-semibold uppercase tracking-[0.13em]">Contact the resort</Link>
       </div>
     );
   }
@@ -131,7 +131,7 @@ export function AccommodationRequestForm({ rooms, initialSlug }: { rooms: Reques
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_0.65fr] lg:gap-14">
       <div>
-        <Link href={room ? `/accommodation/${room.slug}` : "/accommodation"} className="inline-flex min-h-10 items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.13em] text-black/55 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c]"><ArrowLeft size={13} aria-hidden="true" /> Back to room</Link>
+        <Link href={room ? `/accommodation/${room.slug}` : "/accommodation"} className="inline-flex min-h-10 items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.13em] text-black/55 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c]"><ArrowLeft size={13} aria-hidden="true" /> Back to room</Link>
         <h1 className="mt-5 text-[2.75rem] font-light leading-[0.95] sm:text-6xl">Request a stay.</h1>
         <p className="mt-4 max-w-lg text-sm leading-6 text-black/55">Share your preferred dates and our team will confirm availability and booking details. This is a request, not an instant reservation.</p>
 
@@ -185,13 +185,13 @@ export function AccommodationRequestForm({ rooms, initialSlug }: { rooms: Reques
               <textarea id="request-special" rows={3} maxLength={500} value={form.request} onChange={(event) => update("request", event.target.value)} className={fieldClass} />
             </div>
 
-            <button type="submit" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#0b0b0a] px-6 text-[10px] font-semibold uppercase tracking-[0.15em] text-white hover:bg-[#80683c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c] sm:w-auto">Review request <ArrowUpRight size={14} aria-hidden="true" /></button>
+            <button type="submit" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#0b0b0a] px-6 text-[11px] font-semibold uppercase tracking-[0.15em] text-white hover:bg-[#80683c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c] sm:w-auto">Review request <ArrowUpRight size={14} aria-hidden="true" /></button>
           </form>
         ) : (
           <section aria-labelledby="request-summary-heading" className="mt-7 border-y border-black/15 py-5">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <h2 id="request-summary-heading" className="text-xl font-light">Booking request summary</h2>
-              <button type="button" onClick={() => setIsReviewOpen(false)} className="min-h-10 text-[10px] font-semibold uppercase tracking-[0.12em] text-black/55 underline underline-offset-4 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c]">Edit details</button>
+              <button type="button" onClick={() => setIsReviewOpen(false)} className="min-h-10 text-[11px] font-semibold uppercase tracking-[0.12em] text-black/55 underline underline-offset-4 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c]">Edit details</button>
             </div>
             <dl className="mt-4 grid gap-x-6 sm:grid-cols-2">
               <div className="border-t border-black/8 py-3"><dt className="text-xs text-black/45">Room</dt><dd className="mt-1 wrap-break-word text-sm">{room?.name}</dd></div>
@@ -204,13 +204,13 @@ export function AccommodationRequestForm({ rooms, initialSlug }: { rooms: Reques
               {room?.pricePerNight !== null && room?.pricePerNight !== undefined && <div className="border-t border-black/8 py-3 sm:col-span-2"><dt className="text-xs text-black/45">Rate</dt><dd className="mt-1 text-sm">KSh {room.pricePerNight.toLocaleString()} per night{nights > 0 && <> · {nights} {nights === 1 ? "night" : "nights"}, about KSh {(room.pricePerNight * nights).toLocaleString()} in total</>}</dd></div>}
             </dl>
             <p className="mt-3 text-xs leading-5 text-black/50">No payment is taken here. We keep your name, phone, room and dates to follow up. Our team will confirm availability and arrangements on WhatsApp. See our <Link href="/terms" className="underline underline-offset-2 hover:text-black">booking terms</Link> and <Link href="/privacy" className="underline underline-offset-2 hover:text-black">privacy notice</Link>.</p>
-            <button type="button" disabled={isPending} onClick={continueToWhatsApp} className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#0b0b0a] px-6 text-[10px] font-semibold uppercase tracking-[0.14em] text-white hover:bg-[#80683c] disabled:cursor-wait disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c] sm:w-auto">{isPending ? "Preparing request…" : "Continue on WhatsApp"}<ArrowUpRight size={14} aria-hidden="true" /></button>
+            <button type="button" disabled={isPending} onClick={continueToWhatsApp} className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#0b0b0a] px-6 text-[11px] font-semibold uppercase tracking-[0.14em] text-white hover:bg-[#80683c] disabled:cursor-wait disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c] sm:w-auto">{isPending ? "Preparing request…" : "Continue on WhatsApp"}<ArrowUpRight size={14} aria-hidden="true" /></button>
           </section>
         )}
       </div>
 
       <aside className="h-fit border-t border-black/15 pt-5 lg:sticky lg:top-8">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#80683c]">How it works</p>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#80683c]">How it works</p>
         <ol className="mt-4 space-y-4 text-sm text-black/65">
           <li className="flex gap-3"><span className="text-xs text-black/35">01</span><span>Share your preferred room and dates.</span></li>
           <li className="flex gap-3"><span className="text-xs text-black/35">02</span><span>Review the details before continuing.</span></li>

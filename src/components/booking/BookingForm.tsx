@@ -169,17 +169,18 @@ export default function BookingForm({ services }: BookingFormProps) {
   };
 
   const inputClassName =
-    "mt-1.5 h-8 w-full rounded-lg border border-black/8 bg-[#f3efe6]/60 px-3 text-[13px] text-[#0b0b0a] outline-none transition-all placeholder:text-black/25 focus:border-[#80683c]/50 focus:ring-2 focus:ring-[#80683c]/10";
+    // 16px on phones: iPhones zoom the page when a smaller field is tapped.
+    "mt-1.5 h-11 w-full rounded-lg border border-black/15 bg-[#f3efe6]/60 px-3 text-base text-[#0b0b0a] outline-none transition-all placeholder:text-black/45 focus:border-[#80683c]/50 sm:text-sm focus:ring-2 focus:ring-[#80683c]/10";
 
   const labelClassName =
-    "text-[7px] font-semibold uppercase tracking-[0.17em] text-black/45";
+    "text-[11px] font-semibold uppercase tracking-[0.14em] text-black/60";
 
   return (
     <>
       {/* BOOKING FORM */}
       <section className="mt-4 rounded-2xl bg-white/65 p-4 ring-1 ring-black/5 sm:mt-6 sm:p-6 lg:p-7">
         <div className="max-w-xl">
-          <p className="text-[7px] font-semibold uppercase tracking-[0.22em] text-[#80683c]">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#80683c]">
             Appointment details
           </p>
 
@@ -221,7 +222,7 @@ export default function BookingForm({ services }: BookingFormProps) {
               {errors.name && (
                 <p
                   id="booking-name-error"
-                  className="mt-1 text-[9px] leading-4 text-red-600"
+                  className="mt-1 text-[11px] leading-4 text-red-600"
                 >
                   {errors.name}
                 </p>
@@ -254,7 +255,7 @@ export default function BookingForm({ services }: BookingFormProps) {
               {errors.phone && (
                 <p
                   id="booking-phone-error"
-                  className="mt-1 text-[9px] leading-4 text-red-600"
+                  className="mt-1 text-[11px] leading-4 text-red-600"
                 >
                   {errors.phone}
                 </p>
@@ -287,7 +288,7 @@ export default function BookingForm({ services }: BookingFormProps) {
               {errors.date && (
                 <p
                   id="booking-date-error"
-                  className="mt-1 text-[9px] leading-4 text-red-600"
+                  className="mt-1 text-[11px] leading-4 text-red-600"
                 >
                   {errors.date}
                 </p>
@@ -317,7 +318,7 @@ export default function BookingForm({ services }: BookingFormProps) {
               {errors.time && (
                 <p
                   id="booking-time-error"
-                  className="mt-1 text-[9px] leading-4 text-red-600"
+                  className="mt-1 text-[11px] leading-4 text-red-600"
                 >
                   {errors.time}
                 </p>
@@ -343,13 +344,13 @@ export default function BookingForm({ services }: BookingFormProps) {
               }
               placeholder="Anything you'd like us to know?"
               rows={3}
-              className="mt-1.5 w-full resize-none rounded-lg border border-black/8 bg-[#f3efe6]/60 px-3 py-2.5 text-[13px] leading-5 text-[#0b0b0a] outline-none transition-all placeholder:text-black/25 focus:border-[#80683c]/50 focus:ring-2 focus:ring-[#80683c]/10"
+              className="mt-1.5 w-full resize-none rounded-lg border border-black/8 bg-[#f3efe6]/60 px-3 py-2.5 text-base leading-5 text-[#0b0b0a] outline-none transition-all placeholder:text-black/45 focus:border-[#80683c]/50 sm:text-sm focus:ring-2 focus:ring-[#80683c]/10"
             />
           </div>
 
           {/* SELECTED SERVICES */}
           <div className="mt-4 rounded-lg bg-[#0b0b0a] p-3.5 text-white">
-            <p className="text-[6px] font-semibold uppercase tracking-[0.18em] text-white/35">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/60">
               Selected services
             </p>
 
@@ -363,7 +364,7 @@ export default function BookingForm({ services }: BookingFormProps) {
                     {service.name}
                   </span>
 
-                  <span className="shrink-0 text-[10px] text-[#c5aa72]">
+                  <span className="shrink-0 text-[11px] text-[#c5aa72]">
                     {service.price === null
                       ? "On request"
                       : `Ksh ${service.price.toLocaleString()}`}
@@ -376,7 +377,7 @@ export default function BookingForm({ services }: BookingFormProps) {
           {/* REVIEW BUTTON */}
           <button
             type="submit"
-            className="mt-3.5 flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-[#80683c] px-5 text-[8px] font-semibold uppercase tracking-[0.17em] text-white transition-all duration-300 hover:bg-[#0b0b0a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#80683c] focus-visible:ring-offset-2"
+            className="mt-3.5 flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-[#80683c] px-5 text-[11px] font-semibold uppercase tracking-[0.17em] text-white transition-all duration-300 hover:bg-[#0b0b0a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#80683c] focus-visible:ring-offset-2"
           >
             Review Booking
             <ArrowUpRight size={13} strokeWidth={1.4} />
@@ -412,7 +413,7 @@ export default function BookingForm({ services }: BookingFormProps) {
             </button>
 
             <div className="p-4 sm:p-6">
-              <p className="text-[7px] font-semibold uppercase tracking-[0.22em] text-[#80683c]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#80683c]">
                 Final review
               </p>
 
@@ -432,28 +433,28 @@ export default function BookingForm({ services }: BookingFormProps) {
               {/* CUSTOMER DETAILS */}
               <div className="mt-5 overflow-hidden rounded-xl bg-white/60 ring-1 ring-black/5">
                 <div className="border-b border-black/5 px-4 py-2.5">
-                  <p className="text-[7px] font-semibold uppercase tracking-[0.18em] text-[#80683c]">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#80683c]">
                     Customer details
                   </p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-px bg-black/5">
                   <div className="bg-white/60 p-3.5">
-                    <p className="text-[6px] font-semibold uppercase tracking-[0.16em] text-black/30">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-black/30">
                       Full name
                     </p>
                     <p className="mt-1.5 text-[12px]">{form.name}</p>
                   </div>
 
                   <div className="bg-white/60 p-3.5">
-                    <p className="text-[6px] font-semibold uppercase tracking-[0.16em] text-black/30">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-black/30">
                       Phone
                     </p>
                     <p className="mt-1.5 text-[12px]">{form.phone}</p>
                   </div>
 
                   <div className="bg-white/60 p-3.5">
-                    <p className="text-[6px] font-semibold uppercase tracking-[0.16em] text-black/30">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-black/30">
                       Preferred date
                     </p>
                     <p className="mt-1.5 text-[12px]">
@@ -462,7 +463,7 @@ export default function BookingForm({ services }: BookingFormProps) {
                   </div>
 
                   <div className="bg-white/60 p-3.5">
-                    <p className="text-[6px] font-semibold uppercase tracking-[0.16em] text-black/30">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-black/30">
                       Preferred time
                     </p>
                     <p className="mt-1.5 text-[12px]">
@@ -475,7 +476,7 @@ export default function BookingForm({ services }: BookingFormProps) {
               {/* SERVICES */}
               <div className="mt-3.5 overflow-hidden rounded-xl bg-[#0b0b0a] text-white">
                 <div className="border-b border-white/8 px-4 py-2.5">
-                  <p className="text-[7px] font-semibold uppercase tracking-[0.18em] text-[#c5aa72]">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#c5aa72]">
                     Selected services
                   </p>
                 </div>
@@ -491,13 +492,13 @@ export default function BookingForm({ services }: BookingFormProps) {
                           {service.name}
                         </p>
 
-                        <div className="mt-0.5 flex items-center gap-1.5 text-[7px] uppercase tracking-widest text-white/35">
+                        <div className="mt-0.5 flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-white/60">
                           <Clock3 size={9} strokeWidth={1.4} />
                           {service.duration} min
                         </div>
                       </div>
 
-                      <span className="shrink-0 text-[10px] text-[#c5aa72]">
+                      <span className="shrink-0 text-[11px] text-[#c5aa72]">
                         {service.price === null
                           ? "On request"
                           : `Ksh ${service.price.toLocaleString()}`}
@@ -507,7 +508,7 @@ export default function BookingForm({ services }: BookingFormProps) {
                 </div>
 
                 <div className="flex items-center justify-between border-t border-white/10 px-4 py-3">
-                  <span className="text-[7px] font-semibold uppercase tracking-[0.16em] text-white/35">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
                     Total duration
                   </span>
 
@@ -517,7 +518,7 @@ export default function BookingForm({ services }: BookingFormProps) {
                 </div>
 
                 <div className="flex items-center justify-between border-t border-white/10 px-4 py-3">
-                  <span className="text-[7px] font-semibold uppercase tracking-[0.16em] text-white/35">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
                     Estimated total
                   </span>
 
@@ -532,7 +533,7 @@ export default function BookingForm({ services }: BookingFormProps) {
               {/* NOTES */}
               {form.notes.trim() && (
                 <div className="mt-3.5 rounded-xl bg-white/60 p-3.5 ring-1 ring-black/5">
-                  <p className="text-[7px] font-semibold uppercase tracking-[0.18em] text-[#80683c]">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#80683c]">
                     Additional notes
                   </p>
 
@@ -553,7 +554,7 @@ export default function BookingForm({ services }: BookingFormProps) {
                 <button
                   type="button"
                   onClick={() => setIsReviewOpen(false)}
-                  className="flex min-h-10 items-center justify-center gap-1.5 rounded-full border border-black/10 px-5 text-[8px] font-semibold uppercase tracking-[0.16em] text-black/55 transition-colors hover:bg-black/5"
+                  className="flex min-h-10 items-center justify-center gap-1.5 rounded-full border border-black/10 px-5 text-[11px] font-semibold uppercase tracking-[0.16em] text-black/55 transition-colors hover:bg-black/5"
                 >
                   <ArrowLeft size={12} strokeWidth={1.5} />
                   Edit Details
@@ -563,7 +564,7 @@ export default function BookingForm({ services }: BookingFormProps) {
                   type="button"
                   onClick={handleBookNow}
                   disabled={isPending}
-                  className="group flex min-h-10 items-center justify-center gap-2 rounded-full bg-[#80683c] px-5 text-[8px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:bg-[#0b0b0a]"
+                  className="group flex min-h-10 items-center justify-center gap-2 rounded-full bg-[#80683c] px-5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:bg-[#0b0b0a]"
                 >
                   Book Now
                   <ArrowUpRight

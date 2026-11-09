@@ -27,7 +27,7 @@ export default function GalleryPage() {
         <section className="bg-[#0b0b0a] px-5 py-12 text-white sm:px-8 sm:py-16 lg:px-10">
           <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-[7px] font-semibold uppercase tracking-[0.24em] text-white/40">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/40">
                 Ready when you are
               </p>
               <h2 className="mt-1.5 text-[1.8rem] font-light leading-none tracking-[-0.045em]">
@@ -37,7 +37,7 @@ export default function GalleryPage() {
 
             <Link
               href="/booking"
-              className="group inline-flex min-h-11 w-fit shrink-0 items-center justify-center gap-2 rounded-full bg-(--accent) px-5 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#0b0b0a] transition-transform duration-300 hover:scale-[1.02]"
+              className="group inline-flex min-h-11 w-fit shrink-0 items-center justify-center gap-2 rounded-full bg-(--accent) px-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b0b0a] transition-transform duration-300 hover:scale-[1.02]"
             >
               Book an appointment
               <ArrowUpRight

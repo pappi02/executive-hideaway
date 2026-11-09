@@ -30,7 +30,7 @@ export default function LegalPage({
 
       <article className="mx-auto w-full max-w-3xl px-5 pb-16 pt-24 sm:px-8 sm:pt-28">
         <header>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#80683c]">{eyebrow}</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#80683c]">{eyebrow}</p>
           <h1 className="mt-2 text-[2.2rem] font-light leading-[1] tracking-[-0.05em] sm:text-[3rem]">{title}</h1>
           <p className="mt-3 text-xs text-black/55">
             Last updated <time dateTime={updated}>{updatedLabel}</time>

@@ -44,14 +44,14 @@ export default function FeedbackPage({
               className="h-11 w-auto sm:h-12"
             />
           </Link>
-          <span className="text-[8px] uppercase tracking-[0.25em] text-black/25">Barber · Spa · Wellness</span>
+          <span className="text-[11px] uppercase tracking-[0.25em] text-black/25">Barber · Spa · Wellness</span>
         </div>
 
         <div className="flex flex-1 items-center py-16 sm:py-20">
           <div className="w-full max-w-4xl">
             <div className="flex items-center gap-3">
               <span className="h-px w-8 bg-[#80683c]" />
-              <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">{eyebrow}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">{eyebrow}</p>
             </div>
 
             <h1 className="mt-7 max-w-4xl text-[clamp(3.5rem,13vw,8rem)] font-light leading-[0.88] tracking-[-0.06em]">{title}</h1>
@@ -60,28 +60,28 @@ export default function FeedbackPage({
             {(primaryAction || secondaryAction || showHomeAction) && (
               <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 {primaryAction?.href && (
-                  <Link href={primaryAction.href} className="group inline-flex min-h-13 items-center justify-center gap-4 rounded-full bg-[#0b0b0a] px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#f5f1e8] transition-all duration-300 hover:bg-[#80683c]">
+                  <Link href={primaryAction.href} className="group inline-flex min-h-13 items-center justify-center gap-4 rounded-full bg-[#0b0b0a] px-7 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#f5f1e8] transition-all duration-300 hover:bg-[#80683c]">
                     {primaryAction.label}
                     <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"><ArrowUpRight size={14} strokeWidth={1.5} /></span>
                   </Link>
                 )}
 
                 {primaryAction?.onClick && (
-                  <button type="button" onClick={primaryAction.onClick} className="group inline-flex min-h-13 items-center justify-center gap-4 rounded-full bg-[#0b0b0a] px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#f5f1e8] transition-all duration-300 hover:bg-[#80683c]">
+                  <button type="button" onClick={primaryAction.onClick} className="group inline-flex min-h-13 items-center justify-center gap-4 rounded-full bg-[#0b0b0a] px-7 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#f5f1e8] transition-all duration-300 hover:bg-[#80683c]">
                     {primaryAction.label}
                     <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-300 group-hover:rotate-[-20deg]"><RotateCcw size={14} strokeWidth={1.5} /></span>
                   </button>
                 )}
 
                 {secondaryAction && (
-                  <Link href={secondaryAction.href} className="inline-flex min-h-13 items-center justify-center gap-3 rounded-full border border-black/10 px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-black/65 transition-all duration-300 hover:border-black/20 hover:bg-black/5 hover:text-black">
+                  <Link href={secondaryAction.href} className="inline-flex min-h-13 items-center justify-center gap-3 rounded-full border border-black/10 px-7 text-[11px] font-semibold uppercase tracking-[0.2em] text-black/65 transition-all duration-300 hover:border-black/20 hover:bg-black/5 hover:text-black">
                     <ArrowLeft size={14} strokeWidth={1.4} />
                     {secondaryAction.label}
                   </Link>
                 )}
 
                 {showHomeAction && !secondaryAction && (
-                  <Link href="/" className="inline-flex min-h-13 items-center justify-center gap-3 rounded-full border border-black/10 px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-black/65 transition-all duration-300 hover:border-black/20 hover:bg-black/5 hover:text-black">
+                  <Link href="/" className="inline-flex min-h-13 items-center justify-center gap-3 rounded-full border border-black/10 px-7 text-[11px] font-semibold uppercase tracking-[0.2em] text-black/65 transition-all duration-300 hover:border-black/20 hover:bg-black/5 hover:text-black">
                     <ArrowLeft size={14} strokeWidth={1.4} />
                     Return home
                   </Link>
@@ -92,8 +92,8 @@ export default function FeedbackPage({
         </div>
 
         <div className="flex flex-col gap-3 border-t border-black/10 py-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[8px] uppercase tracking-[0.2em] text-black/25">Executive Hideaway Resort &amp; Spa</p>
-          <p className="text-[8px] uppercase tracking-[0.2em] text-black/20">Nairobi, Kenya</p>
+          <p className="text-[11px] uppercase tracking-[0.2em] text-black/25">Executive Hideaway Resort &amp; Spa</p>
+          <p className="text-[11px] uppercase tracking-[0.2em] text-black/20">Nairobi, Kenya</p>
         </div>
       </div>
     </main>

@@ -163,7 +163,7 @@ export default function InstallPrompt() {
           <button
             type="button"
             onClick={install}
-            className="flex min-h-11 flex-1 cursor-pointer items-center justify-center rounded-full bg-(--accent) px-5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0b0b0a] transition-colors hover:bg-(--accent-light)"
+            className="flex min-h-11 flex-1 cursor-pointer items-center justify-center rounded-full bg-(--accent) px-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b0b0a] transition-colors hover:bg-(--accent-light)"
           >
             Install app
           </button>
@@ -171,7 +171,7 @@ export default function InstallPrompt() {
         <button
           type="button"
           onClick={dismiss}
-          className="flex min-h-11 flex-1 cursor-pointer items-center justify-center rounded-full border border-white/15 px-5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/75 transition-colors hover:border-white/30 hover:text-white"
+          className="flex min-h-11 flex-1 cursor-pointer items-center justify-center rounded-full border border-white/15 px-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/75 transition-colors hover:border-white/30 hover:text-white"
         >
           {kind === "native" ? "Not now" : "Got it"}
         </button>

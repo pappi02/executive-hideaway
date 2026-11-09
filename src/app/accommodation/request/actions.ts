@@ -68,7 +68,7 @@ export async function createAccommodationRequestLink(input: AccommodationRequest
   if (guests > room.maxGuests) return { error: `This room accepts up to ${room.maxGuests} guests.` };
 
   const rate = room.pricePerNight === null
-    ? "Rate: To be confirmed"
+    ? "Rate: On request"
     : `Room rate: KSh ${room.pricePerNight.toLocaleString()} per night`;
 
   const message = [

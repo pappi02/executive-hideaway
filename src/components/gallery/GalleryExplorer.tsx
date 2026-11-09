@@ -133,7 +133,7 @@ function FilterPill({
       type="button"
       onClick={onClick}
       aria-pressed={isActive}
-      className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] transition-all duration-300 ${
+      className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-all duration-300 ${
         isActive
           ? "border-[#80683c] bg-[#80683c] text-white"
           : "border-black/10 text-black/55 hover:border-[#80683c]/40 hover:text-[#0b0b0a]"
@@ -141,7 +141,7 @@ function FilterPill({
     >
       {label}
       <span
-        className={`text-[9px] ${isActive ? "text-white/70" : "text-black/35"}`}
+        className={`text-[11px] ${isActive ? "text-white/70" : "text-black/35"}`}
       >
         {count}
       </span>

@@ -79,7 +79,7 @@ export default function GalleryLightbox({
     >
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-5 sm:px-8 sm:py-6">
-        <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-white/50">
+        <span className="text-[11px] font-medium uppercase tracking-[0.25em] text-white/50">
           {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </span>
 

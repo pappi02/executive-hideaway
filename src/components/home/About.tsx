@@ -8,7 +8,7 @@ export default function About() {
         <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
           {/* Label */}
           <div>
-            <p className="flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.3em] text-(--accent)">
+            <p className="flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.3em] text-(--accent)">
               <span className="h-px w-7 bg-(--accent)" />
               Who we are
             </p>

@@ -96,7 +96,7 @@ export default function ServiceCard({
           }`}
         >
           <div>
-            <p className="text-[7px] font-semibold uppercase tracking-[0.18em] text-[#80683c]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#80683c]">
               {service.category}
             </p>
 
@@ -112,7 +112,7 @@ export default function ServiceCard({
           <div className="mt-auto pt-3">
             <div className="flex items-end justify-between gap-2">
               <div>
-                <p className="text-[6px] font-semibold uppercase tracking-[0.16em] text-black/25 sm:text-[7px]">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-black/25 sm:text-[11px]">
                   Price
                 </p>
 
@@ -126,13 +126,13 @@ export default function ServiceCard({
               <div className="flex shrink-0 items-center gap-1 text-black/30">
                 <Clock3 size={11} strokeWidth={1.4} />
 
-                <span className="text-[7px] uppercase tracking-[0.08em] sm:text-[8px]">
+                <span className="text-[11px] uppercase tracking-[0.08em] sm:text-[11px]">
                   {service.duration} min
                 </span>
               </div>
             </div>
 
-            <div className="mt-3 flex min-h-9 w-full items-center justify-center gap-2 rounded-full bg-[#0b0b0a] px-3 text-[7px] font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-300 group-hover:bg-[#80683c] sm:min-h-10 sm:text-[8px]">
+            <div className="mt-3 flex min-h-9 w-full items-center justify-center gap-2 rounded-full bg-[#0b0b0a] px-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-300 group-hover:bg-[#80683c] sm:min-h-10 sm:text-[11px]">
               View Details
               <ArrowUpRight size={11} strokeWidth={1.4} />
             </div>
@@ -180,14 +180,14 @@ export default function ServiceCard({
 
                 <div className="absolute inset-0 bg-linear-to-t from-black/35 via-transparent to-transparent" />
 
-                <p className="absolute bottom-5 left-5 text-[9px] font-semibold uppercase tracking-[0.22em] text-white/65">
+                <p className="absolute bottom-5 left-5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/65">
                   {service.category}
                 </p>
               </div>
 
               <div className="flex flex-col p-6 sm:p-8 lg:p-10">
                 <div>
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.25em] text-[#80683c]">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#80683c]">
                     The experience
                   </p>
 
@@ -208,7 +208,7 @@ export default function ServiceCard({
                 <div className="mt-8">
                   <div className="grid grid-cols-2 gap-3">
                     <div className="rounded-xl bg-black/3 p-4">
-                      <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-black/30">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-black/30">
                         Price
                       </p>
                       <p className="mt-2 text-sm font-medium text-[#80683c]">
@@ -219,7 +219,7 @@ export default function ServiceCard({
                     </div>
 
                     <div className="rounded-xl bg-black/3 p-4">
-                      <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-black/30">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-black/30">
                         Duration
                       </p>
                       <div className="mt-2 flex items-center gap-2 text-sm font-medium text-[#0b0b0a]">
@@ -232,7 +232,7 @@ export default function ServiceCard({
                   <Link
                     href="/booking"
                     onClick={handleChooseService}
-                    className="group mt-4 flex min-h-12 w-full items-center justify-center gap-3 rounded-full bg-[#0b0b0a] px-6 text-[9px] font-semibold uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-[#80683c]"
+                    className="group mt-4 flex min-h-12 w-full items-center justify-center gap-3 rounded-full bg-[#0b0b0a] px-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-[#80683c]"
                   >
                     Choose & Continue
                     <ArrowUpRight

@@ -13,7 +13,7 @@ export default function Leisure() {
       <div className="mx-auto max-w-7xl">
         {/* Heading */}
         <div className="max-w-2xl">
-          <p className="flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.3em] text-(--accent)">
+          <p className="flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.3em] text-(--accent)">
             <span className="h-px w-7 bg-(--accent)" />
             Dine, unwind, play
           </p>
@@ -58,11 +58,11 @@ export default function Leisure() {
 
               <div className="max-w-md">
                 <div className="flex items-center gap-4">
-                  <span className="text-[10px] font-medium tracking-[0.2em] text-white/35">
+                  <span className="text-[11px] font-medium tracking-[0.2em] text-white/35">
                     {area.number}
                   </span>
                   <span className="h-px w-8 bg-(--accent)/50" />
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-(--accent)">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-(--accent)">
                     {area.eyebrow}
                   </span>
                 </div>
@@ -77,7 +77,7 @@ export default function Leisure() {
 
                 <Link
                   href={area.cta.href}
-                  className="group mt-5 inline-flex min-h-11 items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
+                  className="group mt-5 inline-flex min-h-11 items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
                 >
                   {area.cta.label}
                   <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:bg-white group-hover:text-[#0b0b0a]">

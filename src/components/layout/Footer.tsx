@@ -20,7 +20,7 @@ const locationUrl = businessContact.location.googleMapsUrl;
 const socialLinks = businessContact.socialLinks;
 
 const contactLinkClass =
-  "group flex min-h-10 min-w-0 items-center gap-3 text-[10px] uppercase tracking-[0.14em] text-white/55 transition-colors duration-300 hover:text-white";
+  "group flex min-h-10 min-w-0 items-center gap-3 text-[11px] uppercase tracking-[0.14em] text-white/55 transition-colors duration-300 hover:text-white";
 const contactIconClass =
   "flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/10 transition-colors duration-300 group-hover:border-(--accent)";
 
@@ -53,7 +53,7 @@ export default function Footer() {
           />
 
           <div className="relative mx-auto max-w-5xl">
-            <p className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-(--accent)">
+            <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-(--accent)">
               <span className="h-px w-8 bg-(--accent)" />
               Your time starts here
             </p>
@@ -71,7 +71,7 @@ export default function Footer() {
 
             <a
               href="/booking"
-              className="group mt-4 inline-flex min-h-14 items-center gap-5 rounded-full bg-[#f5f1e8] px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0b0b0a] transition-all duration-500 hover:bg-(--accent) hover:text-white sm:px-8"
+              className="group mt-4 inline-flex min-h-14 items-center gap-5 rounded-full bg-[#f5f1e8] px-7 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0b0b0a] transition-all duration-500 hover:bg-(--accent) hover:text-white sm:px-8"
             >
               Book an appointment
 
@@ -81,7 +81,7 @@ export default function Footer() {
             </a>
             <Link
               href="/accommodation"
-              className="group mt-4 ml-0 inline-flex min-h-14 items-center gap-5 rounded-full border border-white/20 px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:border-(--accent) hover:text-(--accent-light) sm:ml-3 sm:px-8"
+              className="group mt-4 ml-0 inline-flex min-h-14 items-center gap-5 rounded-full border border-white/20 px-7 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:border-(--accent) hover:text-(--accent-light) sm:ml-3 sm:px-8"
             >
               Explore accommodation
               <ArrowUpRight size={15} strokeWidth={1.4} />
@@ -116,7 +116,7 @@ export default function Footer() {
 
           {/* Navigation */}
           <div>
-            <p className="text-[8px] font-semibold uppercase tracking-[0.25em] text-white/25">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/25">
               Explore
             </p>
 
@@ -141,7 +141,7 @@ export default function Footer() {
 
           {/* Location */}
           <div>
-            <p className="text-[8px] font-semibold uppercase tracking-[0.25em] text-white/25">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/25">
               Find us
             </p>
 
@@ -164,13 +164,13 @@ export default function Footer() {
                     Moi, Nairobi Area, 00100
                   </p>
 
-                  <p className="mt-2 text-[8px] uppercase tracking-[0.15em] text-white/20">
+                  <p className="mt-2 text-[11px] uppercase tracking-[0.15em] text-white/20">
                     PQ9H+2M Nairobi
                   </p>
                 </div>
               </div>
 
-              <span className="mt-4 flex items-center gap-2 text-[8px] font-semibold uppercase tracking-[0.18em] text-(--accent)">
+              <span className="mt-4 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-(--accent)">
                 Open in Maps
 
                 <ArrowUpRight
@@ -184,7 +184,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div className="col-span-2 lg:col-span-1">
-            <p className="text-[8px] font-semibold uppercase tracking-[0.25em] text-white/25">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/25">
               Contact
             </p>
 
@@ -237,7 +237,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="flex flex-col gap-4 border-t border-white/10 py-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[8px] uppercase tracking-[0.18em] text-white/20">
+          <p className="text-[11px] uppercase tracking-[0.18em] text-white/20">
             © {new Date().getFullYear()} Executive Hideaway Resort & Spa
           </p>
 
@@ -248,7 +248,7 @@ export default function Footer() {
             <Link href="/terms" className="inline-flex min-h-10 items-center text-[11px] uppercase tracking-[0.14em] text-white/60 transition-colors hover:text-white">
               Booking terms
             </Link>
-            <p className="text-[8px] uppercase tracking-[0.18em] text-white/15">
+            <p className="text-[11px] uppercase tracking-[0.18em] text-white/15">
               Nairobi, Kenya
             </p>
           </div>

@@ -40,7 +40,7 @@ export default async function ServiceCategory({
               <div className="absolute inset-0 bg-linear-to-t from-black/45 via-transparent to-black/5" />
 
               <div className="absolute inset-x-5 bottom-5 sm:inset-x-7 sm:bottom-7">
-                <p className="text-[9px] font-semibold uppercase tracking-[0.25em] text-white/60">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/60">
                   {category.eyebrow}
                 </p>
 
@@ -55,7 +55,7 @@ export default async function ServiceCategory({
         <div className={index % 2 !== 0 ? "lg:order-1" : ""}>
           <div className="mb-10 max-w-xl">
             <div className="flex items-center gap-4">
-              <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-[#80683c]">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#80683c]">
                 {String(index + 1).padStart(2, "0")}
               </span>
 

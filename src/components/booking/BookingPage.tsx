@@ -16,19 +16,19 @@ export default function BookingPage() {
           <header className="flex items-center justify-between">
             <Link
               href="/"
-              className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-black/50 transition-colors hover:text-[#80683c]"
+              className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-black/50 transition-colors hover:text-[#80683c]"
             >
               <ArrowLeft size={13} strokeWidth={1.5} />
               Back Home
             </Link>
-            <p className="text-[8px] font-semibold uppercase tracking-[0.22em] text-[#80683c]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#80683c]">
               Appointment
             </p>
           </header>
 
           <section className="flex flex-1 items-center justify-center py-20">
             <div className="w-full max-w-xl text-center">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
                 Begin your experience
               </p>
               <h1 className="mt-5 text-5xl font-light leading-[0.95] tracking-tighter sm:text-6xl">
@@ -42,7 +42,7 @@ export default function BookingPage() {
               </p>
               <Link
                 href="/services"
-                className="group mx-auto mt-9 flex min-h-12 w-fit items-center justify-center gap-3 rounded-full bg-[#0b0b0a] px-7 text-[9px] font-semibold uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-[#80683c]"
+                className="group mx-auto mt-9 flex min-h-12 w-fit items-center justify-center gap-3 rounded-full bg-[#0b0b0a] px-7 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-[#80683c]"
               >
                 Choose Your Services
                 <ArrowUpRight
@@ -95,19 +95,19 @@ export default function BookingPage() {
         <header className="flex items-center justify-between">
           <Link
             href="/services"
-            className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-black/50 transition-colors hover:text-[#80683c]"
+            className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-black/50 transition-colors hover:text-[#80683c]"
           >
             <ArrowLeft size={13} strokeWidth={1.5} />
             Services
           </Link>
-          <p className="text-[8px] font-semibold uppercase tracking-[0.22em] text-[#80683c]">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#80683c]">
             Appointment
           </p>
         </header>
 
         <section className="py-7 sm:py-10">
           <div className="max-w-3xl">
-            <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
               Your selection
             </p>
             <h1 className="mt-3 text-2xl font-light leading-[0.95] tracking-tighter sm:text-7xl">
@@ -140,13 +140,13 @@ export default function BookingPage() {
 
                   <div className="flex items-center justify-between gap-2 p-4 sm:p-7">
                     <div>
-                      <p className="text-[8px] font-semibold uppercase tracking-[0.2em] text-[#80683c]">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#80683c]">
                         Service {String(index + 1).padStart(2, "0")}
                       </p>
                       <h2 className="mt-2 text-xl font-light tracking-[-0.035em]">
                         {service.name}
                       </h2>
-                      <div className="mt-2 flex items-center gap-2 text-[9px] uppercase tracking-widest text-black/35">
+                      <div className="mt-2 flex items-center gap-2 text-[11px] uppercase tracking-widest text-black/35">
                         <span>{service.duration} min</span>
                         <span className="h-1 w-1 rounded-full bg-black/20" />
                         <span>
@@ -173,16 +173,16 @@ export default function BookingPage() {
 
           <Link
             href="/services"
-            className="mt-5 flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-black/10 text-[8px] font-semibold uppercase tracking-[0.18em] text-black/55 transition-colors hover:bg-black/3"
+            className="mt-5 flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-black/10 text-[11px] font-semibold uppercase tracking-[0.18em] text-black/55 transition-colors hover:bg-black/3"
           >
-            + Add More Service
+            + Add another service
             <ArrowUpRight size={15} strokeWidth={1.4} />
           </Link>
 
           <div className="mt-2 rounded-3xl bg-[#0b0b0a] p-5 text-white sm:p-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-[7px] font-semibold uppercase tracking-[0.2em] text-white/35">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/60">
                   Estimated duration
                 </p>
                 <p className="mt-1 text-sm text-white/60">
@@ -195,7 +195,7 @@ export default function BookingPage() {
             </div>
 
             <div className="mt-5 flex items-center justify-between gap-2 border-t border-white/10 pt-2">
-              <p className="text-[7px] font-semibold uppercase tracking-[0.2em] text-white/35">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/60">
                 Estimated total
               </p>
               <p className="text-right text-sm font-medium text-[#c5aa72]">

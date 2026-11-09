@@ -43,7 +43,7 @@ export default function WhyChooseUs() {
         {/* Intro */}
         <div className="grid gap-4 lg:grid-cols-[0.55fr_1.45fr] lg:gap-8">
           <div>
-            <p className="flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.3em] text-(--accent)">
+            <p className="flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.3em] text-(--accent)">
               <span className="h-px w-7 bg-(--accent)" />
               Why Executive
             </p>

@@ -64,18 +64,17 @@ export const businessContact = {
       ariaLabel: "Follow us on TikTok",
     },
   ],
-  // Every day currently reads "Hours to be confirmed" — this is the single
-  // source of truth. Update here once real opening hours are confirmed;
-  // every page that displays hours reads from this array, so it can never
-  // contradict itself again.
+  // The single source of truth for opening hours: every page that displays them
+  // reads from this array, so it can never contradict itself. Replace the text
+  // with real times (e.g. "9:00 am – 8:00 pm") when they are set.
   openingHours: [
-    { day: "Monday", time: "Hours to be confirmed" },
-    { day: "Tuesday", time: "Hours to be confirmed" },
-    { day: "Wednesday", time: "Hours to be confirmed" },
-    { day: "Thursday", time: "Hours to be confirmed" },
-    { day: "Friday", time: "Hours to be confirmed" },
-    { day: "Saturday", time: "Hours to be confirmed" },
-    { day: "Sunday", time: "Hours to be confirmed" },
+    { day: "Monday", time: "Call or WhatsApp for today’s hours" },
+    { day: "Tuesday", time: "Call or WhatsApp for today’s hours" },
+    { day: "Wednesday", time: "Call or WhatsApp for today’s hours" },
+    { day: "Thursday", time: "Call or WhatsApp for today’s hours" },
+    { day: "Friday", time: "Call or WhatsApp for today’s hours" },
+    { day: "Saturday", time: "Call or WhatsApp for today’s hours" },
+    { day: "Sunday", time: "Call or WhatsApp for today’s hours" },
   ],
 };
 

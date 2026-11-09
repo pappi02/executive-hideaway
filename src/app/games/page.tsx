@@ -52,7 +52,7 @@ export default function GamesPage() {
 
                 <Link
                   href="#games"
-                  className="group inline-flex w-fit items-center gap-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-white"
+                  className="group inline-flex w-fit items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-white"
                 >
                   See the games
                   <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-white/5 backdrop-blur-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:bg-white group-hover:text-[#0b0b0a]">
@@ -70,7 +70,7 @@ export default function GamesPage() {
           className="scroll-mt-20 bg-[#f3efe6] px-5 py-8 text-[#0b0b0a] sm:px-8 sm:py-14 lg:px-10 lg:py-20"
         >
           <div className="mx-auto max-w-7xl">
-            <p className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
+            <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
               <span className="h-px w-8 bg-[#80683c]" />
               The games room
             </p>
@@ -97,7 +97,7 @@ export default function GamesPage() {
                   </div>
 
                   <div className="max-w-xl">
-                    <span className="text-[10px] font-medium tracking-[0.2em] text-black/35">
+                    <span className="text-[11px] font-medium tracking-[0.2em] text-black/35">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <h2 className="mt-2 text-3xl font-light tracking-[-0.04em] sm:text-4xl lg:text-5xl">
@@ -115,7 +115,7 @@ export default function GamesPage() {
                         ["Equipment", game.equipment],
                       ].map(([label, value]) => (
                         <div key={label} className="flex justify-between gap-4 sm:block">
-                          <dt className="text-[9px] font-semibold uppercase tracking-[0.18em] text-black/40">
+                          <dt className="text-[11px] font-semibold uppercase tracking-[0.18em] text-black/40">
                             {label}
                           </dt>
                           <dd className="text-right text-black/75 sm:mt-1 sm:text-left">{value}</dd>
@@ -136,7 +136,7 @@ export default function GamesPage() {
         >
           <div className="mx-auto max-w-7xl">
             <div className="max-w-2xl">
-              <p className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
+              <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#80683c]">
                 <span className="h-px w-8 bg-[#80683c]" />
                 Coming soon
               </p>
@@ -152,7 +152,7 @@ export default function GamesPage() {
             <div className="mt-8 grid gap-x-12 gap-y-8 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3">
               {comingSoonGames.map((group) => (
                 <div key={group.id}>
-                  <h3 className="border-b border-black/15 pb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#80683c]">
+                  <h3 className="border-b border-black/15 pb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#80683c]">
                     {group.title}
                   </h3>
                   <ul className="mt-1 divide-y divide-black/5">
@@ -176,7 +176,7 @@ export default function GamesPage() {
         <section className="bg-[#0b0b0a] px-5 py-10 text-white sm:px-8 sm:py-14 lg:px-10 lg:py-20">
           <div className="mx-auto flex max-w-7xl flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-xl">
-              <p className="flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.3em] text-(--accent)">
+              <p className="flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.3em] text-(--accent)">
                 <span className="h-px w-7 bg-(--accent)" />
                 Plan a game night
               </p>
@@ -200,7 +200,7 @@ export default function GamesPage() {
                 href={businessContact.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-(--accent) px-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0b0b0a] transition-colors hover:bg-(--accent-light)"
+                className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-(--accent) px-6 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0b0b0a] transition-colors hover:bg-(--accent-light)"
               >
                 <MessageCircle size={15} strokeWidth={1.6} aria-hidden="true" />
                 WhatsApp us
@@ -208,7 +208,7 @@ export default function GamesPage() {
               </a>
               <a
                 href={businessContact.primaryPhoneHref}
-                className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/20 px-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-[#0b0b0a]"
+                className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/20 px-6 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-[#0b0b0a]"
               >
                 <Phone size={14} strokeWidth={1.6} aria-hidden="true" />
                 Call {businessContact.primaryPhone}

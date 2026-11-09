@@ -30,7 +30,7 @@ export function RoomCard({ room }: RoomCardProps) {
         ) : (
           <div className="absolute inset-0 grid place-items-center px-6 text-center text-sm text-black/45">Photos available on request.</div>
         )}
-        {room.featured && <span className="absolute left-3 top-3 bg-[#0b0b0a]/85 px-2.5 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-white">Featured</span>}
+        {room.featured && <span className="absolute left-3 top-3 bg-[#0b0b0a]/85 px-2.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">Featured</span>}
       </Link>
 
       <div className="flex min-w-0 flex-col pt-4 sm:py-2">
@@ -60,10 +60,10 @@ export function RoomCard({ room }: RoomCardProps) {
         )}
 
         <div className="flex flex-wrap items-center gap-4 pt-5">
-          <Link href={`/accommodation/${room.slug}`} className="inline-flex min-h-11 items-center gap-2 border-b border-black/25 text-[10px] font-semibold uppercase tracking-[0.14em] hover:border-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c]">
+          <Link href={`/accommodation/${room.slug}`} className="inline-flex min-h-11 items-center gap-2 border-b border-black/25 text-[11px] font-semibold uppercase tracking-[0.14em] hover:border-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c]">
             View room <ArrowUpRight size={13} aria-hidden="true" />
           </Link>
-          <Link href={`/accommodation/request?room=${encodeURIComponent(room.slug)}`} className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#0b0b0a] px-5 text-[10px] font-semibold uppercase tracking-[0.13em] text-white transition-colors hover:bg-[#80683c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c]">
+          <Link href={`/accommodation/request?room=${encodeURIComponent(room.slug)}`} className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#0b0b0a] px-5 text-[11px] font-semibold uppercase tracking-[0.13em] text-white transition-colors hover:bg-[#80683c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#80683c]">
             Book this room
           </Link>
         </div>

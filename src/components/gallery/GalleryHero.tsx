@@ -19,7 +19,7 @@ export default function GalleryHero() {
 
       <div className="relative z-5 flex min-h-[50svh] flex-col justify-end px-5 pb-5 pt-16 sm:px-8 sm:pb-14 lg:px-10 lg:pb-16">
         <div className="mx-auto w-full max-w-7xl">
-          <p className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-(--accent-light)">
+          <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-(--accent-light)">
             <span className="h-px w-8 bg-(--accent-light)" />
             The gallery
           </p>
@@ -38,7 +38,7 @@ export default function GalleryHero() {
 
             <Link
               href="#gallery-grid"
-              className="group inline-flex w-fit items-center gap-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-white"
+              className="group inline-flex w-fit items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-white"
             >
               Browse the gallery
 

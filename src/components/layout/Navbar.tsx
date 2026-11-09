@@ -112,7 +112,7 @@ export default function Navbar({ tone = "light" }: NavbarProps) {
                 : ""
         }`}
       >
-        <nav className="mx-auto flex max-w-7xl items-center justify-between gap-12 px-5 py-3 sm:px-8 sm:py-4 lg:px-10 xl:gap-16">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 py-3 sm:px-8 sm:py-4 lg:px-10 2xl:gap-16">
           {/* Brand */}
           <Link
             href="/"
@@ -133,13 +133,13 @@ export default function Navbar({ tone = "light" }: NavbarProps) {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden items-center gap-8 xl:flex 2xl:gap-10">
-            <ul className="flex items-center gap-6 2xl:gap-8" aria-label="Main navigation">
+          <div className="hidden items-center gap-5 xl:flex 2xl:gap-10">
+            <ul className="flex items-center gap-4 2xl:gap-8" aria-label="Main navigation">
               {visibleNavItems.map((item) => (
                 <li key={item.label}>
                   <Link
                     href={item.href}
-                    className={`whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.16em] transition-colors hover:text-(--accent) ${
+                    className={`whitespace-nowrap text-[11px] font-semibold uppercase tracking-widest transition-colors hover:text-(--accent) ${
                       isDark ? "text-[#0b0b0a]" : "text-white"
                     }`}
                   >
@@ -152,7 +152,7 @@ export default function Navbar({ tone = "light" }: NavbarProps) {
             {showBookingCta && (
               <Link
                 href={bookingCtaHref}
-                className="flex min-h-10 shrink-0 whitespace-nowrap items-center justify-center rounded-full bg-(--accent) px-5 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#0b0b0a] transition-transform duration-300 hover:scale-[1.02]"
+                className="flex min-h-10 shrink-0 whitespace-nowrap items-center justify-center rounded-full bg-(--accent) px-5 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0b0b0a] transition-transform duration-300 hover:scale-[1.02]"
               >
                 {bookingCtaLabel}
               </Link>
@@ -211,7 +211,7 @@ export default function Navbar({ tone = "light" }: NavbarProps) {
               <Link
                 href={bookingCtaHref}
                 onClick={closeMenu}
-                className="flex min-h-11 w-full items-center justify-center rounded-full bg-(--accent) px-5 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#0b0b0a] transition-transform duration-300 hover:scale-[1.02]"
+                className="flex min-h-11 w-full items-center justify-center rounded-full bg-(--accent) px-5 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0b0b0a] transition-transform duration-300 hover:scale-[1.02]"
               >
                 {bookingCtaLabel}
               </Link>
