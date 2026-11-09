@@ -7,6 +7,7 @@ import type { Service } from "@/data/services";
 import { createAppointmentRequestLink } from "@/app/booking/actions";
 import { isValidPhone } from "@/lib/phone";
 import { nairobiDay } from "@/lib/poster-time";
+import { businessContact, isWithinSpaHours, SPA_HOURS_MESSAGE } from "@/lib/site-config";
 
 interface BookingFormProps {
   services: Service[];
@@ -75,6 +76,8 @@ export default function BookingForm({ services }: BookingFormProps) {
 
     if (!form.time) {
       nextErrors.time = "Please select your preferred time.";
+    } else if (!isWithinSpaHours(form.time)) {
+      nextErrors.time = SPA_HOURS_MESSAGE;
     }
 
     setErrors(nextErrors);
@@ -304,6 +307,8 @@ export default function BookingForm({ services }: BookingFormProps) {
               <input
                 id="booking-time"
                 type="time"
+                min={businessContact.spaHours.opens}
+                max={businessContact.spaHours.closes}
                 value={form.time}
                 onChange={(event) =>
                   updateField("time", event.target.value)

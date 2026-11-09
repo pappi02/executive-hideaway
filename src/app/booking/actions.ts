@@ -4,7 +4,7 @@ import { isBookingRateLimited, saveBookingRequest } from "@/lib/booking-requests
 import { isValidPhone } from "@/lib/phone";
 import { nairobiDay } from "@/lib/poster-time";
 import { prisma } from "@/lib/prisma";
-import { businessContact } from "@/lib/site-config";
+import { businessContact, isWithinSpaHours, SPA_HOURS_MESSAGE } from "@/lib/site-config";
 
 interface AppointmentRequest {
   serviceIds: string[];
@@ -68,6 +68,7 @@ export async function createAppointmentRequestLink(input: AppointmentRequest) {
   }
   if (input.date < nairobiDay()) return { error: "Please choose a date from today onwards." };
   if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(input.time)) return { error: "Please select your preferred time." };
+  if (!isWithinSpaHours(input.time)) return { error: SPA_HOURS_MESSAGE };
 
   if (await isBookingRateLimited()) return { error: "Too many requests. Please wait a few minutes and try again." };
 

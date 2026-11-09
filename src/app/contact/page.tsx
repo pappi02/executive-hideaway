@@ -157,7 +157,7 @@ export default function ContactPage() {
               <Clock3 size={13} strokeWidth={2} />
 
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em]">
-                Opening hours
+                Spa opening hours
               </p>
             </div>
 

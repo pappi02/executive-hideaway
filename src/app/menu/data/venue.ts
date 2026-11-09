@@ -17,7 +17,7 @@ export const venue = {
     { label: 'Breakfast', value: '07:00 — 11:00' },
     { label: 'Kitchen', value: '11:00 — 22:30' },
     { label: 'The Bar', value: '11:00 — late' },
-    { label: 'Spa & Barber', value: '09:00 — 20:00, by appointment' },
+    { label: 'Spa & Barber', value: '09:00 — 22:00, by appointment' },
   ],
 } as const;
 

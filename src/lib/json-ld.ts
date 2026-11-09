@@ -29,6 +29,12 @@ export function localBusinessJsonLd() {
       latitude: businessContact.location.latitude,
       longitude: businessContact.location.longitude,
     },
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: businessContact.openingHours.map(({ day }) => day),
+      opens: businessContact.spaHours.opens,
+      closes: businessContact.spaHours.closes,
+    },
     sameAs: businessContact.socialLinks.map((social) => social.href),
   };
 }

@@ -65,17 +65,18 @@ export const businessContact = {
     },
   ],
   // The single source of truth for opening hours: every page that displays them
-  // reads from this array, so it can never contradict itself. Replace the text
-  // with real times (e.g. "9:00 am – 8:00 pm") when they are set.
+  // reads from this array, so it can never contradict itself. If the hours change,
+  // update spaHours below as well: it drives booking times and search results.
   openingHours: [
-    { day: "Monday", time: "Call or WhatsApp for today’s hours" },
-    { day: "Tuesday", time: "Call or WhatsApp for today’s hours" },
-    { day: "Wednesday", time: "Call or WhatsApp for today’s hours" },
-    { day: "Thursday", time: "Call or WhatsApp for today’s hours" },
-    { day: "Friday", time: "Call or WhatsApp for today’s hours" },
-    { day: "Saturday", time: "Call or WhatsApp for today’s hours" },
-    { day: "Sunday", time: "Call or WhatsApp for today’s hours" },
+    { day: "Monday", time: "9:00 am – 10:00 pm" },
+    { day: "Tuesday", time: "9:00 am – 10:00 pm" },
+    { day: "Wednesday", time: "9:00 am – 10:00 pm" },
+    { day: "Thursday", time: "9:00 am – 10:00 pm" },
+    { day: "Friday", time: "9:00 am – 10:00 pm" },
+    { day: "Saturday", time: "9:00 am – 10:00 pm" },
+    { day: "Sunday", time: "9:00 am – 10:00 pm" },
   ],
+  spaHours: { opens: "09:00", closes: "22:00" },
 };
 
 /**
@@ -103,6 +104,14 @@ function summarizeOpeningHours(
     time,
   }));
 }
+
+/** Whether an "HH:mm" time is one an appointment can start at: from opening, and before closing. */
+export function isWithinSpaHours(time: string) {
+  const { opens, closes } = businessContact.spaHours;
+  return time >= opens && time < closes;
+}
+
+export const SPA_HOURS_MESSAGE = "We’re open 9:00 am to 10:00 pm. Please choose a time within those hours.";
 
 export const openingHoursSummary = summarizeOpeningHours(
   businessContact.openingHours,
