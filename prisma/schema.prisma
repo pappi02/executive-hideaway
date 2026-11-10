@@ -221,6 +221,9 @@ model Poster {
   delaySeconds     Int      @default(10)
   // Seconds before it closes itself; 0 = until the visitor closes it.
   autoCloseSeconds Int      @default(6)
+  // How many times a day it may pop up on one device (Nairobi day), at least
+  // 30 minutes apart. 1 = once a day.
+  timesPerDay      Int      @default(1)
   // When several posters run at once, the highest priority shows.
   priority         Int      @default(0)
   active           Boolean  @default(true)

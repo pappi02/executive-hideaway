@@ -39,6 +39,7 @@ export default async function PosterFormPage({ params }: { params: Promise<{ id:
           endsAt: toNairobiInput(poster.endsAt),
           delaySeconds: poster.delaySeconds,
           autoCloseSeconds: poster.autoCloseSeconds,
+          timesPerDay: poster.timesPerDay,
           priority: poster.priority,
           active: poster.active,
           kind: poster.kind,

@@ -19,6 +19,8 @@ export interface PublicPoster {
   detailsUrl: string;
   delaySeconds: number;
   autoCloseSeconds: number;
+  /** Showings per day on one device. */
+  timesPerDay: number;
   endsAt: string;
 }
 
@@ -76,7 +78,7 @@ export async function listLivePosters(): Promise<PublicPoster[]> {
     orderBy: LIVE_ORDER,
     take: 5,
     // Never load the image bytes for a listing.
-    select: { id: true, title: true, imageUrl: true, delaySeconds: true, autoCloseSeconds: true, endsAt: true, updatedAt: true },
+    select: { id: true, title: true, imageUrl: true, delaySeconds: true, autoCloseSeconds: true, timesPerDay: true, endsAt: true, updatedAt: true },
   });
   return rows.map((row) => ({
     id: row.id,
@@ -85,6 +87,7 @@ export async function listLivePosters(): Promise<PublicPoster[]> {
     detailsUrl: posterDetailsUrl(row.id),
     delaySeconds: row.delaySeconds,
     autoCloseSeconds: row.autoCloseSeconds,
+    timesPerDay: row.timesPerDay,
     endsAt: row.endsAt.toISOString(),
   }));
 }
@@ -104,6 +107,7 @@ export async function listLivePosterDetails(): Promise<PosterDetails[]> {
     detailsUrl: posterDetailsUrl(row.id),
     delaySeconds: row.delaySeconds,
     autoCloseSeconds: row.autoCloseSeconds,
+    timesPerDay: row.timesPerDay,
     endsAt: row.endsAt.toISOString(),
     kind: (POSTER_KINDS as readonly string[]).includes(row.kind) ? (row.kind as PosterKind) : "offer",
     summary: row.summary,

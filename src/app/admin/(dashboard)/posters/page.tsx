@@ -32,8 +32,9 @@ export default async function AdminPostersPage() {
         </Link>
       </div>
       <p className="mt-2 max-w-2xl text-sm text-black/55">
-        Promotional posters that pop up on the website a few seconds after a visitor arrives. Each poster shows once a day on
-        each device while it runs, and tapping it opens its offer details at the top of the services page. Times are Nairobi time.
+        Promotional posters that pop up on the website a few seconds after a visitor arrives. Each poster shows up to its
+        &quot;times per day&quot; on each device while it runs, and tapping it opens its offer details at the top of the services page.
+        Times are Nairobi time.
       </p>
 
       {posters.length === 0 ? (
@@ -61,7 +62,8 @@ export default async function AdminPostersPage() {
                   </p>
                   <p className="mt-0.5 text-xs text-black/45">
                     Shows after {poster.delaySeconds}s ·{" "}
-                    {poster.autoCloseSeconds ? `closes after ${poster.autoCloseSeconds}s` : "stays until closed"} · priority{" "}
+                    {poster.autoCloseSeconds ? `closes after ${poster.autoCloseSeconds}s` : "stays until closed"} ·{" "}
+                    {poster.timesPerDay === 1 ? "once a day" : `up to ${poster.timesPerDay}× a day`} · priority{" "}
                     {poster.priority}
                     {poster.linkUrl ? ` · button goes to ${poster.linkUrl}` : ""}
                   </p>

@@ -5,28 +5,35 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { PublicPoster } from "@/lib/posters";
+import { canShowPoster, parseSeen, recordShowing } from "@/lib/poster-frequency";
 import { nairobiDay } from "@/lib/poster-time";
 
 // The admin console and the booking flow are left alone - a pop-up there gets
 // in the way of something the visitor is in the middle of.
 const HIDDEN_PREFIXES = ["/admin", "/booking"];
 
-// Each poster shows once a day on each device: the Nairobi day it was last
-// shown is kept in localStorage. Another device has no record yet, so it shows
-// there too; the next day it shows again.
+// Each poster shows up to its "times per day" on each device, at least 30
+// minutes apart (lib/poster-frequency). The count for the Nairobi day is kept in
+// localStorage, so another device starts its own count, and the next day it
+// starts again.
 const seenKey = (id: string) => `hideaway-poster-seen:${id}`;
+const FEED_TTL_MS = 5 * 60 * 1000;
 
-function seenToday(id: string) {
+function readSeen(id: string) {
   try {
-    return window.localStorage.getItem(seenKey(id)) === nairobiDay();
+    return parseSeen(window.localStorage.getItem(seenKey(id)));
   } catch {
-    return false;
+    return null;
   }
 }
 
-function markSeen(id: string) {
+function canShowNow(poster: PublicPoster) {
+  return new Date(poster.endsAt).getTime() > Date.now() && canShowPoster(readSeen(poster.id), nairobiDay(), Date.now(), poster.timesPerDay);
+}
+
+function markShown(id: string) {
   try {
-    window.localStorage.setItem(seenKey(id), nairobiDay());
+    window.localStorage.setItem(seenKey(id), JSON.stringify(recordShowing(readSeen(id), nairobiDay(), Date.now())));
   } catch {
     // Storage blocked: it may show again on the next page load - harmless.
   }
@@ -109,42 +116,50 @@ export function PosterView({
 /**
  * Site-wide promotional pop-up, mounted once in the root layout. Shows the
  * highest-priority running poster (see /admin/posters) a few seconds after
- * the visitor lands, once a day per device.
+ * the visitor arrives on a page, up to its times per day on each device.
  */
 export default function PosterPopup() {
   const pathname = usePathname();
   const hidden = isHiddenPath(pathname);
   const [shown, setShown] = useState<PublicPoster | null>(null);
-  const landedAtRef = useRef<number | null>(null);
-  const scheduledRef = useRef(false);
+  const showingRef = useRef(false);
+  const feedRef = useRef<{ at: number; posters: PublicPoster[] } | null>(null);
 
+  // Checked on every page the visitor opens, so a poster allowed several times a
+  // day can come back later in the visit (never while one is on screen).
   useEffect(() => {
-    landedAtRef.current ??= Date.now();
-  }, []);
-
-  useEffect(() => {
-    if (hidden || scheduledRef.current) return;
-    scheduledRef.current = true;
+    if (hidden) return;
     let cancelled = false;
     let timer: ReturnType<typeof setTimeout> | undefined;
+    const arrivedAt = Date.now();
 
-    fetch("/api/posters/active")
-      .then((response) => (response.ok ? response.json() : { data: [] }))
-      .then((payload: { data?: PublicPoster[] }) => {
-        const poster = (payload.data ?? []).find(
-          (candidate) => new Date(candidate.endsAt).getTime() > Date.now() && !seenToday(candidate.id),
-        );
-        if (!poster || cancelled) return;
+    const cached = feedRef.current;
+    const feed: Promise<PublicPoster[]> =
+      cached && Date.now() - cached.at < FEED_TTL_MS
+        ? Promise.resolve(cached.posters)
+        : fetch("/api/posters/active")
+            .then((response) => (response.ok ? response.json() : { data: [] }))
+            .then((payload: { data?: PublicPoster[] }) => {
+              const posters = payload.data ?? [];
+              feedRef.current = { at: Date.now(), posters };
+              return posters;
+            });
+
+    feed
+      .then((posters) => {
+        if (cancelled || showingRef.current) return;
+        const poster = posters.find(canShowNow);
+        if (!poster) return;
         // Loaded before it's shown, so it never pops up as an empty frame.
         const preload = new Image();
         preload.onload = () => {
           if (cancelled) return;
-          const elapsed = Date.now() - (landedAtRef.current ?? Date.now());
           timer = setTimeout(() => {
-            if (cancelled || seenToday(poster.id)) return;
-            markSeen(poster.id);
+            if (cancelled || showingRef.current || !canShowNow(poster)) return;
+            markShown(poster.id);
+            showingRef.current = true;
             setShown(poster);
-          }, Math.max(0, poster.delaySeconds * 1000 - elapsed));
+          }, Math.max(0, poster.delaySeconds * 1000 - (Date.now() - arrivedAt)));
         };
         preload.src = poster.imageUrl;
       })
@@ -155,11 +170,13 @@ export default function PosterPopup() {
     return () => {
       cancelled = true;
       if (timer) clearTimeout(timer);
-      scheduledRef.current = false;
     };
-  }, [hidden]);
+  }, [hidden, pathname]);
 
-  const close = useCallback(() => setShown(null), []);
+  const close = useCallback(() => {
+    showingRef.current = false;
+    setShown(null);
+  }, []);
 
   if (!shown || hidden) return null;
   return <PosterView poster={shown} onClose={close} />;

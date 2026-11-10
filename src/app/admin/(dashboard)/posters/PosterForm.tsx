@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { AdminForm } from "@/components/admin/AdminForm";
 import type { ActionResult } from "@/lib/admin-action";
+import { POSTER_TIMES_PER_DAY_MAX } from "@/lib/poster-frequency";
 import { POSTER_KIND_LABELS, POSTER_KINDS } from "@/lib/poster-kinds";
 import { endOfSunday, toNairobiInput } from "@/lib/poster-time";
 
@@ -23,6 +24,7 @@ export interface PosterFormValues {
   endsAt: string;
   delaySeconds: number;
   autoCloseSeconds: number;
+  timesPerDay: number;
   priority: number;
   active: boolean;
   kind: string;
@@ -95,7 +97,7 @@ export function PosterForm({
         <button type="button" className={presetClass} onClick={() => endIn(7 * 24 * HOUR_MS)}>1 week</button>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         <div>
           <label className={labelClass} htmlFor="delaySeconds">Delay (sec)</label>
           <input id="delaySeconds" name="delaySeconds" type="number" required min={0} max={300} defaultValue={defaultValues?.delaySeconds ?? 10} className={inputClass} />
@@ -105,12 +107,17 @@ export function PosterForm({
           <input id="autoCloseSeconds" name="autoCloseSeconds" type="number" required min={0} max={300} defaultValue={defaultValues?.autoCloseSeconds ?? 6} className={inputClass} />
         </div>
         <div>
+          <label className={labelClass} htmlFor="timesPerDay">Times per day</label>
+          <input id="timesPerDay" name="timesPerDay" type="number" required min={1} max={POSTER_TIMES_PER_DAY_MAX} defaultValue={defaultValues?.timesPerDay ?? 1} className={inputClass} />
+        </div>
+        <div>
           <label className={labelClass} htmlFor="priority">Priority</label>
           <input id="priority" name="priority" type="number" required min={-100} max={100} defaultValue={defaultValues?.priority ?? 0} className={inputClass} />
         </div>
       </div>
       <p className="-mt-3 text-xs text-black/40">
-        Delay: seconds after a visitor arrives. Auto-close: 0 keeps it up until they close it. When several posters run at once, the highest priority shows.
+        Delay: seconds after a visitor arrives. Auto-close: 0 keeps it up until they close it. Times per day: how often it may pop up on one
+        device each day, at least 30 minutes apart. When several posters run at once, the highest priority shows.
       </p>
 
       <fieldset className="space-y-5 rounded-2xl border border-black/10 bg-white/60 p-5">
