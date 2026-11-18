@@ -13,7 +13,7 @@ export const metadata: Metadata = buildMetadata({
   title: "Accommodation",
   description: "Explore room types and accommodation requests at Executive Hideaway Resort & Spa in Nairobi. Ask our team to confirm rates and availability.",
   path: "/accommodation",
-  image: "/images/accommodation/executive-room-photo-1.webp",
+  image: "/images/accommodation/executive-room-photo-1-enhanced.webp",
 });
 
 // Cached and served from the CDN; refreshed hourly, and immediately when the
@@ -32,16 +32,16 @@ export default async function AccommodationPage() {
     <>
       <Navbar />
       <main className="bg-[#f3efe6] text-[#0b0b0a]">
-        <section className="relative min-h-[78svh] overflow-hidden bg-[#151513] text-white sm:min-h-[82svh]">
+        <section className="relative min-h-[60svh] overflow-hidden bg-[#151513] text-white sm:min-h-[64svh]">
           {heroImage ? (
             <Image src={accommodationImageSrc(heroImage)} alt={heroImage.altText} fill priority sizes="100vw" className="object-cover object-[28%_center] lg:object-center" />
           ) : (
             <Image src="/images/hero.png" alt="Executive Hideaway Resort & Spa" fill priority sizes="100vw" className="object-cover object-center" />
           )}
           <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/30 to-black/50" />
-          <div className="relative mx-auto flex min-h-[78svh] max-w-7xl flex-col justify-end px-5 pb-9 pt-32 sm:min-h-[82svh] sm:px-8 sm:pb-14 lg:px-10 lg:pb-16">
+          <div className="relative mx-auto flex min-h-[60svh] max-w-7xl flex-col justify-end px-5 pb-8 pt-28 sm:min-h-[64svh] sm:px-8 sm:pb-10 lg:px-10 lg:pb-12">
             <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.26em] text-(--accent-light)"><span className="h-px w-8 bg-(--accent)" />Stay at the Hideaway</p>
-            <h1 className="mt-5 max-w-4xl text-[clamp(3.2rem,12vw,7.5rem)] font-light leading-[0.9] text-white">A quieter way<br />to stay awhile.</h1>
+            <h1 className="mt-4 max-w-4xl text-[clamp(2.25rem,8vw,4.5rem)] font-light leading-[0.95] tracking-[-0.03em] text-white">A quieter way<br />to stay awhile.</h1>
             <p className="mt-5 max-w-md text-sm leading-6 text-white/75 sm:text-base sm:leading-7">Private rooms, each with its own massage table. Send us your dates and we’ll confirm your stay on WhatsApp.</p>
             <Link href="#rooms" className="mt-7 inline-flex min-h-12 w-fit items-center gap-3 border-b border-white/40 text-[11px] font-semibold uppercase tracking-[0.17em] text-white hover:border-(--accent) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">Explore rooms <ArrowDown size={14} aria-hidden="true" /></Link>
           </div>

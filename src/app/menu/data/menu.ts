@@ -316,7 +316,7 @@ export const chapters: Chapter[] = [
     eyebrow: 'Chapter Nine',
     title: 'The Bar',
     standfirst: 'Coffee, tea and cold things',
-    image: assetPath('/images/menu/bar.jpg'),
+    image: assetPath('/images/venue/bar-cabinet-front.webp'),
     note: 'Beans are Kenyan AA, roasted weekly. Juice is pressed to order, never from concentrate.',
     columns: 2,
     sections: [

@@ -28,7 +28,7 @@ export default function WhyChooseUs() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="relative overflow-hidden bg-[#0b0b0a] px-5 py-8 text-[#f5f1e8] sm:px-8 sm:py-32 lg:px-10 lg:py-40">
+    <section className="relative overflow-hidden bg-[#0b0b0a] px-5 py-10 text-[#f5f1e8] sm:px-8 sm:py-14 lg:px-10 lg:py-20">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-32 top-20 h-80 w-80 rounded-full border border-white/4 sm:-right-20 sm:h-120 sm:w-120"
@@ -66,7 +66,7 @@ export default function WhyChooseUs() {
                     active ? "bg-[#171715]" : "bg-white/2.5"
                   }`}
                 >
-                  <div className="p-6 sm:p-8">
+                  <div className="p-5">
                     <div className="flex items-center justify-between">
                       <span
                         className={`text-xs uppercase tracking-[0.2em] transition-colors duration-300 ${
@@ -99,11 +99,11 @@ export default function WhyChooseUs() {
                       }`}
                     >
                       <div className="overflow-hidden">
-                        <h3 className="pt-8 text-3xl font-light tracking-[-0.035em]">
+                        <h3 className="pt-4 text-2xl font-light tracking-[-0.03em]">
                           {reason.title}
                         </h3>
 
-                        <p className="max-w-md pt-4 text-sm leading-6 text-white/45">
+                        <p className="max-w-md pt-2 text-sm leading-6 text-white/45">
                           {reason.description}
                         </p>
                       </div>
@@ -120,14 +120,14 @@ export default function WhyChooseUs() {
               <article
                 key={reason.title}
                 onMouseEnter={() => setActiveIndex(index)}
-                className={`group relative min-h-97.5 cursor-default border-b border-white/10 p-8 transition-all duration-500 ${
+                className={`group relative min-h-60 cursor-default border-b border-white/10 p-6 transition-all duration-500 ${
                   index !== 0 ? "border-l border-white/10" : ""
                 } ${
                   activeIndex === index ? "bg-[#171715]" : "bg-transparent"
                 }`}
               >
                 <div
-                  className={`absolute left-8 right-8 top-0 h-px origin-left bg-(--accent) transition-transform duration-500 ${
+                  className={`absolute left-6 right-6 top-0 h-px origin-left bg-(--accent) transition-transform duration-500 ${
                     activeIndex === index ? "scale-x-100" : "scale-x-0"
                   }`}
                 />
@@ -160,11 +160,11 @@ export default function WhyChooseUs() {
                   </div>
 
                   <div className="mt-auto">
-                    <h3 className="max-w-xs text-3xl font-light leading-[1.05] tracking-[-0.035em] xl:text-4xl">
+                    <h3 className="max-w-xs text-2xl font-light leading-[1.1] tracking-[-0.03em] xl:text-[1.75rem]">
                       {reason.title}
                     </h3>
 
-                    <p className="mt-5 max-w-sm text-sm leading-6 text-white/40">
+                    <p className="mt-3 max-w-sm text-sm leading-6 text-white/40">
                       {reason.description}
                     </p>
                   </div>
@@ -174,7 +174,7 @@ export default function WhyChooseUs() {
           </div>
 
           {/* Closing statement */}
-          <div className="mt-4 border-t border-white/10 pt-8 sm:mt-8 sm:pt-10 lg:mt-32 lg:flex lg:items-end lg:justify-between">
+          <div className="mt-6 border-t border-white/10 pt-5 sm:mt-8 lg:mt-10 lg:flex lg:items-end lg:justify-between">
             <p className="max-w-md text-xs uppercase leading-6 tracking-[0.18em] text-white/30">
               Your time.
               <br />

@@ -3,8 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDownRight } from "lucide-react";
 
-const HERO_SRC = "/images/hero-hideaway-experience.jpg";
-const HERO_ALT = "A guest enjoying a massage in a candlelit suite, with dinner and drinks, a bed, and chess and table tennis nearby";
+const HERO_SRC = "/images/hero-new.png";
+const HERO_ALT = "A guest enjoying a massage in a warmly lit suite, with dinner and cocktails, a bed, chess, table tennis and darts nearby";
 
 export default function Hero() {
   return (
@@ -15,7 +15,7 @@ export default function Hero() {
       {/* The image starts below the fixed navbar so the logo never sits on it.
           The photo is landscape (16:9) and fills the section at every width. Narrow
           screens crop in on the massage, on the left of the photo. */}
-      <div className="relative flex min-h-[72svh] flex-col overflow-hidden sm:min-h-[64svh] lg:min-h-[80svh]">
+      <div className="relative flex min-h-[62svh] flex-col overflow-hidden sm:min-h-[56svh] lg:min-h-[68svh]">
         <Image
           src={HERO_SRC}
           alt={HERO_ALT}
@@ -33,11 +33,11 @@ export default function Hero() {
         <div className="absolute inset-0 hidden bg-linear-to-r from-[#0b0b0a]/70 via-[#0b0b0a]/15 via-50% to-transparent lg:block" />
 
         {/* Hero Content */}
-        <div className="relative z-10 flex flex-1 flex-col justify-end px-5 pb-8 pt-12 sm:px-8 sm:pb-12 sm:pt-16 lg:px-10 lg:py-12">
+        <div className="relative z-10 flex flex-1 flex-col justify-end px-5 pb-7 pt-10 sm:px-8 sm:pb-10 sm:pt-12 lg:px-10 lg:py-10">
           <div className="mx-auto w-full max-w-7xl">
             <div>
               {/* Eyebrow */}
-              <div className="mb-4 flex items-center gap-3 sm:mb-6">
+              <div className="mb-3 flex items-center gap-3 sm:mb-4">
                 <span className="h-px w-8 bg-(--accent)" />
 
                 <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-(--accent-light)">
@@ -46,23 +46,23 @@ export default function Hero() {
               </div>
 
               {/* Heading */}
-              <h1 className="max-w-5xl text-[clamp(2.25rem,8vw,5.5rem)] lg:text-[clamp(3rem,5.2vw,5.25rem)] font-light uppercase leading-[0.92] tracking-[-0.04em] text-white">
+              <h1 className="max-w-5xl text-[clamp(2rem,7vw,3.75rem)] lg:text-[clamp(2.75rem,4vw,4rem)] font-light uppercase leading-[0.92] tracking-[-0.04em] text-white">
                 The Hideaway
                 <br />
                 <span className="text-white/80">Spa and Resort</span>
               </h1>
 
               {/* Description */}
-              <p className="mt-5 hidden max-w-md text-sm sm:block leading-6 text-white/70 sm:text-base sm:leading-7">
+              <p className="mt-4 hidden max-w-md text-sm sm:block leading-6 text-white/70">
                 A thoughtful place to stay, unwind, enjoy resort dining, and find
                 time for wellness and grooming.
               </p>
 
               {/* Actions */}
-              <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
+              <div className="mt-5 flex flex-wrap gap-2.5 sm:mt-6">
                 <Link
                   href="/booking"
-                  className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-(--accent) px-5 sm:min-h-13 sm:px-7 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b0b0a] transition-all duration-300 hover:bg-(--accent-light)"
+                  className="group inline-flex min-h-11 items-center justify-center gap-3 rounded-full bg-(--accent) px-5 sm:px-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b0b0a] transition-all duration-300 hover:bg-(--accent-light)"
                 >
                   Book an Appointment
 
@@ -75,14 +75,14 @@ export default function Hero() {
 
                 <Link
                   href="/menu"
-                  className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/25 bg-white/5 px-5 sm:min-h-13 sm:px-7 text-[11px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
+                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/25 bg-white/5 px-5 sm:px-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
                 >
                   View Resort Menu
                 </Link>
 
                 <Link
                   href="#about"
-                  className="hidden sm:inline-flex min-h-12 items-center justify-center rounded-full border border-white/25 bg-white/5 px-5 sm:min-h-13 sm:px-7 text-[11px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
+                  className="hidden sm:inline-flex min-h-11 items-center justify-center rounded-full border border-white/25 bg-white/5 px-5 sm:px-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
                 >
                   Explore
                 </Link>

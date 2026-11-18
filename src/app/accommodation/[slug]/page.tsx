@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: RoomPageProps): Promise<Metad
     title: room.name,
     description: room.description,
     path: `/accommodation/${room.slug}`,
-    image: room.images[0] ? accommodationImageSrc(room.images[0]) : "/images/og-hideaway-experience.jpg",
+    image: room.images[0] ? accommodationImageSrc(room.images[0]) : "/images/og-hideaway-lounge.jpg",
   });
 }
 

@@ -7,7 +7,6 @@ before downloading.
 
 | File | Source | Photographer | Original URL |
 |---|---|---|---|
-| gallery-barbering.webp | Pexels | Berat Ilgin | https://www.pexels.com/photo/interior-of-a-barber-shop-with-vintage-leather-chairs-and-checkered-floor-17665771/ |
 | gallery-grooming.webp | Unsplash | Ace Maxwell | https://unsplash.com/photos/1717089256239-dc2ed4d9dfc6 |
 | gallery-massage.webp | Pexels | (Pexels) | https://www.pexels.com/photo/6187425/ |
 | gallery-smiling-client.webp | Pexels | Gustavo Fring | https://www.pexels.com/photo/man-getting-a-haircut-7447146/ |
@@ -20,13 +19,9 @@ before downloading.
 | gallery-serene-cut.webp | Pexels | Gustavo Fring | https://www.pexels.com/photo/man-with-eyes-closed-at-hairdresser-7447144/ |
 | gallery-scissors-trim.webp | Pexels | Gustavo Fring | https://www.pexels.com/photo/photo-of-a-man-getting-a-haircut-7447147/ |
 | gallery-beard-detail.webp | Pexels | Gustavo Fring | https://www.pexels.com/photo/man-getting-his-hair-trimmed-7447150/ |
-| gallery-products.webp | Pexels | Marcelo Verfe | https://www.pexels.com/photo/chair-in-a-barbershop-19225277/ |
 | gallery-clipper-profile.webp | Pexels | Gustavo Fring | https://www.pexels.com/photo/man-getting-his-hair-cut-at-a-barber-shop-7447136/ |
 | gallery-detail.webp | Unsplash | Nsey Benajah | https://unsplash.com/photos/1605552981700-68484762d021 |
-| gallery-lounge-interior.webp | Unsplash | Chaps & Co | https://unsplash.com/photos/barber-shop-interior-with-clients-receiving-haircuts-_EjaOZ0D8xY |
-| gallery-chair-mirror.webp | Unsplash | Redd Francisco | https://unsplash.com/photos/a-barber-shop-with-a-chair-and-a-mirror-BBGyxhtPpC0 |
 | gallery-sauna-wood.webp | Unsplash | HUUM | https://unsplash.com/photos/a-man-sitting-in-a-wooden-sauna-tFoltpVrIq4 |
-| gallery-counter-tools.webp | Unsplash | Vagaro | https://unsplash.com/photos/barbershop-counter-with-grooming-products-and-tools-r3RxJm3iqJE |
 
 ## Revision history
 
@@ -47,3 +42,5 @@ clientele with a consistent premium/editorial look.
 **v1:** Replaced the original gallery1–8.webp, which were thumbnail-resolution
 (115–297px wide) and 3 of which carried visible stock-site watermarks
 (Getty Images, Dreamstime, Shutterstock) — unlicensed for production use.
+
+**v4 (November 2026):** Real venue photos (`../venue/`) now lead the gallery under "The Venue". Removed the stock interior shots that could be mistaken for the venue (barbering, products, lounge-interior, chair-mirror, counter-tools) and the "Interior & Details" category.

@@ -22,7 +22,7 @@ export function buildMetadata({
   title,
   description,
   path,
-  image = "/images/og-hideaway-experience.jpg",
+  image = "/images/og-hideaway-lounge.jpg",
 }: BuildMetadataOptions): Metadata {
   const resolvedTitle = title
     ? `${title} | ${siteConfig.shortName}`

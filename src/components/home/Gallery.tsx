@@ -57,7 +57,7 @@ export default function Gallery() {
   return (
     <section
       id="gallery"
-      className="overflow-hidden bg-[#f3efe6] px-5 py-8 text-[#0b0b0a] sm:px-8 sm:py-32 lg:px-10 lg:py-40"
+      className="overflow-hidden bg-[#f3efe6] px-5 py-10 text-[#0b0b0a] sm:px-8 sm:py-14 lg:px-10 lg:py-20"
     >
       <div className="mx-auto max-w-7xl">
         {/* Header */}
@@ -68,23 +68,23 @@ export default function Gallery() {
               The gallery
             </p>
 
-            <h2 className="mt-4 max-w-3xl text-5xl font-light leading-[0.92] tracking-[-0.055em] sm:text-6xl lg:text-[6rem]">
+            <h2 className="mt-3 max-w-3xl text-3xl font-light leading-[1.05] tracking-[-0.035em] sm:text-4xl lg:text-[2.75rem]">
               Inside the
               <br />
               <span className="text-black/30">Hideaway.</span>
             </h2>
           </div>
 
-          <p className="max-w-sm text-sm leading-7 text-black/45 lg:text-right">
+          <p className="max-w-sm text-sm leading-6 text-black/45 lg:text-right">
             A glimpse into the atmosphere, craft, and details that shape the
             Executive Hideaway experience.
           </p>
         </div>
 
         {/* Main viewer */}
-        <div className="mt-12 sm:mt-4 lg:mt-8">
-          <div className="relative overflow-hidden rounded-3xl bg-[#ddd7ca] sm:rounded-4xl">
-            <div className="relative aspect-4/3 w-full sm:aspect-video lg:aspect-2/1">
+        <div className="mt-6 sm:mt-8">
+          <div className="relative overflow-hidden rounded-2xl bg-[#ddd7ca]">
+            <div className="relative aspect-4/3 w-full sm:aspect-video lg:aspect-[21/9]">
               <Image
                 key={selectedImage.src}
                 src={selectedImage.src}
@@ -92,7 +92,7 @@ export default function Gallery() {
                 fill
                 priority={selectedIndex === 0}
                 sizes="(max-width: 1024px) 100vw, 1200px"
-                className="object-cover"
+                className="object-cover object-[center_55%]"
               />
 
               <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-black/5" />
@@ -185,7 +185,7 @@ export default function Gallery() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-4 flex flex-col gap-6 border-t border-black/10 pt-8 sm:mt-20 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-5 flex flex-col gap-4 border-t border-black/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
 
           <a
             href="/gallery"

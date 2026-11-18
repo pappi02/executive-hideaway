@@ -154,7 +154,7 @@ export default function ServiceCard({
           }}
         >
           <div
-            className="relative max-h-[90svh] w-full max-w-3xl overflow-y-auto rounded-3xl bg-[#f3efe6] shadow-2xl shadow-black/20"
+            className="relative max-h-[90svh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-[#f3efe6] shadow-2xl shadow-black/20"
             onMouseDown={(event) => event.stopPropagation()}
           >
             <button
@@ -193,7 +193,7 @@ export default function ServiceCard({
 
                   <h2
                     id={`service-title-${service.id}`}
-                    className="mt-3 text-4xl font-light leading-[0.95] tracking-[-0.045em] text-[#0b0b0a] sm:text-5xl"
+                    className="mt-3 text-3xl font-light leading-[1] tracking-[-0.035em] text-[#0b0b0a] sm:text-4xl"
                   >
                     {service.name}
                   </h2>

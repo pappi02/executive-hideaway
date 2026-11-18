@@ -2,10 +2,10 @@ export default function About() {
   return (
     <section
       id="about"
-      className="bg-[#0b0b0a] px-5 py-10 sm:px-8 sm:py-14 lg:px-10 lg:py-36"
+      className="bg-[#0b0b0a] px-5 py-10 sm:px-8 sm:py-14 lg:px-10 lg:py-20"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+        <div className="grid gap-4 lg:grid-cols-[0.55fr_1.45fr] lg:gap-12">
           {/* Label */}
           <div>
             <p className="flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.3em] text-(--accent)">
@@ -16,13 +16,13 @@ export default function About() {
 
           {/* Content */}
           <div>
-            <h2 className="max-w-3xl text-4xl font-light leading-[1.05] tracking-[-0.035em] text-white sm:text-5xl lg:text-6xl">
+            <h2 className="max-w-3xl text-3xl font-light leading-[1.05] tracking-[-0.035em] sm:text-4xl lg:text-[2.75rem] text-white">
               More than grooming.
               <br />
               <span className="text-white/45">It&apos;s an experience.</span>
             </h2>
 
-            <div className="mt-8 max-w-2xl space-y-5 text-sm leading-7 text-white/60 sm:text-base">
+            <div className="mt-5 max-w-2xl space-y-3 text-sm leading-6 text-white/60">
               <p>
                 Welcome to Executive Hideaway Resort & Spa, a place to stay,
                 unwind, and enjoy thoughtful grooming, dining, and wellness.

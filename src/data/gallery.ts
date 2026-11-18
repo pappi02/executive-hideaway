@@ -1,8 +1,8 @@
 export type GalleryCategory =
+  | "the venue"
   | "barbering"
   | "spa & massage"
-  | "wellness"
-  | "interior & details";
+  | "wellness";
 
 export interface GalleryImage {
   id: string;
@@ -14,18 +14,82 @@ export interface GalleryImage {
 }
 
 export const galleryCategories: { id: GalleryCategory; label: string }[] = [
+  { id: "the venue", label: "The Venue" },
   { id: "barbering", label: "Barbering" },
   { id: "spa & massage", label: "Spa & Massage" },
   { id: "wellness", label: "Wellness" },
-  { id: "interior & details", label: "Interior & Details" },
 ];
 
 export const galleryImages: GalleryImage[] = [
+  // Real photographs of the venue (owner, November 2026), first.
   {
-    id: "barbering",
-    src: "/images/gallery/gallery-barbering.webp",
-    alt: "Lavish, dimly lit barbershop interior with premium wood-panel styling stations",
-    category: "interior & details",
+    id: "venue-barber-stations",
+    src: "/images/venue/barber-stations-chandelier.webp",
+    alt: "The barber stations: two black leather chairs and lit oval mirrors under a crystal chandelier",
+    category: "the venue",
+    orientation: "portrait",
+  },
+  {
+    id: "venue-lounge-fireplace",
+    src: "/images/venue/lounge-fireplace-barber-view.webp",
+    alt: "The lounge, with a grey sofa, a white coffee table and the barber stations beyond",
+    category: "the venue",
+    orientation: "portrait",
+  },
+  {
+    id: "venue-throne-chairs",
+    src: "/images/venue/throne-chairs-lounge-decanter.webp",
+    alt: "Gold-trimmed throne chairs in the lounge, with a decanter set on the coffee table",
+    category: "the venue",
+    orientation: "portrait",
+  },
+  {
+    id: "venue-lounge-wide",
+    src: "/images/venue/lounge-pool-wide-landscape.webp",
+    alt: "The lounge and pool table, with the fireplace wall and staircase behind",
+    category: "the venue",
+  },
+  {
+    id: "venue-barber-lounge",
+    src: "/images/venue/barber-lounge-chandelier.webp",
+    alt: "The barber area with its chandelier, wall shelves and oval mirrors",
+    category: "the venue",
+    orientation: "portrait",
+  },
+  {
+    id: "venue-bar",
+    src: "/images/venue/bar-cabinet-front.webp",
+    alt: "The bar cabinet, lit blue, stocked with spirits, soft drinks and glassware",
+    category: "the venue",
+    orientation: "portrait",
+  },
+  {
+    id: "venue-staircase",
+    src: "/images/venue/staircase-lounge-barber-view.webp",
+    alt: "The staircase lounge, looking through to the barber stations",
+    category: "the venue",
+    orientation: "portrait",
+  },
+  {
+    id: "venue-lounge-sofa",
+    src: "/images/venue/lounge-sofa-throne-chairs.webp",
+    alt: "A light sofa and throne chairs on the parquet floor of the lounge",
+    category: "the venue",
+    orientation: "portrait",
+  },
+  {
+    id: "venue-pool-throne",
+    src: "/images/venue/pool-table-throne-chairs.webp",
+    alt: "The pool table racked and ready in front of the throne chairs",
+    category: "the venue",
+    orientation: "portrait",
+  },
+  {
+    id: "venue-lounge-pool",
+    src: "/images/venue/lounge-pool-throne-wide.webp",
+    alt: "The full lounge: pool table, throne chairs and a white coffee table",
+    category: "the venue",
+    orientation: "portrait",
   },
   {
     id: "grooming",
@@ -104,13 +168,6 @@ export const galleryImages: GalleryImage[] = [
     category: "barbering",
   },
   {
-    id: "products",
-    src: "/images/gallery/gallery-products.webp",
-    alt: "Premium grooming products displayed on the barbershop counter",
-    category: "interior & details",
-    orientation: "portrait",
-  },
-  {
     id: "clipper-profile",
     src: "/images/gallery/gallery-clipper-profile.webp",
     alt: "Side profile of a client mid-haircut in the barber's chair",
@@ -124,28 +181,10 @@ export const galleryImages: GalleryImage[] = [
     orientation: "portrait",
   },
   {
-    id: "lounge-interior",
-    src: "/images/gallery/gallery-lounge-interior.webp",
-    alt: "Warmly lit barbershop lounge with vintage leather chairs mid-appointment",
-    category: "interior & details",
-  },
-  {
-    id: "chair-mirror",
-    src: "/images/gallery/gallery-chair-mirror.webp",
-    alt: "Classic barber chair and mirror station in a well-appointed barbershop",
-    category: "interior & details",
-  },
-  {
     id: "sauna-wood",
     src: "/images/gallery/gallery-sauna-wood.webp",
     alt: "Client relaxing inside a warm wooden sauna",
     category: "wellness",
     orientation: "portrait",
-  },
-  {
-    id: "counter-tools",
-    src: "/images/gallery/gallery-counter-tools.webp",
-    alt: "Barbershop counter neatly stocked with grooming tools and products",
-    category: "interior & details",
   },
 ];

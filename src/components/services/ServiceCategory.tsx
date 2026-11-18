@@ -19,15 +19,15 @@ export default async function ServiceCategory({
   return (
     <section
       id={category.id}
-      className="border-t border-black/10 pb-20 pt-10 sm:pb-28 sm:pt-16 lg:pb-36 lg:pt-20"
+      className="border-t border-black/10 pb-10 pt-8 sm:pb-14 sm:pt-10 lg:pb-16 lg:pt-12"
     >
-      <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-20">
+      <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-12">
         <div
           className={`lg:sticky lg:top-24 ${
             index % 2 !== 0 ? "lg:order-2" : ""
           }`}
         >
-          <div className="relative h-52 overflow-hidden rounded-3xl bg-[#ddd7ca] sm:h-64 sm:rounded-4xl lg:h-72">
+          <div className="relative h-44 overflow-hidden rounded-2xl bg-[#ddd7ca] sm:h-56 lg:h-64">
             <div className="relative h-full w-full">
               <Image
                 src={category.image}
@@ -44,7 +44,7 @@ export default async function ServiceCategory({
                   {category.eyebrow}
                 </p>
 
-                <h3 className="mt-2 text-3xl font-light tracking-[-0.04em] text-white sm:text-4xl">
+                <h3 className="mt-1.5 text-2xl font-light tracking-[-0.03em] text-white sm:text-3xl">
                   {category.label}
                 </h3>
               </div>

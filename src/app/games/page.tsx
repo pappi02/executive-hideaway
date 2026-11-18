@@ -13,7 +13,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Pool, chess, cards, table tennis and darts at Executive Hideaway Resort & Spa in Nairobi. Ask our team about availability when you visit.",
   path: "/games",
-  image: "/images/games/pool-table-lounge.webp",
+  image: "/images/venue/pool-table-lounge.webp",
 });
 
 export default function GamesPage() {
@@ -23,29 +23,29 @@ export default function GamesPage() {
 
       <main>
         {/* Hero */}
-        <section className="relative min-h-[50svh] overflow-hidden bg-[#0b0b0a] text-white">
+        <section className="relative min-h-[40svh] overflow-hidden bg-[#0b0b0a] text-white">
           <Image
-            src="/images/games/pool-table-lounge.webp"
-            alt="The pool table in the lounge, with high-backed chairs and sofas behind it"
+            src="/images/venue/lounge-pool-wide-landscape.webp"
+            alt="The games lounge: the pool table racked and ready, with sofas and the fireplace wall behind"
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[center_60%]"
+            className="object-cover object-[center_72%]"
           />
 
           <div className="absolute inset-0 bg-black/45" />
           <div className="absolute inset-0 bg-linear-to-b from-black/65 via-black/15 to-[#0b0b0a]" />
 
-          <div className="relative z-5 flex min-h-[50svh] flex-col justify-end px-5 pb-5 pt-16 sm:px-8 sm:pb-14 lg:px-10 lg:pb-16">
+          <div className="relative z-5 flex min-h-[40svh] flex-col justify-end px-5 pb-6 pt-14 sm:px-8 sm:pb-10 lg:px-10 lg:pb-12">
             <div className="mx-auto w-full max-w-7xl">
-              <h1 className="max-w-5xl text-[clamp(2.5rem,13vw,6rem)] font-light leading-[0.88] tracking-[-0.055em]">
+              <h1 className="max-w-5xl text-[clamp(2.25rem,9vw,4.25rem)] font-light leading-[0.92] tracking-[-0.045em]">
                 Games
                 <br />
                 <span className="text-white/35">&amp; activities.</span>
               </h1>
 
               <div className="mt-4 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-                <p className="max-w-md text-sm leading-7 text-white/65 sm:text-base">
+                <p className="max-w-md text-sm leading-6 text-white/65">
                   A quiet game or a friendly rivalry. Equipment is provided
                   on-site; ask our team what&apos;s free when you arrive.
                 </p>
@@ -75,50 +75,48 @@ export default function GamesPage() {
               The games room
             </p>
 
-            <div className="mt-6 divide-y divide-black/10 border-t border-black/10 sm:mt-10">
+            <div className="mt-6 grid gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
               {games.map((game, index) => (
                 <article
                   key={game.id}
                   id={game.id}
-                  className="grid scroll-mt-24 gap-5 py-7 sm:grid-cols-[0.9fr_1.1fr] sm:items-center sm:gap-9 sm:py-10 lg:gap-16"
+                  className="flex scroll-mt-24 flex-col overflow-hidden rounded-2xl border border-black/10 bg-white/60"
                 >
-                  <div
-                    className={`relative aspect-[1.45] overflow-hidden bg-[#d7d1c4] ${
-                      index % 2 === 1 ? "sm:order-2" : ""
-                    }`}
-                  >
+                  <div className="relative aspect-4/3 overflow-hidden bg-[#d7d1c4]">
                     <Image
                       src={game.image}
                       alt={game.imageAlt}
                       fill
-                      sizes="(max-width: 640px) 100vw, 45vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className={`object-cover ${game.imagePosition}`}
                     />
                   </div>
 
-                  <div className="max-w-xl">
-                    <span className="text-[11px] font-medium tracking-[0.2em] text-black/35">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <h2 className="mt-2 text-3xl font-light tracking-[-0.04em] sm:text-4xl lg:text-5xl">
-                      {game.name}
-                    </h2>
-                    <p className="mt-2 text-sm italic text-[#80683c]">{game.tagline}</p>
-                    <p className="mt-3 text-sm leading-7 text-black/60 sm:text-base">
+                  <div className="flex flex-1 flex-col p-4 sm:p-5">
+                    <div className="flex items-baseline gap-3">
+                      <span className="text-[11px] font-medium tracking-[0.2em] text-black/35">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <h2 className="text-xl font-light tracking-[-0.02em] sm:text-2xl">
+                        {game.name}
+                      </h2>
+                    </div>
+                    <p className="mt-1 text-sm italic text-[#80683c]">{game.tagline}</p>
+                    <p className="mt-2 text-sm leading-6 text-black/60">
                       {game.description}
                     </p>
 
-                    <dl className="mt-5 grid grid-cols-1 gap-x-6 gap-y-3 border-t border-black/10 pt-4 text-sm sm:grid-cols-3">
+                    <dl className="mt-auto grid gap-y-1.5 border-t border-black/10 pt-3 text-[13px]">
                       {[
                         ["Players", game.players],
                         ["Typical game", game.duration],
                         ["Equipment", game.equipment],
                       ].map(([label, value]) => (
-                        <div key={label} className="flex justify-between gap-4 sm:block">
-                          <dt className="text-[11px] font-semibold uppercase tracking-[0.18em] text-black/40">
+                        <div key={label} className="flex justify-between gap-4">
+                          <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-black/40">
                             {label}
                           </dt>
-                          <dd className="text-right text-black/75 sm:mt-1 sm:text-left">{value}</dd>
+                          <dd className="text-right text-black/75">{value}</dd>
                         </div>
                       ))}
                     </dl>
@@ -140,7 +138,7 @@ export default function GamesPage() {
                 <span className="h-px w-8 bg-[#80683c]" />
                 Coming soon
               </p>
-              <h2 className="mt-4 text-3xl font-light leading-[1.02] tracking-[-0.04em] sm:text-5xl">
+              <h2 className="mt-3 text-3xl font-light leading-[1.05] tracking-[-0.035em] sm:text-4xl">
                 More on the way.
               </h2>
               <p className="mt-3 text-sm leading-7 text-black/60 sm:text-base">
@@ -180,7 +178,7 @@ export default function GamesPage() {
                 <span className="h-px w-7 bg-(--accent)" />
                 Plan a game night
               </p>
-              <h2 className="mt-4 text-3xl font-light leading-[1.02] tracking-[-0.04em] sm:text-5xl">
+              <h2 className="mt-3 text-3xl font-light leading-[1.05] tracking-[-0.035em] sm:text-4xl">
                 Ask about tables,
                 <br />
                 <span className="text-white/40">rates and groups.</span>

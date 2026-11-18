@@ -14,7 +14,7 @@ export function localBusinessJsonLd() {
     url: siteUrl,
     telephone: businessContact.primaryPhone,
     email: businessContact.email,
-    image: new URL("/images/og-hideaway-experience.jpg", siteUrl).toString(),
+    image: new URL("/images/og-hideaway-lounge.jpg", siteUrl).toString(),
     priceRange: "KSh",
     address: {
       "@type": "PostalAddress",

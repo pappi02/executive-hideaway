@@ -143,7 +143,7 @@ const accommodations = [
     active: true,
     order: 0,
     photos: [
-      { url: "/images/accommodation/premium-room-photo.webp", altText: "Massage table by curtained windows with, through an arched opening, a rose-petal bed with yellow cushions" },
+      { url: "/images/accommodation/premium-room-photo-enhanced.webp", altText: "Massage table by curtained windows with, through an arched opening, a rose-petal bed with yellow cushions" },
     ],
   },
   {
@@ -164,7 +164,7 @@ const accommodations = [
     active: true,
     order: 1,
     photos: [
-      { url: "/images/accommodation/deluxe-room-photo.webp", altText: "Massage table and rose-petal bed with a navy headboard, a white wingback chair and a magenta sofa under lit greenery" },
+      { url: "/images/accommodation/deluxe-room-photo-enhanced.webp", altText: "Massage table and rose-petal bed with a navy headboard, a white wingback chair and a magenta sofa under lit greenery" },
     ],
   },
   {
@@ -185,8 +185,8 @@ const accommodations = [
     active: true,
     order: 2,
     photos: [
-      { url: "/images/accommodation/executive-room-photo-1.webp", altText: "Rose-petal bed with a tall tufted headboard under purple-lit greenery, with grey armchairs and a massage table" },
-      { url: "/images/accommodation/executive-room-photo-2.webp", altText: "The same room from the window end, with a massage table, the bed, and armchairs around a glass coffee table" },
+      { url: "/images/accommodation/executive-room-photo-1-enhanced.webp", altText: "Rose-petal bed with a tall tufted headboard under purple-lit greenery, with grey armchairs and a massage table" },
+      { url: "/images/accommodation/executive-room-photo-2-enhanced.webp", altText: "The same room from the window end, with a massage table, the bed, and armchairs around a glass coffee table" },
     ],
   },
 ];

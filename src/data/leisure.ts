@@ -40,9 +40,9 @@ export const leisureAreas: LeisureArea[] = [
     title: "The Lounge",
     description:
       "Low light, deep seating and an unhurried pace. Beers, spirits, classic cocktails and wine by the glass or bottle.",
-    image: "/images/menu/cover.jpg",
-    imageAlt: "A dimly lit lounge with a long bar and velvet seating",
-    imagePosition: "object-[30%_center]",
+    image: "/images/venue/throne-chairs-lounge-decanter.webp",
+    imageAlt: "The lounge: gold-trimmed throne chairs, a grey sofa and a whisky decanter set on the coffee table",
+    imagePosition: "object-[center_62%]",
     cta: { label: "View the drinks menu", href: "/menu" },
   },
   {
@@ -52,7 +52,7 @@ export const leisureAreas: LeisureArea[] = [
     title: "The Games Room",
     description:
       "Pool, chess, cards, table tennis and darts. Settle in for a quiet game or a friendly rivalry.",
-    image: "/images/games/pool-table-lounge.webp",
+    image: "/images/venue/pool-table-lounge.webp",
     imageAlt: "The pool table in the lounge, with high-backed chairs and sofas behind it",
     imagePosition: "object-[center_60%]",
     cta: { label: "Explore games", href: "/games" },
@@ -82,8 +82,8 @@ export const games: Game[] = [
     players: "2, or teams in doubles",
     duration: "30–60 minutes a game",
     equipment: "Cues and balls provided",
-    image: "/images/games/pool-table.webp",
-    imageAlt: "The pool table, racked and ready with two cues on the cloth",
+    image: "/images/venue/pool-table-throne-chairs.webp",
+    imageAlt: "The pool table racked with two cues, in front of the gold throne chairs",
     imagePosition: "object-[center_60%]",
   },
   {
@@ -95,7 +95,7 @@ export const games: Game[] = [
     players: "2",
     duration: "15–45 minutes for a casual game",
     equipment: "Boards and sets provided",
-    image: "/images/games/chess-board.webp",
+    image: "/images/venue/chess-board.webp",
     imageAlt: "A chess set laid out for a new game on a round lounge table",
     imagePosition: "object-center",
   },

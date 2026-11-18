@@ -17,7 +17,7 @@ const experiences = [
     title: "Barbering",
     description:
       "Precision grooming and a polished finish, delivered in an environment designed around your comfort.",
-    image: "/images/barbering.png",
+    image: "/images/venue/barber-stations-chandelier.webp",
     imagePosition: "object-center",
   },
   {
@@ -25,7 +25,7 @@ const experiences = [
     title: "Spa & Care",
     description:
       "A space to slow down, refresh, and give yourself the personal care you deserve.",
-    image: "/images/spaandcare.png",
+    image: "/images/accommodation/executive-room-photo-2-enhanced.webp",
     imagePosition: "object-center",
   },
   {
@@ -33,7 +33,7 @@ const experiences = [
     title: "Wellness",
     description:
       "Take a moment away from the everyday and enjoy an experience built around relaxation.",
-    image: "/images/wellness.jpg",
+    image: "/images/accommodation/premium-room-photo-enhanced.webp",
     imagePosition: "object-center",
   },
 ];
@@ -222,7 +222,7 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="overflow-hidden bg-[#f3efe6] px-5 py-8 text-[#0b0b0a] sm:px-8 sm:py-28 lg:px-10 lg:py-36"
+      className="overflow-hidden bg-[#f3efe6] px-5 py-10 text-[#0b0b0a] sm:px-8 sm:py-14 lg:px-10 lg:py-20"
     >
       <div className="mx-auto max-w-7xl">
 
@@ -233,13 +233,13 @@ export default function Experience() {
             The experience
           </p>
 
-          <h2 className="mt-4 text-4xl font-light leading-[1.02] tracking-[-0.04em] sm:text-5xl lg:text-6xl">
+          <h2 className="mt-3 text-3xl font-light leading-[1.05] tracking-[-0.035em] sm:text-4xl lg:text-[2.75rem]">
             Grooming,
             <br />
             <span className="text-black/40">reimagined.</span>
           </h2>
 
-          <p className="mt-4 max-w-lg text-sm leading-7 text-black/55 sm:text-base">
+          <p className="mt-3 max-w-lg text-sm leading-6 text-black/55">
             Everything at Executive Hideaway is centered around one simple
             idea: you should leave feeling better than when you arrived.
           </p>
@@ -247,7 +247,7 @@ export default function Experience() {
 
         {/* Carousel viewport */}
         <div
-          className="relative mt-6 sm:mt-10 lg:mt-12"
+          className="relative mt-6 sm:mt-8"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
           onMouseEnter={() => setIsPaused(true)}
@@ -273,13 +273,13 @@ export default function Experience() {
                   key={`${experience.number}-${index}`}
                   className="w-full min-w-full shrink-0 grow-0 basis-full"
                 >
-                  <div className="grid w-full gap-4 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-10">
+                  <div className="grid w-full gap-4 sm:grid-cols-[1.15fr_0.85fr] sm:items-center sm:gap-8">
 
                     {/* Image */}
                     <div className="relative">
-                      <div className="absolute -inset-3 rounded-[1.75rem] bg-[#e8e2d6] blur-xl sm:-inset-5" />
+                      <div className="hidden" />
 
-                      <div className="relative h-67.5 overflow-hidden rounded-[1.35rem] sm:h-97.5 sm:rounded-[1.75rem] lg:h-125">
+                      <div className="relative aspect-4/3 overflow-hidden rounded-2xl sm:aspect-auto sm:h-80 lg:h-96">
                         <Image
                           src={experience.image}
                           alt={experience.title}
@@ -304,11 +304,11 @@ export default function Experience() {
                         <span className="h-px w-8 bg-[#80683c]/50" />
                       </div>
 
-                      <h3 className="mt-4 text-4xl font-light tracking-[-0.04em] sm:text-5xl lg:text-6xl">
+                      <h3 className="mt-3 text-2xl font-light tracking-[-0.03em] sm:text-3xl lg:text-4xl">
                         {experience.title}
                       </h3>
 
-                      <p className="mt-4 max-w-md text-sm leading-7 text-black/55 sm:text-base">
+                      <p className="mt-3 max-w-md text-sm leading-6 text-black/55">
                         {experience.description}
                       </p>
 
@@ -395,7 +395,7 @@ export default function Experience() {
         </div>
 
         {/* Services */}
-        <div className="mt-4 border-t border-black/10 pt-7">
+        <div className="mt-6 border-t border-black/10 pt-5">
           <a
             href="/services"
             className="group inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#80683c]"

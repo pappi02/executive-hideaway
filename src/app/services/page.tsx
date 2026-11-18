@@ -55,7 +55,7 @@ export default async function ServicesPage() {
                   The menu
                 </p>
 
-                <h2 className="mt-4 text-3xl font-light leading-[0.92] tracking-[-0.055em] sm:text-6xl lg:text-[6rem]">
+                <h2 className="mt-3 text-3xl font-light leading-[1.02] tracking-[-0.035em] sm:text-4xl lg:text-5xl">
                   Choose your
                   <br />
                   <span className="text-black/30">way to unwind.</span>

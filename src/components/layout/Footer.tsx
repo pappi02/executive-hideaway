@@ -41,7 +41,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
 
         {/* CTA */}
-        <div className="relative border-b border-white/10 py-12 sm:py-14 lg:py-16">
+        <div className="relative border-b border-white/10 py-10 sm:py-12">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -right-40 -top-40 h-120 w-120 rounded-full border border-white/3.5"
@@ -58,20 +58,20 @@ export default function Footer() {
               Your time starts here
             </p>
 
-            <h2 className="mt-6 text-5xl font-light leading-[0.9] tracking-[-0.055em] sm:text-6xl lg:text-[5.5rem]">
+            <h2 className="mt-4 text-3xl font-light leading-[1.02] tracking-[-0.035em] sm:text-4xl lg:text-5xl">
               Make time for
               <br />
               <span className="text-white/30">yourself.</span>
             </h2>
 
-            <p className="mt-4 max-w-xl text-sm leading-7 text-white/45 sm:text-base">
+            <p className="mt-3 max-w-xl text-sm leading-6 text-white/45">
               Whether you are planning a stay, a meal, or time for personal
               care, our team can help you plan your visit.
             </p>
 
             <a
               href="/booking"
-              className="group mt-4 inline-flex min-h-14 items-center gap-5 rounded-full bg-[#f5f1e8] px-7 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0b0b0a] transition-all duration-500 hover:bg-(--accent) hover:text-white sm:px-8"
+              className="group mt-5 inline-flex min-h-11 items-center gap-4 rounded-full bg-[#f5f1e8] px-6 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0b0b0a] transition-all duration-500 hover:bg-(--accent) hover:text-white sm:px-7"
             >
               Book an appointment
 
@@ -81,7 +81,7 @@ export default function Footer() {
             </a>
             <Link
               href="/accommodation"
-              className="group mt-4 ml-0 inline-flex min-h-14 items-center gap-5 rounded-full border border-white/20 px-7 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:border-(--accent) hover:text-(--accent-light) sm:ml-3 sm:px-8"
+              className="group mt-3 ml-0 inline-flex min-h-11 items-center gap-4 rounded-full border border-white/20 px-6 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:border-(--accent) hover:text-(--accent-light) sm:ml-3 sm:px-7"
             >
               Explore accommodation
               <ArrowUpRight size={15} strokeWidth={1.4} />
@@ -90,7 +90,7 @@ export default function Footer() {
         </div>
 
         {/* Brand, navigation, location and contact: one row of four columns on large screens */}
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 border-b border-white/10 py-10 sm:gap-x-10 sm:py-12 lg:grid-cols-[1fr_1.15fr_1.25fr_1fr] lg:gap-x-12 lg:py-14">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-8 border-b border-white/10 py-8 sm:gap-x-10 sm:py-10 lg:grid-cols-[1fr_1.15fr_1.25fr_1fr] lg:gap-x-12 lg:py-12">
           {/* Brand */}
           <div className="col-span-2 flex items-center gap-5 lg:col-span-1 lg:flex-col lg:items-start">
             <Link
