@@ -30,14 +30,16 @@ export default function Hero() {
 
         <div className="absolute inset-0 bg-linear-to-b from-black/35 via-transparent via-40% to-[#0b0b0a]/90 lg:from-transparent lg:via-transparent lg:via-45% lg:to-[#0b0b0a]/85" />
 
-        <div className="absolute inset-0 hidden bg-linear-to-r from-[#0b0b0a]/70 via-[#0b0b0a]/15 via-50% to-transparent lg:block" />
+        {/* On large screens the guest and therapist sit on the left of the photo, so the
+            text moves to the right and the darkening gradient comes from that side. */}
+        <div className="absolute inset-0 hidden bg-linear-to-l from-[#0b0b0a]/70 via-[#0b0b0a]/15 via-50% to-transparent lg:block" />
 
         {/* Hero Content */}
         <div className="relative z-10 flex flex-1 flex-col justify-end px-5 pb-7 pt-10 sm:px-8 sm:pb-10 sm:pt-12 lg:px-10 lg:py-10">
           <div className="mx-auto w-full max-w-7xl">
-            <div>
+            <div className="lg:ml-auto lg:max-w-2xl lg:text-right">
               {/* Eyebrow */}
-              <div className="mb-3 flex items-center gap-3 sm:mb-4">
+              <div className="mb-3 flex items-center gap-3 sm:mb-4 lg:justify-end">
                 <span className="h-px w-8 bg-(--accent)" />
 
                 <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-(--accent-light)">
@@ -53,13 +55,13 @@ export default function Hero() {
               </h1>
 
               {/* Description */}
-              <p className="mt-4 hidden max-w-md text-sm sm:block leading-6 text-white/70">
+              <p className="mt-4 hidden max-w-md text-sm sm:block leading-6 text-white/70 lg:ml-auto">
                 A thoughtful place to stay, unwind, enjoy resort dining, and find
                 time for wellness and grooming.
               </p>
 
               {/* Actions */}
-              <div className="mt-5 flex flex-wrap gap-2.5 sm:mt-6">
+              <div className="mt-5 flex flex-wrap gap-2.5 sm:mt-6 lg:justify-end">
                 <Link
                   href="/booking"
                   className="group inline-flex min-h-11 items-center justify-center gap-3 rounded-full bg-(--accent) px-5 sm:px-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0b0b0a] transition-all duration-300 hover:bg-(--accent-light)"
