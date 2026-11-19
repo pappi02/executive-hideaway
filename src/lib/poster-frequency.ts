@@ -3,9 +3,24 @@
  * showings per day (Nairobi day); repeat showings on the same day are kept at
  * least MIN_GAP_MS apart so a visitor isn't shown it twice while browsing.
  * The record lives in the browser (localStorage), so it is per device.
+ *
+ * EVERY_VISIT (0) instead shows the poster once per visit: once each time the
+ * site is opened in a new browser session (sessionStorage), with no daily cap.
  */
 
 export const POSTER_TIMES_PER_DAY_MAX = 10;
+/** "Times per day" value meaning: once on every visit. */
+export const EVERY_VISIT = 0;
+
+export function isEveryVisit(timesPerDay: number): boolean {
+  return timesPerDay === EVERY_VISIT;
+}
+
+/** Shown in the admin list. */
+export function describeFrequency(timesPerDay: number): string {
+  if (isEveryVisit(timesPerDay)) return "every visit";
+  return timesPerDay === 1 ? "once a day" : `up to ${timesPerDay}× a day`;
+}
 export const MIN_GAP_MS = 30 * 60 * 1000;
 
 export interface SeenRecord {

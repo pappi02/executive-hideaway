@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/require-admin";
 import { posterDetailsUrl, posterImageSrc, posterStatus, type PosterStatus } from "@/lib/posters";
+import { describeFrequency } from "@/lib/poster-frequency";
 import { formatNairobi } from "@/lib/poster-time";
 import { DeletePosterButton, PosterPreviewButton, TogglePosterButton } from "./PosterControls";
 
@@ -63,7 +64,7 @@ export default async function AdminPostersPage() {
                   <p className="mt-0.5 text-xs text-black/45">
                     Shows after {poster.delaySeconds}s ·{" "}
                     {poster.autoCloseSeconds ? `closes after ${poster.autoCloseSeconds}s` : "stays until closed"} ·{" "}
-                    {poster.timesPerDay === 1 ? "once a day" : `up to ${poster.timesPerDay}× a day`} · priority{" "}
+                    {describeFrequency(poster.timesPerDay)} · priority{" "}
                     {poster.priority}
                     {poster.linkUrl ? ` · button goes to ${poster.linkUrl}` : ""}
                   </p>

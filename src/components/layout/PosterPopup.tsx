@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { PublicPoster } from "@/lib/posters";
-import { canShowPoster, parseSeen, recordShowing } from "@/lib/poster-frequency";
+import { canShowPoster, isEveryVisit, parseSeen, recordShowing } from "@/lib/poster-frequency";
 import { nairobiDay } from "@/lib/poster-time";
 
 // The admin console and the booking flow are left alone - a pop-up there gets
@@ -15,8 +15,18 @@ const HIDDEN_PREFIXES = ["/admin", "/booking"];
 // Each poster shows up to its "times per day" on each device, at least 30
 // minutes apart (lib/poster-frequency). The count for the Nairobi day is kept in
 // localStorage, so another device starts its own count, and the next day it
-// starts again.
+// starts again. A poster set to "every visit" instead shows once per browser
+// session (sessionStorage): each new visit to the site shows it again.
 const seenKey = (id: string) => `hideaway-poster-seen:${id}`;
+const visitKey = (id: string) => `hideaway-poster-visit:${id}`;
+
+function seenThisVisit(id: string) {
+  try {
+    return window.sessionStorage.getItem(visitKey(id)) === "1";
+  } catch {
+    return false;
+  }
+}
 const FEED_TTL_MS = 5 * 60 * 1000;
 
 function readSeen(id: string) {
@@ -28,11 +38,18 @@ function readSeen(id: string) {
 }
 
 function canShowNow(poster: PublicPoster) {
-  return new Date(poster.endsAt).getTime() > Date.now() && canShowPoster(readSeen(poster.id), nairobiDay(), Date.now(), poster.timesPerDay);
+  if (new Date(poster.endsAt).getTime() <= Date.now()) return false;
+  if (isEveryVisit(poster.timesPerDay)) return !seenThisVisit(poster.id);
+  return canShowPoster(readSeen(poster.id), nairobiDay(), Date.now(), poster.timesPerDay);
 }
 
-function markShown(id: string) {
+function markShown(poster: PublicPoster) {
+  const id = poster.id;
   try {
+    if (isEveryVisit(poster.timesPerDay)) {
+      window.sessionStorage.setItem(visitKey(id), "1");
+      return;
+    }
     window.localStorage.setItem(seenKey(id), JSON.stringify(recordShowing(readSeen(id), nairobiDay(), Date.now())));
   } catch {
     // Storage blocked: it may show again on the next page load - harmless.
@@ -156,7 +173,7 @@ export default function PosterPopup() {
           if (cancelled) return;
           timer = setTimeout(() => {
             if (cancelled || showingRef.current || !canShowNow(poster)) return;
-            markShown(poster.id);
+            markShown(poster);
             showingRef.current = true;
             setShown(poster);
           }, Math.max(0, poster.delaySeconds * 1000 - (Date.now() - arrivedAt)));

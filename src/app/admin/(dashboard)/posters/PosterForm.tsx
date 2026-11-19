@@ -108,7 +108,8 @@ export function PosterForm({
         </div>
         <div>
           <label className={labelClass} htmlFor="timesPerDay">Times per day</label>
-          <input id="timesPerDay" name="timesPerDay" type="number" required min={1} max={POSTER_TIMES_PER_DAY_MAX} defaultValue={defaultValues?.timesPerDay ?? 1} className={inputClass} />
+          <input id="timesPerDay" name="timesPerDay" type="number" required min={0} max={POSTER_TIMES_PER_DAY_MAX} defaultValue={defaultValues?.timesPerDay ?? 1} className={inputClass} />
+          <p className="mt-1 text-xs text-black/40">0 = every visit</p>
         </div>
         <div>
           <label className={labelClass} htmlFor="priority">Priority</label>

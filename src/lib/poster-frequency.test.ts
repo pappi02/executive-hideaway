@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { canShowPoster, MIN_GAP_MS, parseSeen, recordShowing } from "./poster-frequency";
+import { canShowPoster, describeFrequency, EVERY_VISIT, isEveryVisit, MIN_GAP_MS, parseSeen, recordShowing } from "./poster-frequency";
 
 const day = "2026-11-10";
 const t0 = Date.UTC(2026, 10, 10, 9);
@@ -34,4 +34,12 @@ test("records from before showings per day still count as one showing", () => {
 test("unreadable records are ignored", () => {
   assert.equal(parseSeen("{oops"), null);
   assert.equal(parseSeen(JSON.stringify({ day, count: "2" })), null);
+});
+
+test("0 times per day means every visit", () => {
+  assert.equal(isEveryVisit(EVERY_VISIT), true);
+  assert.equal(isEveryVisit(1), false);
+  assert.equal(describeFrequency(EVERY_VISIT), "every visit");
+  assert.equal(describeFrequency(1), "once a day");
+  assert.equal(describeFrequency(4), "up to 4× a day");
 });

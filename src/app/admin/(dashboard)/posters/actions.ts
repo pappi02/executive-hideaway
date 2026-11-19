@@ -54,7 +54,7 @@ function readPosterFields(formData: FormData) {
     endsAt,
     delaySeconds: requiredInteger(formData, "delaySeconds", { label: "Delay", max: POSTER_SECONDS_MAX }),
     autoCloseSeconds: requiredInteger(formData, "autoCloseSeconds", { label: "Auto-close", max: POSTER_SECONDS_MAX }),
-    timesPerDay: requiredInteger(formData, "timesPerDay", { label: "Times per day", min: 1, max: POSTER_TIMES_PER_DAY_MAX }),
+    timesPerDay: requiredInteger(formData, "timesPerDay", { label: "Times per day", min: 0, max: POSTER_TIMES_PER_DAY_MAX }),
     priority: requiredInteger(formData, "priority", { label: "Priority", min: -100, max: 100 }),
     active: formData.get("active") === "on",
     kind: oneOf(formData, "kind", POSTER_KINDS, "poster type"),
