@@ -4,7 +4,7 @@ Photographs of the resort's own rooms, supplied by the owner on 2026-11-09. Room
 
 | File | Room |
 |---|---|
-| premium-room-photo.webp | Arched room with massage table and double bed |
-| deluxe-room-photo.webp | Yellow-lit room with navy headboard, white wingback chair and magenta sofa |
-| executive-room-photo-1.webp | Purple-lit room, seen towards the bed and armchairs |
-| executive-room-photo-2.webp | Purple-lit room, seen from the window end |
+| premium-room-photo-enhanced.webp | Arched room with massage table and double bed |
+| deluxe-room-photo-enhanced.webp | Yellow-lit room with navy headboard, white wingback chair and magenta sofa |
+| executive-room-photo-1-enhanced.webp | Purple-lit room, seen towards the bed and armchairs |
+| executive-room-photo-2-enhanced.webp | Purple-lit room, seen from the window end |
